@@ -1,26 +1,27 @@
 #include <iostream>
+#include <stdio.h>
 using namespace std;
 
 
-int main()
-{
+
+int main(){
+
 	int value;
-	cout << "Ge önskat slutvärde (minst 1):";
-	cin >> value;
+	printf("Ge önskat slutvärde (minst 1): ");
+	scanf("%d", &value);
 	
 	while(value < 1){
-		cout << endl << "Felaktigt värde, försök igen!" << endl;
-		cout << "Ge önskat slutvärde (minst 1):";
-		cin >> value;
+		printf("Felaktigt värde, försök igen!\n"); 
+		printf("Ge önskat slutvärde (minst 1): ");
+		scanf("%d", &value);
+		
 	}
 	
-	cout << endl << "DEC       OKT       HEX" << endl << endl;
+	cout << endl << "\tDEC\tOKT\tHEX" << endl << endl;
 	
-	for(int i=0; i<value; i++){
-	cout << i << "       " << i << "       " << i << endl;
-	
+	for(int i=1; i<=value; i++){
+		printf("\t%d\t%o\t%x \n", i, i, i);		
 	}
-	
 	
 	return 0;
 }
