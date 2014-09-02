@@ -1,4 +1,3 @@
-#include <iostream>
 #include <stdio.h>
 using namespace std;
 
@@ -14,10 +13,9 @@ int main(){
 		printf("Felaktigt värde, försök igen!\n"); 
 		printf("Ge önskat slutvärde (minst 1): ");
 		scanf("%d", &value);
-		
 	}
 	
-	cout << endl << "\tDEC\tOKT\tHEX" << endl << endl;
+	printf("\tDEC\tOKT\tHEX\n");
 	
 	for(int i=1; i<=value; i++){
 		printf("\t%d\t%o\t%x \n", i, i, i);		
