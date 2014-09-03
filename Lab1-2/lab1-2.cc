@@ -24,7 +24,7 @@ int main(){
 /**
  * Converts a temperature given in Kelvin to Celsius.
  * @param kelv	temperature in Kelvin
- * @return		temperature in Celsius
+ * @return	temperature in Celsius
  */
 double kelvin_celsius(double kelv){
 	return kelv-273.15;
@@ -33,7 +33,7 @@ double kelvin_celsius(double kelv){
 /**
  * Converts a temperature given in Kelvin to Fahrenheit.
  * @param kelv	temperature in Kelvin
- * @return		temperature in Fahrenheit
+ * @return	temperature in Fahrenheit
  */
 double kelvin_fahrenheit(double kelv){
 	return kelv*1.8-459.67;
