@@ -19,9 +19,9 @@ int main(){
 	cout << "\tDEC\tOKT\tHEX\n";
 	
 	for(int i=1; i<=value; i++){
-	cout << "\t" <<  dec << i
-	<< "\t" << oct << i
-	<< "\t" << hex << i << endl;
+		cout << "\t" <<  dec << i
+		<< "\t" << oct << i
+		<< "\t" << hex << i << endl;
 	}
 	
 	return 0;
