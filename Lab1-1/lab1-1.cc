@@ -19,7 +19,7 @@ int main(){
 	printf("\tDEC\tOKT\tHEX\n");
 	
 	for(int i=1; i<=value; i++){
-		printf("\t%d\t%o\t%x \n", i, i, i);		
+		printf("\t%d\t%o\t%x \n", i, i, i);
 	}
 	
 	return 0;

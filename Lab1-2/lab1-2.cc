@@ -7,24 +7,34 @@ double kelvin_fahrenheit(double kelv);
 
 int main(){
 
-	double kelv, cel, fahr;
-	printf("Ge en temperatur i Kelvin: ");
-	scanf("%lf", &kelv);
+	double kelv;
+	cout.precision(2);
+	cout << "Ge en temperatur i Kelvin: ";
+	cin >> kelv;
 
 	while(kelv!=0){
-		printf("%.2f Kelvin motsvarar %.2f grader Celsius eller %.2f grader Fahrenheit.\n", kelv, kelvin_celsius(kelv), kelvin_fahrenheit(kelv));
-		//printf("273.15 Kelvin motsvarar 0.00 grader Celsius eller 32.00 grader Fahrenheit.
-		printf("Ge en temperatur i Kelvin: ");
-		scanf("%lf", &kelv);
+		cout << fixed << kelv << " Kelvin motsvarar " << fixed << kelvin_celsius(kelv) << " grader Celsius eller " << fixed << kelvin_fahrenheit(kelv) << " grader Fahrenheit" << endl;
+		cout << "Ge en temperatur i Kelvin: ";
+		cin >> kelv;
 	}
-	printf("Slut.\n");
+	cout << "Slut." << endl;
 	return 0;
 }
 
+/**
+ * Converts a temperature given in Kelvin to Celsius.
+ * @param kelv	temperature in Kelvin
+ * @return		temperature in Celsius
+ */
 double kelvin_celsius(double kelv){
 	return kelv-273.15;
 }
 
+/**
+ * Converts a temperature given in Kelvin to Fahrenheit.
+ * @param kelv	temperature in Kelvin
+ * @return		temperature in Fahrenheit
+ */
 double kelvin_fahrenheit(double kelv){
 	return kelv*1.8-459.67;
 }
