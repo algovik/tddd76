@@ -16,7 +16,12 @@ int main(){
 		total+=1;
 	}
 
-	printf("Indata innehöll: \n\t%d alfabetiska tecken\n\t%d siffertecken \n\t%d interpunktionstecken\n\t%d vita tecken\n\t%d tecken totalt\n", alpha, digit, punct, space, total);
+	cout << "Indata innehöll: " << endl
+	<< "\t" << alpha << "\t alfabetiska tecken" << endl
+	<< "\t" << digit << "\t siffertecken" << endl
+	<< "\t" << punct << "\t interpunktionstecken" << endl
+	<< "\t" << space << "\t vita tecken" << endl
+	<< "\t" << total << "\t tecken totalt" <<endl;
 
 	return 0;
 }
