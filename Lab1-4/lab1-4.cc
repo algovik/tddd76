@@ -2,15 +2,13 @@
 #include <vector>
 using namespace std;
 
-
-
 struct word_entry{  
     int count;  
 	string word;
 };
 
-bool cmp(const word_entry& leftword, const word_entry& rightword){
-	return leftword.word < rightword.word;
+bool cmp(const word_entry& lw, const word_entry& rw){
+	return lw.word < rw.word;
 } 
 
 vector<word_entry> insert(string s, vector<word_entry> wordbook){
@@ -19,28 +17,42 @@ vector<word_entry> insert(string s, vector<word_entry> wordbook){
 	temp.word = s;
 	temp.count = 1;
 
-	//Funkar ej
-	// for(int i = 0; i < wordbook.size(); i++) {
-	//	if(s < wordbook[i].word){
-	//		wordbook.push_back(word_entry());
-	//		wordbook.insert(wordbook.begin()+i, temp);
-	//		break;
-	//	}
-	//
-	//}
-	
-	//Funkar
-	//wordbook.push_back(temp);
-	//sort(wordbook.begin(), wordbook.end(), cmp);
+	// Sätter in på rätt plats direkt
+	bool inserted = false;
+	for(vector<word_entry>::iterator it = wordbook.begin(); it != wordbook.end(); ++it){
+		if(s.compare(it->word) < 0){
+			wordbook.insert(it, temp);
+			inserted = true;
+			break;
+		}
+	}
+	if(!inserted){
+		wordbook.push_back(temp);
+	}
+
+	// Sätter in och sorterar sen
+	// wordbook.push_back(temp);
+	// sort(wordbook.begin(), wordbook.end(), cmp);
 	return wordbook;
 }
 
 void print(vector<word_entry> wordbook){
 	cout << "\t Ord \t Antal" << endl << endl;
 	
-	for(int i = 0; i < wordbook.size(); i++) {
-		cout <<  "\t" << wordbook[i].word <<  "\t" << wordbook[i].count << endl; 
+	//Tydligen mer korrekt för C++
+	for(vector<word_entry>::iterator it = wordbook.begin(); it != wordbook.end(); ++it){
+		cout << "\t" << it->word << "\t" << it->count << endl;
 	}
+
+	//C++11
+	// for(auto &i : wordbook){
+	// 	cout << "\t" << i.word << "\t" << i.count << endl; 
+	// }
+
+	//Funkar
+	// for(int i = 0; i < wordbook.size(); ++i) {
+	// 	cout <<  "\t" << wordbook[i].word <<  "\t" << wordbook[i].count << endl; 
+	// }
 }
 
 
@@ -50,15 +62,15 @@ int main(){
 	string s;
 	
 	while(cin >> s){
-		for(int i = 0; i < s.size(); i++) {
+		for(int i = 0; i < s.size(); ++i) {
 			s[i] = tolower(s[i]);
 		}
 	
 		if(wordbook.empty()){
-		wordbook = insert(s, wordbook);
+			wordbook = insert(s, wordbook);
 		}else{
 			bool exists = false;
-			for(int i = 0; i < wordbook.size(); i++) {
+			for(int i = 0; i < wordbook.size(); ++i) {
 				if(s.compare(wordbook[i].word) == 0){
 				wordbook[i].count += 1;
 					exists = true;
