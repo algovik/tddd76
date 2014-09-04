@@ -13,8 +13,9 @@ int main(){
 	cin >> kelv;
 
 	while(kelv!=0){
-		cout << fixed << kelv << " Kelvin motsvarar " << fixed << kelvin_celsius(kelv) << " grader Celsius eller " << fixed << kelvin_fahrenheit(kelv) << " grader Fahrenheit" << endl;
-		cout << "Ge en temperatur i Kelvin: ";
+		cout << fixed << kelv << " Kelvin motsvarar " << fixed << kelvin_celsius(kelv)
+		<< " grader Celsius eller " << fixed << kelvin_fahrenheit(kelv) << " grader Fahrenheit." << endl
+		<< "Ge en temperatur i Kelvin: ";
 		cin >> kelv;
 	}
 	cout << "Slut." << endl;
