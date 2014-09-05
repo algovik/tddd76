@@ -60,6 +60,15 @@ vector<word_entry> insert(string s, vector<word_entry> wordbook){
 	temp.count = 1;
 	bool inserted = false;
 
+	// Skulle vilja skriva så här
+	//for(auto &i : wordbook){
+	//	if(s.compare(i.word) < 0){
+	//		wordbook.insert(i, temp); ÄR DENNA RAD SOM DUMMAR SIG
+	//		inserted = true;
+	//		break;
+	//	}
+	//}
+
 	for(vector<word_entry>::iterator it = wordbook.begin(); it != wordbook.end(); ++it){
 		if(s.compare(it->word) < 0){
 			wordbook.insert(it, temp);
