@@ -1,7 +1,8 @@
 /*
  * lab1-5.cc
  */
-// Inkluderingar efter behov
+#include <iostream>
+#include List.h
 
 // Deklarera en funktion build_lists(inström, list_1, list_2) som läser namn
 // från inströmmen och använder insert() för att sätta in i list_1 och append()
