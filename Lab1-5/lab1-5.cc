@@ -2,7 +2,9 @@
  * lab1-5.cc
  */
 #include <iostream>
-#include List.h
+#include "List.h"
+
+using namespace std;
 
 // Deklarera en funktion build_lists(inström, list_1, list_2) som läser namn
 // från inströmmen och använder insert() för att sätta in i list_1 och append()
@@ -15,7 +17,7 @@ int main()
    // Kontrollera att ett argument (filnamn) angivits på kommandoraden.
    // Om inte skriv ut ett felmeddelande och avsluta programmet.
 
-   // ÷ppna en infilström för den fil vars namn givits på kommandoraden.
+   // öppna en infilström för den fil vars namn givits på kommandoraden.
    // Kontrollera att öppningen lyckas, om inte ska ett felmeddelande
    // skrivas ut och programmet avslutas.
 
@@ -41,10 +43,10 @@ int main()
 
    cout << "Lista 2 raderas.\n";
    // Radera list_2 med clear()
-   if (empty(list_2))
-      cout << "Lista 2 är tom.\n";
-   else
-      cout << "Lista 2 är inte tom.\n";
+   // if (empty(list_2))
+   //    cout << "Lista 2 är tom.\n";
+   // else
+   //    cout << "Lista 2 är inte tom.\n";
 
    cout << "Lista 2 tilldelas en kopia av lista 1.\n";
    // Använd copy() för att kopiera list_1
@@ -55,11 +57,11 @@ int main()
    // Radera list_2 med clear()
    cout << "Lista 1 och 2 byter innehåller.\n";
    // Använd swap()
-   if (empty(list_1))
-      cout << "Lista 1 är tom.\n";
-   else
-      cout << "Lista 1 är inte tom.\n";
-   cout << "Lista 2 innehåller:\n";
+   // if (empty(list_1))
+   //    cout << "Lista 1 är tom.\n";
+   // else
+   //    cout << "Lista 1 är inte tom.\n";
+   // cout << "Lista 2 innehåller:\n";
    // Skriv ut list_2 med print()
 
    cout << "Lista 2 raderas.\n";
