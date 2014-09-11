@@ -4,4 +4,6 @@
 
 struct List_Node;
 
+void append(List& list, const string& name, int age);
+
 #endif

@@ -10,32 +10,36 @@ struct List_Node{
 
 void append(List& list, const string& name, int age){
 	
-	auto p = new List_Node{name, age,
-nullptr
-}; //
-typ
-List_Node*
-if
-(list ==
-nullptr
-)//
-tom lista
-{
-list = p;
-return
-;
+	auto p = new List_Node{name, age, nullptr}; //
+
+	if(list ==nullptr){
+		list = p;
+		return;
+	}
+
+	auto last = list; 
+	
+	while(last->next !=nullptr){
+		last = last->next;
+	}
+	
+	last->next = p
 }
-//
-Det finns minst en nod i listan, sök upp den sista noden och länka in den nya noden efter den sista
-auto
-last = list; //
-typ
-List_Node*
-while
-(last->next !=
-nullptr
-)
-{
-last = last->next;
+
+void insert(List& list, const string& name, int age){
+	
+	auto p = new List_Node{name, age, nullptr}; //
+
+	if(list ==nullptr){
+		list = p;
+		return;
+	}
+
+	auto last = list; 
+	
+	while(last->next !=nullptr){
+		last = last->next;
+	}
+	
+	last->next = p
 }
-last->next = p
