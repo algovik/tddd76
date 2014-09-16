@@ -33,11 +33,7 @@ void append(List& list, const string& name, int age){
 		current = current->next;
 	}
 
-<<<<<<< HEAD
-	last->nextl = p;
-=======
 	current->next = p;
->>>>>>> 6974621aeded5c88601e723cb33f6936ea23943d
 }
 
 void insert(List& list, const string& name, int age){
@@ -53,16 +49,24 @@ bool empty(const List& list){
 void print(const List& list, ostream& out){
 
 	auto current = list;
-
-	while(current->next != nullptr){
-		out << current->name << " (" << current->age << ")\n"; //Speciell utström?
-		current = current->next;
+	if(empty(current)){
+		out << "The list is empty.\n";
+		return;
 	}
+
+	do{
+		out << current->name << " (" << current->age << ")\n";
+		current = current->next;
+	}while(current != nullptr);
 }
 
 void print_reversed(const List& list, ostream& out){
 
 	auto current = list;
+	if(empty(current)){
+		out << "The list is empty.\n";
+		return;
+	}
 
 	if(current->next != nullptr){
 		print_reversed(current->next, out);
@@ -73,28 +77,46 @@ void print_reversed(const List& list, ostream& out){
 void clear(List& list){
 
 	auto current = list;
+	list = nullptr;
 	List next;
+
+	do{
+		next = current->next;
+		delete(current);
+		current = next;
+	}while(current != nullptr);
+}
+
+List copy(List list){
+
+	List copy{nullptr};
+	auto current = list;
+
+	do{
+		append(copy, current->name,current->age);
+		current = current->next;
+	}while(current != nullptr);
+
+	return copy;
+}
+
+void reverse(List& list){
+
+	auto current = list;
+	List next;
+	List previous{nullptr};
 
 	while(current != nullptr){
 		next = current->next;
-		free(current);
+		current->next = previous;
+		previous = current;
 		current = next;
 	}
+	list = previous;
 }
 
-// List copy(List list){
-//
-// 	auto current = list;
-// 	auto copy = new List_Node*;
-//	auto copy_head = copy;
-//
-// 	while(current != nullptr){
-// 		copy->name = current->name;
-// 		copy->age = current->age;
-// 		copy = copy->next = new List_Node;
-//
-// 		current = current->next;
-// 	}
-//
-// 	return copy_head;
-// }
+void swap(List& list1, List& list2){
+	auto temp = list1;
+	list1 = list2;
+	list2 = temp;
+}
