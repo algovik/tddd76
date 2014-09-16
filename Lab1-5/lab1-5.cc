@@ -14,10 +14,9 @@ using namespace std;
 // från inströmmen och använder insert() för att sätta in i list_1 och append()
 // för att sätta in i list_2. build_lists() ska definieras efter main().
 
-void build_lists(istream& in, List list_1, List list_2);
+void build_lists(istream& in, List& list_1, List& list_2);
 
 int main(int argc, char** argv){
-
     // Kontrollera att ett argument (filnamn) angivits på kommandoraden.
     // Om inte skriv ut ett felmeddelande och avsluta programmet.
     if(argc<=1){
@@ -47,56 +46,62 @@ int main(int argc, char** argv){
     // i list_1 och list_2, enligt vad som sagts om build_lists() ovan.
     build_lists(input,list_1,list_2);
 
+    if(empty(list_1)){
+        cout << "list_1 is empty\n";
+    }
     cout << "Lista 1 efter inläsning av namn:\n";
     print(list_1,cout); // Skriv ut list_1 med print()
     cout << "Lista 2 efter inläsning av namn:\n";
     print(list_2,cout); // Skriv ut list_2 med print()
     cout << "Lista 1 utskriven i omvänd ordning:\n";
     print_reversed(list_1,cout); // Skriv ut list_1 med print_reversed()
-    // cout << "Lista 1 vänds.\n";
-    // // Vänd innehållet i list_1 med reverse();
-    // cout << "Lista 1 efter vändning:\n";
-    // print(list_1,cout); // Skriv ut list_1 med print()
-    //
-    // cout << "Lista 2 raderas.\n";
-    // clear(list_2); // Radera list_2 med clear()
-    // if (empty(list_2)){
-    //     cout << "Lista 2 är tom.\n";
-    // }else{
-    //     cout << "Lista 2 är inte tom.\n";
-    // }
-    // cout << "Lista 2 tilldelas en kopia av lista 1.\n";
-    // // Använd copy() för att kopiera list_1
-    // cout << "Lista 2 innehåller:\n";
-    // // Skriv ut list_2 med print()
-    //
-    // cout << "Lista 2 raderas.\n";
-    // // Radera list_2 med clear()
-    // cout << "Lista 1 och 2 byter innehåller.\n";
-    // // Använd swap()
-    // // if (empty(list_1))
-    // //    cout << "Lista 1 är tom.\n";
-    // // else
-    // //    cout << "Lista 1 är inte tom.\n";
-    // // cout << "Lista 2 innehåller:\n";
-    // // Skriv ut list_2 med print()
-    //
-    // cout << "Lista 2 raderas.\n";
-    // // Radera list_2 med clear()
-    //
-    // // Kontrollera med empty() att listorna är tomma och skriv ut det.
+    cout << "Lista 1 vänds.\n";
+    reverse(list_1); // Vänd innehållet i list_1 med reverse();
+    cout << "Lista 1 efter vändning:\n";
+    print(list_1,cout); // Skriv ut list_1 med print()
+
+    cout << "Lista 2 raderas.\n";
+    clear(list_2); // Radera list_2 med clear()
+    if(empty(list_2)){
+        cout << "Lista 2 är tom.\n";
+    }else{
+        cout << "Lista 2 är inte tom.\n";
+    }
+    cout << "Lista 2 tilldelas en kopia av lista 1.\n";
+    list_2 = copy(list_1); // Använd copy() för att kopiera list_1
+    cout << "Lista 2 innehåller:\n";
+    print(list_2, cout); // Skriv ut list_2 med print()
+
+    cout << "Lista 2 raderas.\n";
+    clear(list_2); // Radera list_2 med clear()
+    cout << "Lista 1 och 2 byter innehåller.\n";
+    swap(list_1,list_2); // Använd swap()
+    if(empty(list_1)){
+        cout << "Lista 1 är tom.\n";
+    }else{
+        cout << "Lista 1 är inte tom.\n";
+    }
+    cout << "Lista 2 innehåller:\n";
+    print(list_2,cout); // Skriv ut list_2 med print()
+
+    cout << "Lista 2 raderas.\n";
+    clear(list_2); // Radera list_2 med clear()
+
+    if(empty(list_1) && empty(list_2)){ // Kontrollera med empty() att listorna är tomma och skriv ut det.
+        cout << "Båda listorna är tomma.\n";
+    }
 
     cout << "Programmet avslutas.\n";
 
     return 0;
-    }
+}
 
 
-void build_lists(istream& in, List list_1, List list_2){
+void build_lists(istream& in, List& list_1, List& list_2){
 
     string name;
     int age;
-    
+
     while(in >> name >> age){
         append(list_1,name,age);
         insert(list_2,name,age);
