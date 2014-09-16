@@ -1,4 +1,10 @@
-// .h definera funktionerna
+/*
+ Filename: List.h
+ Author: Andreas Algovik, Elisabeth Hanning
+ Description: The interface declaration file listing all the function
+ that exist in List.cc.
+ */
+
 #ifndef LIST_H
 #define  LIST_H
 #include <iostream>

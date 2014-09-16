@@ -1,6 +1,9 @@
 /*
- * lab1-5.cc
+ Filename: lab1-5.cc
+ Author: Andreas Algovik, Elisabeth Hanning
+ Description: Contains the mainprogram given in Lab1-5
  */
+
 #include <iostream>
 #include <fstream>
 #include "List.h"
