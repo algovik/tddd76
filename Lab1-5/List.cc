@@ -1,4 +1,9 @@
-// .cc fil här skrivs funktionerna
+/*
+ Filename: List.cc
+ Author: Andreas Algovik, Elisabeth Hanning
+ Description: The implementation file with the sourcecode for
+ all struct and function needed to complete lab1-5.
+ */
 
 #include "List.h"
 
@@ -29,7 +34,7 @@ void append(List& list, const string& name, int age){
 		last = last->next;
 	}
 
-	last->next = p;
+	last->nextl = p;
 }
 
 void insert(List& list, const string& name, int age){
