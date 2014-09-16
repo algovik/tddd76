@@ -6,8 +6,8 @@ using namespace std;
  * A struct for being able to keep track of the word entered
  * and how many times it has been entered
  */
-struct word_entry{  
-	int count;  
+struct word_entry{
+	int count;
 	string word;
 };
 
@@ -16,14 +16,14 @@ void print(vector<word_entry> wordbook);
 
 //C++11
 	// for(auto &i : wordbook){
-// cout << "\t" << i.word << "\t" << i.count << endl; 
+// cout << "\t" << i.word << "\t" << i.count << endl;
 // }
 
 int main(){
-	
+
 	vector<word_entry> wordbook;
 	string s;
-	
+
 	while(cin >> s){
 		for(int i = 0; i < s.size(); ++i) {
 			s[i] = tolower(s[i]);
@@ -37,10 +37,10 @@ int main(){
 					i.count += 1;
 					exists = true;
 				}
-			}	
+			}
 			if(!exists){
 				wordbook = insert(s, wordbook);
-			}	
+			}
  	 	}
 	}
 	print(wordbook);
@@ -48,10 +48,10 @@ int main(){
 }
 
 /**
- * Creates a word_entry struct for the word and put it in the right alphabetic position 
+ * Creates a word_entry struct for the word and put it in the right alphabetic position
  * in the wordbook
  * @param s the word entered, wordbook the vector containing all the words
- * @return the wordbook with a new word entered	 
+ * @return the wordbook with a new word entered
  */
 vector<word_entry> insert(string s, vector<word_entry> wordbook){
 
@@ -76,15 +76,15 @@ vector<word_entry> insert(string s, vector<word_entry> wordbook){
 }
 
 /**
- * Print all the words in the wordbooks and how many time they appeared 
- * @param wordbook the vector containing all the words 
+ * Print all the words in the wordbook and how many time they appeared 
+ * @param wordbook the vector containing all the words
  */
 void print(vector<word_entry> wordbook){
-	
+
 	cout << "\t Ord \t Antal" << endl << endl;
-	
+
 	for(auto &i : wordbook){
- 		cout << "\t" << i.word << "\t" << i.count << endl; 
+ 		cout << "\t" << i.word << "\t" << i.count << endl;
  	}
 
 }

@@ -7,23 +7,20 @@
 
 #ifndef LIST_H
 #define  LIST_H
-
+#include <iostream>
 #include <string>
-#include <ostream>
 
-namespace list{
+struct List_Node;
 
-    struct List_Node;
+using List = List_Node*;
 
-    using List = List_Node*;
+void append(List& list, const std::string& name, int age);
+void insert(List& list, const std::string& name, int age);
+bool empty(const List& list);
+void print(const List& list, std::ostream& out);
+void print_reversed(const List& list, std::ostream& out);
+void clear(List& list);
+// List copy(List list);
 
-    void append(List& list, const string& name, int age);
-    void insert(List& list, const string& name, int age);
-    bool empty(List& list);
-    void print(List& list, ostream& out);
-    void print_reversed(List& list, ostream& out);
-    void clear(List& list);
-    List copy(List list);
-}
 
 #endif

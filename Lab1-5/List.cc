@@ -6,6 +6,7 @@
  */
 
 #include "List.h"
+#include <iostream>
 
 using namespace std;
 
@@ -17,8 +18,6 @@ struct List_Node{
 
 using List = List_Node*;
 
-List head{nullptr};
-
 void append(List& list, const string& name, int age){
 
 	auto p = new List_Node{name, age, nullptr};
@@ -28,13 +27,17 @@ void append(List& list, const string& name, int age){
 		return;
 	}
 
-	auto last = list;
+	auto current = list;
 
-	while(last->next != nullptr){
-		last = last->next;
+	while(current->next != nullptr){
+		current = current->next;
 	}
 
+<<<<<<< HEAD
 	last->nextl = p;
+=======
+	current->next = p;
+>>>>>>> 6974621aeded5c88601e723cb33f6936ea23943d
 }
 
 void insert(List& list, const string& name, int age){
@@ -43,33 +46,28 @@ void insert(List& list, const string& name, int age){
 	list = p;
 }
 
-bool empty(List& list){
+bool empty(const List& list){
+	return list==nullptr;
+}
 
-	if(list == nullptr){
-		return true;
-	}else{
-		return false;
+void print(const List& list, ostream& out){
+
+	auto current = list;
+
+	while(current->next != nullptr){
+		out << current->name << " (" << current->age << ")\n"; //Speciell utström?
+		current = current->next;
 	}
 }
 
-void print(List& list, ostream& out){
+void print_reversed(const List& list, ostream& out){
 
-	auto last = list;
+	auto current = list;
 
-	while(last->next != nullptr){
-		out << last->name << " (" << last->age << ")\n"; //Speciell utström?
-		last = last->next;
+	if(current->next != nullptr){
+		print_reversed(current->next, out);
 	}
-}
-
-void print_reversed(List& list, ostream& out){
-
-	auto last = list;
-
-	if(last->next != nullptr){
-		print_reversed(last->next, out);
-	}
-	out << list->name << " (" << list->age << ")\n";
+	out << current->name << " (" << current->age << ")\n";
 }
 
 void clear(List& list){
@@ -88,6 +86,7 @@ void clear(List& list){
 //
 // 	auto current = list;
 // 	auto copy = new List_Node*;
+//	auto copy_head = copy;
 //
 // 	while(current != nullptr){
 // 		copy->name = current->name;
@@ -97,5 +96,5 @@ void clear(List& list){
 // 		current = current->next;
 // 	}
 //
-// 	return copy;
+// 	return copy_head;
 // }
