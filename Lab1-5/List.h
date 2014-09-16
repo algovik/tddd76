@@ -1,8 +1,11 @@
 /*
- Filename: List.h
- Author: Andreas Algovik, Elisabeth Hanning
- Description: The interface declaration file listing all the function
- that exist in List.cc.
+ * Filename: List.h
+ * Lab: Lab 1 - Imperative programming
+ * Authors: Andreas Algovik     890718-0031 I5
+ *          Elisabeth Hanning   900419-2325 I5
+ * Date: 160914
+ * Description:The interface declaration file listing all the function
+ * that exist in List.cc.
  */
 
 #ifndef LIST_H

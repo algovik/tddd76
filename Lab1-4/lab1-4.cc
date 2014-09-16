@@ -1,8 +1,18 @@
+/*
+ * Filename: lab1-4.cc
+ * Lab: Lab 1 - Imperative programming
+ * Authors: Andreas Algovik		890718-0031	I5
+ *			Elisabeth Hanning	900419-2325	I5
+ * Date: 160914
+ * Description: Reads a word store it in a struct and 
+ * counts how many time the word has been read
+ */
+
 #include <iostream>
 #include <vector>
 using namespace std;
 
-/**
+/*
  * A struct for being able to keep track of the word entered
  * and how many times it has been entered
  */
@@ -13,11 +23,6 @@ struct word_entry{
 
 vector<word_entry> insert(string s, vector<word_entry> wordbook);
 void print(vector<word_entry> wordbook);
-
-//C++11
-	// for(auto &i : wordbook){
-// cout << "\t" << i.word << "\t" << i.count << endl;
-// }
 
 int main(){
 
@@ -47,7 +52,7 @@ int main(){
 	return 0;
 }
 
-/**
+/*
  * Creates a word_entry struct for the word and put it in the right alphabetic position
  * in the wordbook
  * @param s the word entered, wordbook the vector containing all the words
@@ -75,7 +80,7 @@ vector<word_entry> insert(string s, vector<word_entry> wordbook){
 
 }
 
-/**
+/*
  * Print all the words in the wordbook and how many time they appeared 
  * @param wordbook the vector containing all the words
  */

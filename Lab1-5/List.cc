@@ -1,8 +1,11 @@
 /*
- Filename: List.cc
- Author: Andreas Algovik, Elisabeth Hanning
- Description: The implementation file with the sourcecode for
- all struct and function needed to complete lab1-5.
+ * Filename: List.cc
+ * Lab: Lab 1 - Imperative programming
+ * Authors: Andreas Algovik     890718-0031 I5
+ *          Elisabeth Hanning   900419-2325 I5
+ * Date: 160914
+ * Description:The implementation file with the sourcecode for
+ * the struct and all function needed to complete lab1-5.
  */
 
 #include "List.h"
@@ -10,6 +13,9 @@
 
 using namespace std;
 
+/*
+ * A struct that is represetning a node in a linked list
+ */
 struct List_Node{
 	string name;
 	int age;
@@ -18,6 +24,12 @@ struct List_Node{
 
 using List = List_Node*;
 
+/*
+ * Adds a node at the end of a linked list
+ * @param list  The list the node should be added to
+ * @param  name The name that should be stored in the added node
+ * @param  age The age that should be stored in the added node
+ */
 void append(List& list, const string& name, int age){
 
 	auto p = new List_Node{name, age, nullptr};
@@ -38,16 +50,32 @@ void append(List& list, const string& name, int age){
 
 }
 
+/*
+ * Adds a node in the begining of a linked list
+ * @param list The list the node should be added to
+ * @param  name The name that should be stored in the added node
+ * @param  age The age that should be stored in the added node
+ */
 void insert(List& list, const string& name, int age){
 
 	auto p = new List_Node{name, age, list};
 	list = p;
 }
 
+/*
+ * Check if a list is empty or not
+ * @param list The list that should be checked
+ * @return true if the list is empty, false if it is not
+ */
 bool empty(const List& list){
 	return list==nullptr;
 }
 
+/*
+ * Prints a linked list
+ * @param list The linked list that should be printed
+ * @param  out The  outstream to be used
+ */
 void print(const List& list, ostream& out){
 
 	auto current = list;
@@ -62,6 +90,11 @@ void print(const List& list, ostream& out){
 	}while(current != nullptr);
 }
 
+/*
+ * Prints a linked list in reversed order
+ * @param list The linked list that should be printed
+ * @param  out The  outstream to be used
+ */
 void print_reversed(const List& list, ostream& out){
 
 	auto current = list;
@@ -76,6 +109,10 @@ void print_reversed(const List& list, ostream& out){
 	out << current->name << " (" << current->age << ")\n";
 }
 
+/*
+ * Romove all the nodes in a linked list
+ * @param list The linked list that should be cleared 
+ */
 void clear(List& list){
 
 	auto current = list;
@@ -89,6 +126,11 @@ void clear(List& list){
 	}while(current != nullptr);
 }
 
+/*
+ * Creates a copy of a linked list
+ * @param list The linked list that should be copied
+ * @return a indentical linked list
+ */
 List copy(List list){
 
 	List copy{nullptr};
@@ -102,6 +144,10 @@ List copy(List list){
 	return copy;
 }
 
+/*
+ * Reverse the order of the nodes in a linked list
+ * @param list The linked list that should be reversed
+ */
 void reverse(List& list){
 
 	auto current = list;
@@ -117,6 +163,11 @@ void reverse(List& list){
 	list = previous;
 }
 
+/*
+ * Switches the content of two linked lists
+ * @param list1 One of the list that should be swapped
+ * @param list2 The other list that should be swapped
+ */
 void swap(List& list1, List& list2){
 	auto temp = list1;
 	list1 = list2;

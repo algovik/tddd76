@@ -45,11 +45,7 @@ double kelvin_celsius(double kelv){
 	return kelv-273.15;
 }
 
-/**
- * Converts a temperature given in Kelvin to Fahrenheit.
- * @param kelv	temperature in Kelvin
- * @return	temperature in Fahrenheit
- */
+/i
 double kelvin_fahrenheit(double kelv){
 	return kelv*1.8-459.67;
 }
