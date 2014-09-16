@@ -93,7 +93,7 @@ void build_lists(istream& in, List list_1, List list_2){
 
     string name;
     int age;
-    
+
     while(in >> name >> age){
         append(list_1,name,age);
         insert(list_2,name,age);
