@@ -1,7 +1,10 @@
-/*
- Filename: lab1-5.cc
- Author: Andreas Algovik, Elisabeth Hanning
- Description: Contains the mainprogram given in Lab1-5
+/**
+ * Filename: lab1-5.cc
+ * Lab: Lab 1 - Imperative programming
+ * Authors: Andreas Algovik     890718-0031 I5
+ *          Elisabeth Hanning   900419-2325 I5
+ * Date: 160914
+ * Description: A program for lab1-5 that works with linked list.
  */
 
 #include <iostream>
@@ -96,7 +99,12 @@ int main(int argc, char** argv){
     return 0;
 }
 
-
+/**
+ * Calls the functions append and insert to insert the input streams value in to two lists
+ * @param     in  The instream used
+ *        list_1  The first list created in the program
+ *        list_2  The secons list created in the program
+ */
 void build_lists(istream& in, List& list_1, List& list_2){
 
     string name;

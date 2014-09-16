@@ -1,4 +1,4 @@
-/*
+/**
  * Filename: lab1-3.cc
  * Lab: Lab 1 - Imperative programming
  * Authors: Andreas Algovik		890718-0031	I5
