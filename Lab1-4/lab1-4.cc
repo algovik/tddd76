@@ -1,3 +1,5 @@
+
+
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -76,7 +78,7 @@ vector<word_entry> insert(string s, vector<word_entry> wordbook){
 }
 
 /**
- * Print all the words in the wordbook and how many time they appeared 
+ * Print all the words in the wordbook and how many time they appeared
  * @param wordbook the vector containing all the words
  */
 void print(vector<word_entry> wordbook){
