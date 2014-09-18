@@ -27,5 +27,4 @@ List copy(List list);
 void reverse(List& list);
 void swap(List& list1, List& list2);
 
-
 #endif

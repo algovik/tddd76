@@ -70,8 +70,8 @@ bool empty(const List& list){
 
 /**
  * Prints a linked list
- * @param	list The linked list that should be printed
- * 			out  The outstream to be used
+ * @param	list  The linked list that should be printed
+ * 			 out  The outstream to be used
  */
 void print(const List& list, ostream& out){
 
@@ -118,9 +118,10 @@ void clear(List& list){
 
 	do{
 		next = current->next;
-		delete(current);
+		delete current;
 		current = next;
 	}while(current != nullptr);
+
 }
 
 /**
