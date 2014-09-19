@@ -3,34 +3,72 @@
  * Lab: Lab2 - Klass, operatoröverlagring, undantag
  * Authors: Andreas Algovik     890718-0031 I5
  *          Elisabeth Hanning   900419-2325 I5
- * Date: 
- * Description: 
+ * Date:
+ * Description:
  */
 
 #include "Monetary.h"
 #include <iostream>
+
 using namespace std;
 
 namespace monetary{
 
-void Money::print()
-{
-    cout << Money->currency << Money->unit << "." << Money->cunit << endl;
-}
+    Money::Money(){
+        curr = "";
+        unit = 0;
+        cunit = 0;
+    }
 
-void setcurrency(string s){
-	currency = s;
-}
+    Money::Money(string s){
+        curr = s;
+        unit = 0;
+        cunit = 0;
+    }
 
-void setunit(int x, int y){
-	unit = x;
-	cunit = y;
-}
+    Money::Money(int x, int y){
+        curr = "";
+        unit = x;
+        cunit = y;
+    }
 
-int operator+(const int lhs, int rhs)
-   {
-   	// kontroll över samma currency 
-    return int{lhs}.operator+=(rhs);
-   }
+    Money::Money(string s, int x, int y){
+        curr = s;
+        unit = x;
+        cunit = y;
+    }
 
+    void Money::print(ostream& out){
+        if(curr == ""){
+            out << unit << "." << cunit << endl;
+        } else {
+            out << curr << " " << unit << "." << cunit << endl;
+        }
+    }
+
+    string Money::currency(){
+        return curr;
+    }
+
+    void Money::setcurrency(string s){
+    	curr = s;
+    }
+
+    void Money::setunit(int x, int y){
+    	unit = x;
+    	cunit = y;
+    }
+
+    int operator+(const Money& lhs, Money& rhs){
+       	cout << lhs.curr << "+" << rhs.curr << endl;
+        return 0;
+    }
+
+    std::ostream& operator<< (std::ostream& out, Money const& money){
+        if(money.curr == ""){
+            return out << money.unit << "." << money.cunit;
+        } else {
+            return out << money.curr << " " << money.unit << "." << money.cunit;
+        }
+    }
 }
