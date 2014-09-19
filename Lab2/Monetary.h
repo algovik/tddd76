@@ -1,9 +1,9 @@
 /**
- * Filename: Monetary
+ * Filename: Monetary.h
  * Lab: Lab2 - Klass, operatoröverlagring, undantag
  * Authors: Andreas Algovik     890718-0031 I5
  *          Elisabeth Hanning   900419-2325 I5
- * Date: 
+ * Date:
  * Description:
  */
 
