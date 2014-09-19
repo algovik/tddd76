@@ -9,5 +9,21 @@
 
 #include "Monetary.h"
 #include <iostream>
-
 using namespace std;
+
+namespace monetary{
+
+void Money::print()
+{
+    cout << Money->currency << Money->unit << "." << Money->cunit << endl;
+}
+
+void setcurrency(string s){
+	currency = s;
+}
+
+void setunit(int x, int y){
+	unit = x;
+	cunit = y;
+}
+}
