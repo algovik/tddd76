@@ -13,7 +13,5 @@
  int main()
  {
  
- 	Money* money = new money();
- 	
  	return 0;
  }

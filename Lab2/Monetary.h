@@ -16,7 +16,7 @@ namespace monetary{
 
 class Money
 {
-	string currency;
+	std::string currency;
     int unit;
     int cunit;
 

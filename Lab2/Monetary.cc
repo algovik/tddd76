@@ -9,11 +9,12 @@
 
 #include "Monetary.h"
 #include <iostream>
+ 
 using namespace std;
 
 namespace monetary{
 
-void Money::print()
+void print()
 {
     cout << Money->currency << Money->unit << "." << Money->cunit << endl;
 }
