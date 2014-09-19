@@ -26,4 +26,11 @@ void setunit(int x, int y){
 	unit = x;
 	cunit = y;
 }
+
+int operator+(const int lhs, int rhs)
+   {
+   	// kontroll över samma currency 
+    return int{lhs}.operator+=(rhs);
+   }
+
 }
