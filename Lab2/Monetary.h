@@ -14,17 +14,17 @@
 
 namespace monetary{
 
-class Money
-{
-	string currency;
-    int unit;
-    int cunit;
+	class Money{
 
-public:
-	void print();
-	void setcurrency(string s);
-	void setunit(int x, int y);
-};
+		string currency;
+	    int unit;
+	    int cunit;
+
+	public:
+		void print();
+		void setcurrency(string s);
+		void setunit(int x, int y);
+	};
 
 }
  #endif
