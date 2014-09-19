@@ -14,25 +14,25 @@ using namespace std;
 
 namespace monetary{
 
-    Money::Money(){
-        curr = "";
-        unit = 0;
-        cunit = 0;
-    }
+    // Money::Money(){
+    //     curr = "";
+    //     unit = 0;
+    //     cunit = 0;
+    // }
 
-    Money::Money(string s){
-        curr = s;
-        unit = 0;
-        cunit = 0;
-    }
+    // Money::Money(string s){
+    //     curr = s;
+    //     unit = 0;
+    //     cunit = 0;
+    // }
+    //
+    // Money::Money(int x, int y){
+    //     curr = "";
+    //     unit = x;
+    //     cunit = y;
+    // }
 
-    Money::Money(int x, int y){
-        curr = "";
-        unit = x;
-        cunit = y;
-    }
-
-    Money::Money(string s, int x, int y){
+    Money::Money(const string s, const int x = 0, const int y = 0){
         curr = s;
         unit = x;
         cunit = y;
@@ -59,10 +59,15 @@ namespace monetary{
     	cunit = y;
     }
 
-    int operator+(const Money& lhs, Money& rhs){
-       	cout << lhs.curr << "+" << rhs.curr << endl;
-        return 0;
-    }
+    // const Money Money::operator+(const Money& rhs){
+    //     Money res{unit+rhs.unit,cunit+rhs.cunit};
+    //     return res;
+    // }
+    //
+    // const Money Money::operator-(const Money& rhs){
+    //     Money res{unit-rhs.unit,cunit-rhs.cunit};
+    //     return res;
+    // }
 
     std::ostream& operator<< (std::ostream& out, Money const& money){
         if(money.curr == ""){

@@ -14,29 +14,30 @@ using namespace std;
 
 int main(){
 
-    // monetary::Money* svensk = new monetary::Money();
-    monetary::Money svensk;
+    monetary::Money def;
+    def.print(cout);
+
+    monetary::Money svensk{"SEK"};
     svensk.print(cout);
 
-    cout << svensk << endl;
-
-    monetary::Money tysk{"EUR",5,0};
-    tysk.print(cout);
-
-    cout << tysk << endl;
-
-    monetary::Money britt{4,0};
-    britt.print(cout);
-
-    monetary::Money ryss{"RUB"};
-    ryss.print(cout);
-
-    int i;
-    i = tysk + ryss;
-    cout << i << endl;
-
-    string s{ryss.currency()};
-    cout << s << endl;
+    // monetary::Money tysk{"EUR",5,0};
+    // tysk.print(cout);
+    // cout << tysk << endl;
+    //
+    // monetary::Money fransk{"EUR",3,2};
+    // cout << fransk << endl;
+    //
+    // cout << "Plussat: " << tysk+fransk << endl;
+    // cout << "Minusat: " << tysk-fransk << endl;
+    //
+    // monetary::Money britt{4,0};
+    // britt.print(cout);
+    //
+    // monetary::Money ryss{"RUB"};
+    // ryss.print(cout);
+    //
+    // string s{ryss.currency()};
+    // cout << s << endl;
 
     return 0;
 }

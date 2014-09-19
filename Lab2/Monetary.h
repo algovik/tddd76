@@ -21,16 +21,17 @@ namespace monetary{
 	    int cunit;
 
 		public:
-			Money();
-			Money(std::string);
-			Money(int x, int y);
-			Money(std::string s, int x, int y);
+			Money() = default;
+			// Money(std::string);
+			// Money(int x, int y);
+			Money(const std::string s, const int x, const int y);
 			std::string currency();
 			void print(std::ostream& out);
 			void setcurrency(std::string s);
 			void setunit(int x, int y);
 			friend std::ostream& operator<< (std::ostream& o, Money const& money);
-			int operator+(const Money& lhs, const Money& rhs);
+			const Money operator+(const Money& rhs);
+			const Money operator-(const Money& rhs);
 		};
 
 }
