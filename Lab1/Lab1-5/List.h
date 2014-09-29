@@ -23,7 +23,7 @@ bool empty(const List& list);
 void print(const List& list, std::ostream& out);
 void print_reversed(const List& list, std::ostream& out);
 void clear(List& list);
-List copy(List list);
+List copy(const List& list);
 void reverse(List& list);
 void swap(List& list1, List& list2);
 

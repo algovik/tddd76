@@ -22,36 +22,24 @@ struct word_entry{
 	string word;
 };
 
-vector<word_entry> insert(string s, vector<word_entry> wordbook);
-void print(vector<word_entry> wordbook);
+vector<word_entry> insert(string s, vector<word_entry>& wordbook);
+void print(const vector<word_entry>& wordbook);
 
 int main(){
 
 	vector<word_entry> wordbook;
 	string s;
 
-	while(cin >> s){
+	while(cin >> s) {
 		for(int i = 0; i < s.size(); ++i) {
 			s[i] = tolower(s[i]);
-		}
-		if(wordbook.empty()){
-			wordbook = insert(s, wordbook);
-		}else{
-			bool exists = false;
-			for(auto &i : wordbook){
-				if(s.compare(i.word) == 0){
-					i.count += 1;
-					exists = true;
-				}
-			}
-			if(!exists){
-				wordbook = insert(s, wordbook);
-			}
- 	 	}
+		}	
+		wordbook = insert(s, wordbook);
 	}
 	print(wordbook);
 	return 0;
 }
+
 
 /**
  * Creates a word_entry struct for the word and put it in the right alphabetic position
@@ -59,7 +47,7 @@ int main(){
  * @param s The word entered, wordbook the vector containing all the words
  * @return the wordbook with a new word entered
  */
-vector<word_entry> insert(string s, vector<word_entry> wordbook){
+vector<word_entry> insert(string s, vector<word_entry>& wordbook){
 
 	word_entry temp;
 	temp.word = s;
@@ -69,6 +57,10 @@ vector<word_entry> insert(string s, vector<word_entry> wordbook){
 	for(vector<word_entry>::iterator it = wordbook.begin(); it != wordbook.end(); ++it){
 		if(s.compare(it->word) < 0){
 			wordbook.insert(it, temp);
+			inserted = true;
+			break;
+		}else if(s.compare(it->word)==0){
+			it->count += 1;
 			inserted = true;
 			break;
 		}
@@ -85,7 +77,7 @@ vector<word_entry> insert(string s, vector<word_entry> wordbook){
  * Print all the words in the wordbook and how many time they appeared
  * @param wordbook The vector containing all the words
  */
-void print(vector<word_entry> wordbook){
+void print(const vector<word_entry>& wordbook){
 
 	cout << setw(10) << "Ord" << setw(10) << "Antal" << endl;
 

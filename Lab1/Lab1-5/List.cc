@@ -22,7 +22,6 @@ struct List_Node{
 	List_Node* next;
 };
 
-using List = List_Node*;
 
 /**
  * Adds a node at the end of a linked list
@@ -129,7 +128,7 @@ void clear(List& list){
  * @param list  The linked list that should be copied
  * @return an indentical linked list
  */
-List copy(List list){
+List copy(const List& list){
 
 	List copy{nullptr};
 	auto current = list;
