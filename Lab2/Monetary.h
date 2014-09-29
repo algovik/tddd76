@@ -16,15 +16,17 @@ namespace monetary{
 
 	class Money{
 
-		std::string curr;
-	    int unit;
-	    int cunit;
+		std::string curr{""};
+	    int unit{0};
+	    int cunit{0};
 
 		public:
-			Money() = default;
+			// Money();
+			// Money() = default;
 			// Money(std::string);
 			// Money(int x, int y);
-			Money(const std::string s, const int x, const int y);
+			Money(const std::string s, const int x=0, const int y=0);
+			Money(const int x=0, const int y=0);
 			std::string currency();
 			void print(std::ostream& out);
 			void setcurrency(std::string s);

@@ -32,11 +32,14 @@ namespace monetary{
     //     cunit = y;
     // }
 
-    Money::Money(const string s, const int x = 0, const int y = 0){
-        curr = s;
-        unit = x;
-        cunit = y;
-    }
+    Money::Money(const string s, const int x, const int y)
+        :curr{s}, unit{x}, cunit{y}
+    {}
+
+    Money::Money(const int x, const int y)
+        :curr{""}, unit{x}, cunit{y}
+    {}
+
 
     void Money::print(ostream& out){
         if(curr == ""){
@@ -59,15 +62,15 @@ namespace monetary{
     	cunit = y;
     }
 
-    // const Money Money::operator+(const Money& rhs){
-    //     Money res{unit+rhs.unit,cunit+rhs.cunit};
-    //     return res;
-    // }
-    //
-    // const Money Money::operator-(const Money& rhs){
-    //     Money res{unit-rhs.unit,cunit-rhs.cunit};
-    //     return res;
-    // }
+    const Money Money::operator+(const Money& rhs){
+        Money res{unit+rhs.unit,cunit+rhs.cunit};
+        return res;
+    }
+
+    const Money Money::operator-(const Money& rhs){
+        Money res{unit-rhs.unit,cunit-rhs.cunit};
+        return res;
+    }
 
     std::ostream& operator<< (std::ostream& out, Money const& money){
         if(money.curr == ""){

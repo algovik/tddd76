@@ -131,10 +131,18 @@ void clear(List& list){
 List copy(const List& list){
 
 	List copy{nullptr};
+	List copy_current{nullptr};
 	auto current = list;
 
 	do{
-		append(copy, current->name,current->age);
+		auto p = new List_Node{current->name, current->age, nullptr};
+		if(copy == nullptr){
+			copy = p;
+			copy_current = p;
+		}else{
+			copy_current->next = p;
+			copy_current = copy_current->next;
+		}
 		current = current->next;
 	}while(current != nullptr);
 
@@ -162,7 +170,7 @@ void reverse(List& list){
 
 /**
  * Switches the content of two linked lists
- * @param 	list1  One of the list that should be swapped
+ * @param	list1  One of the list that should be swapped
  * 			list2  The other list that should be swapped
  */
 void swap(List& list1, List& list2){

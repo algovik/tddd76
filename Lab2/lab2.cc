@@ -20,15 +20,21 @@ int main(){
     monetary::Money svensk{"SEK"};
     svensk.print(cout);
 
-    // monetary::Money tysk{"EUR",5,0};
-    // tysk.print(cout);
-    // cout << tysk << endl;
+    monetary::Money tysk{"EUR",5};
+    tysk.print(cout);
+    cout << tysk << endl;
+
+    monetary::Money fransk{"EUR",3,2};
+    cout << fransk << endl;
+
+    monetary::Money dansk{4,2};
+    cout << dansk << endl;
     //
-    // monetary::Money fransk{"EUR",3,2};
-    // cout << fransk << endl;
-    //
-    // cout << "Plussat: " << tysk+fransk << endl;
-    // cout << "Minusat: " << tysk-fransk << endl;
+    monetary::Money finsk{4};
+    cout << finsk << endl;
+
+    cout << "Plussat: " << tysk+fransk << endl;
+    cout << "Minusat: " << tysk-fransk << endl;
     //
     // monetary::Money britt{4,0};
     // britt.print(cout);
