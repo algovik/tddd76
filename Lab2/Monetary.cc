@@ -62,15 +62,39 @@ namespace monetary{
     	cunit = y;
     }
 
-    const Money Money::operator+(const Money& rhs){
-        Money res{unit+rhs.unit,cunit+rhs.cunit};
-        return res;
+
+    const Money Money::operator+(const Money& rhs){  
+        Money res{curr,unit+rhs.unit,cunit+rhs.cunit};      //måste flyttas inanför if-satsen
+        if(curr==rhs.curr){ 
+            if(res.cunit>=100){
+                res.cunit -= 100;
+                res.unit += 1;
+            }
+            return res;
+        }
+        
     }
 
     const Money Money::operator-(const Money& rhs){
-        Money res{unit-rhs.unit,cunit-rhs.cunit};
-        return res;
+        Money res{curr, unit-rhs.unit,cunit-rhs.cunit};     //måste flyttas inanför if-satsen
+        if(curr==rhs.curr){   
+            if(res.cunit<=0){
+                res.cunit += 100;
+                res.unit -= 1;
+            }
+            return res;
+        }
     }
+
+    // const Money Money::operator=(const Money& rhs){
+    //     Money res{rhs.curr,rhs.unit,rhs.cunit};
+        
+    //     if(curr==rhs.curr || rhs.curr.empty()){
+    //         //cout << "HERE" << unit;
+    //     }
+
+    //     return res;   
+    // }
 
     std::ostream& operator<< (std::ostream& out, Money const& money){
         if(money.curr == ""){
