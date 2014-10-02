@@ -45,7 +45,7 @@ namespace monetary{
 			const Money operator+(const Money& rhs);
 			const Money operator-(const Money& rhs);
 
-			void operator=(const Money& rhs);
+			Money& operator=(const Money& rhs);
 			bool operator==(const Money& rhs);
 			bool operator<(const Money& rhs);
 			bool operator<=(const Money& rhs);

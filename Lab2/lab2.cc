@@ -39,15 +39,15 @@ int main(){
     string valuta{svensk.currency()};
     cout << valuta << endl;
 
-    // cout << "Tilldelning: " << tysk=fransk;
-    // cout << tysk << endl;
+    tysk=fransk;
+    cout << tysk << endl;
 
-    if(fransk == tysk){cout << "Tyskarna kommer!" << endl;}
-    if(dansk == finsk){cout << "Danskjävel!" << endl;}
+    // if(fransk == tysk){cout << "Tyskarna kommer!" << endl;}
+    // if(dansk == finsk){cout << "Danskjävel!" << endl;}
 
-    if(fransk < tysk){cout << "Frankrike är sämst!" << endl;}
-    if(dansk < finsk){cout << "Finland kan inte dricka!" << endl;}
-    if(fransk < svensk){cout << "Sverige är bäst!" << endl;}
+    // if(fransk < tysk){cout << "Frankrike är sämst!" << endl;}
+    // if(dansk < finsk){cout << "Finland kan inte dricka!" << endl;}
+    // if(fransk < svensk){cout << "Sverige är bäst!" << endl;}
 
 
 

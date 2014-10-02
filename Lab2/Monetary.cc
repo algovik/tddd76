@@ -95,7 +95,7 @@ namespace monetary{
     }
 
 
-    void Money::operator=(const Money& rhs){
+    Money& Money::operator=(const Money& rhs){
         if(curr==rhs.curr || rhs.curr.empty()){
             unit=rhs.unit;
             cunit=rhs.cunit;
