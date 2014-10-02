@@ -39,7 +39,7 @@ int main(){
     string valuta{svensk.currency()};
     cout << valuta << endl;
 
-    //cout << "Tilldelning: " << tysk=fransk;
+    cout << "Tilldelning: " << tysk=fransk;
     
 
     //

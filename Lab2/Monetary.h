@@ -34,7 +34,7 @@ namespace monetary{
 			friend std::ostream& operator<< (std::ostream& o, Money const& money);
 			const Money operator+(const Money& rhs);
 			const Money operator-(const Money& rhs);
-			const Money operator=(const Money& rhs);
+			Money& operator=(const Money& rhs);
 		};
 
 }

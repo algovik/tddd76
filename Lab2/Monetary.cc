@@ -86,15 +86,15 @@ namespace monetary{
         }
     }
 
-    // const Money Money::operator=(const Money& rhs){
-    //     Money res{rhs.curr,rhs.unit,rhs.cunit};
+    Money& Money::operator=(const Money& rhs){
+        Money res{rhs.curr,rhs.unit,rhs.cunit};
         
-    //     if(curr==rhs.curr || rhs.curr.empty()){
-    //         //cout << "HERE" << unit;
-    //     }
+        if(curr==rhs.curr || rhs.curr.empty()){
+            //cout << "HERE" << unit;
+        }
 
-    //     return res;   
-    // }
+        return res;   
+    }
 
     std::ostream& operator<< (std::ostream& out, Money const& money){
         if(money.curr == ""){
