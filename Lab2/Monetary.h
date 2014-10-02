@@ -14,6 +14,16 @@
 
 namespace monetary{
 
+	class monetaryerror : public std::logic_error {
+	public:
+		explicit monetaryerror(const std::string& whatarg) noexcept
+			: logic_error{whatarg} {}
+
+		explicit monetaryerror(const char* whatarg) noexcept
+			: logic_error{whatarg} {}
+	};
+
+
 	class Money{
 
 		std::string curr{""};
@@ -34,8 +44,19 @@ namespace monetary{
 			friend std::ostream& operator<< (std::ostream& o, Money const& money);
 			const Money operator+(const Money& rhs);
 			const Money operator-(const Money& rhs);
-			Money& operator=(const Money& rhs);
-		};
+
+			void operator=(const Money& rhs);
+			bool operator==(const Money& rhs);
+			bool operator<(const Money& rhs);
+			bool operator<=(const Money& rhs);
+			bool operator>(const Money& rhs);
+			bool operator>=(const Money& rhs);
+			bool operator!=(const Money& rhs);
+			// const Money operator++();
+			// const Money operator++(Money& rhs);
+	};
+
+
 
 }
  #endif
