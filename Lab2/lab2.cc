@@ -22,15 +22,15 @@ int main(){
 
     monetary::Money tysk{"EUR",6,20};
     tysk.print(cout);
-    
+
 
     monetary::Money fransk{"EUR",3,90};
     cout << fransk << endl;
 
     monetary::Money dansk{4,2};
     cout << dansk << endl;
-    
-    monetary::Money finsk{4};
+
+    monetary::Money finsk{4,2};
     cout << finsk << endl;
 
     cout << "Plussat: " << tysk+fransk << endl;
@@ -39,18 +39,16 @@ int main(){
     string valuta{svensk.currency()};
     cout << valuta << endl;
 
-    //cout << "Tilldelning: " << tysk=fransk;
-    
+    // cout << "Tilldelning: " << tysk=fransk;
+    // cout << tysk << endl;
 
-    //
-    // monetary::Money britt{4,0};
-    // britt.print(cout);
-    //
-    // monetary::Money ryss{"RUB"};
-    // ryss.print(cout);
-    //
-    // string s{ryss.currency()};
-    // cout << s << endl;
+    if(fransk == tysk){cout << "Tyskarna kommer!" << endl;}
+    if(dansk == finsk){cout << "Danskjävel!" << endl;}
+
+    if(fransk < tysk){cout << "Frankrike är sämst!" << endl;}
+    if(dansk < finsk){cout << "Finland kan inte dricka!" << endl;}
+    if(fransk < svensk){cout << "Sverige är bäst!" << endl;}
+
 
     return 0;
 }
