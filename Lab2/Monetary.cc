@@ -34,20 +34,36 @@ namespace monetary{
     // }
 
     Money::Money(const string s, const int x, const int y)
-        :curr{s}, unit{x}, cunit{y}
-    {}
+        :curr{s}, unit{x}, cunit{y} {}
 
     Money::Money(const int x, const int y)
-        :curr{""}, unit{x}, cunit{y}
-    {}
+        :curr{""}, unit{x}, cunit{y} {}
 
+    Money::~Money(){
+        // cout << "Deconstructing" << endl;
+    }
+
+
+    // void Money::print(ostream& out){
+    //     if(curr == ""){
+    //         out << unit << ".";
+    //         if(cunit<10){
+    //             out << "0" << cunit << endl;
+    //         }else{
+    //             out << cunit << endl;
+    //         }
+    //     }else{
+    //         out << curr << " " << unit << ".";
+    //         if(cunit<10){
+    //             out << "0" << cunit << endl;
+    //         }else{
+    //             out << cunit << endl;
+    //         }
+    //     }
+    // }
 
     void Money::print(ostream& out){
-        if(curr == ""){
-            out << unit << "." << cunit << endl;
-        } else {
-            out << curr << " " << unit << "." << cunit << endl;
-        }
+        out << *this << endl;
     }
 
     string Money::currency(){
@@ -65,7 +81,6 @@ namespace monetary{
 
 
     const Money Money::operator+(const Money& rhs){
-
         if(curr==rhs.curr){
             Money res{curr,unit+rhs.unit,cunit+rhs.cunit};
             if(res.cunit>=100){
@@ -81,7 +96,7 @@ namespace monetary{
     const Money Money::operator-(const Money& rhs){
         if(curr==rhs.curr){
             Money res{curr, unit-rhs.unit,cunit-rhs.cunit};
-            if(res.cunit<=0){
+            if(res.cunit<0){
                 res.cunit += 100;
                 res.unit -= 1;
             }
@@ -108,17 +123,25 @@ namespace monetary{
         }
     }
 
-    std::ostream& operator<< (std::ostream& out, Money const& money){
+    std::ostream& operator<<(std::ostream& out, Money const& money){
         if(money.curr == ""){
-            return out << money.unit << "." << money.cunit;
-        } else {
-            return out << money.curr << " " << money.unit << "." << money.cunit;
+            if(money.cunit<10){
+                return out << money.unit << ".0" << money.cunit;
+            }else{
+                return out << money.unit << "." << money.cunit;
+            }
+        }else{
+            if(money.cunit<10){
+                return out << money.curr << " " << money.unit << ".0" << money.cunit;
+            }else{
+                return out << money.curr << " " << money.unit << "." << money.cunit;
+            }
         }
     }
 
-    bool Money::operator==(const Money& rhs){
-        if(curr==rhs.curr || rhs.curr.empty() || curr.empty()){
-            if(unit==rhs.unit && cunit==rhs.cunit){
+    bool operator==(const Money& lhs, const Money& rhs){
+        if(lhs.curr==rhs.curr || rhs.curr.empty() || lhs.curr.empty()){
+            if(lhs.unit==rhs.unit && lhs.cunit==rhs.cunit){
                 return true;
             }else{
                 return false;
@@ -128,11 +151,11 @@ namespace monetary{
         }
     }
 
-    bool Money::operator<(const Money& rhs){
-        if(curr==rhs.curr || rhs.curr.empty() || curr.empty()){
-            if(unit<rhs.unit){
+    bool operator<(const Money& lhs, const Money& rhs){
+        if(lhs.curr==rhs.curr || rhs.curr.empty() || lhs.curr.empty()){
+            if(lhs.unit<rhs.unit){
                 return true;
-            }else if(unit==rhs.unit && cunit<rhs.cunit){
+            }else if(lhs.unit==rhs.unit && lhs.cunit<rhs.cunit){
                 return true;
             }else{
                 return false;
@@ -142,35 +165,73 @@ namespace monetary{
         }
     }
 
-    bool Money::operator<=(const Money& rhs){
-        if(*this<rhs || *this==rhs){
-            return true;
-        }else{
-            return false;
-        }
+    bool operator>(const Money& lhs, const Money& rhs){
+        // if(lhs<rhs || lhs==rhs){
+        //     return false;
+        // }else{
+        //     return true;
+        // }
+        return operator<(rhs,lhs);
     }
 
-    bool Money::operator>(const Money& rhs){
-        if(*this<rhs || *this==rhs){
-            return false;
-        }else{
-            return true;
-        }
+    bool operator<=(const Money& lhs, const Money& rhs){
+        // if(lhs<rhs || lhs==rhs){
+        //     return true;
+        // }else{
+        //     return false;
+        // }
+        return !operator>(lhs,rhs);
     }
 
-    bool Money::operator>=(const Money& rhs){
-        if(*this<rhs){
-            return false;
-        }else{
-            return true;
-        }
+    bool operator>=(const Money& lhs, const Money& rhs){
+        // if(lhs<rhs){
+        //     return false;
+        // }else{
+        //     return true;
+        // }
+        return !operator<(lhs,rhs);
     }
 
-    bool Money::operator!=(const Money& rhs){
-        if(*this==rhs){
-            return false;
-        }else{
-            return true;
-        }
+    bool operator!=(const Money& lhs, const Money& rhs){
+        // if(lhs==rhs){
+        //     return false;
+        // }else{
+        //     return true;
+        // }
+        return !operator==(lhs,rhs);
     }
+
+    Money& Money::operator++(){
+        cunit+=1;
+        if(cunit>=100){
+            cunit -= 100;
+            unit += 1;
+        }
+        return *this;
+    }
+
+    Money Money::operator++(int){
+        Money tmp{*this};
+        operator++();
+        return tmp;
+    }
+
+    Money& Money::operator--(){
+        cunit-=1;
+        if(cunit<0){
+            cunit += 100;
+            unit -= 1;
+        }
+        if(unit<0){
+            throw monetaryerror("The resulting value can't be negative.");
+        }
+        return *this;
+    }
+
+    Money Money::operator--(int){
+        Money tmp{*this};
+        operator--();
+        return tmp;
+    }
+
 }

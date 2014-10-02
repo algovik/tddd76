@@ -30,30 +30,34 @@ namespace monetary{
 	    int unit{0};
 	    int cunit{0};
 
-		public:
-			// Money();
-			// Money() = default;
-			// Money(std::string);
-			// Money(int x, int y);
-			Money(const std::string s, const int x=0, const int y=0);
-			Money(const int x=0, const int y=0);
-			std::string currency();
-			void print(std::ostream& out);
-			void setcurrency(std::string s);
-			void setunit(int x, int y);
-			friend std::ostream& operator<< (std::ostream& o, Money const& money);
-			const Money operator+(const Money& rhs);
-			const Money operator-(const Money& rhs);
 
-			Money& operator=(const Money& rhs);
-			bool operator==(const Money& rhs);
-			bool operator<(const Money& rhs);
-			bool operator<=(const Money& rhs);
-			bool operator>(const Money& rhs);
-			bool operator>=(const Money& rhs);
-			bool operator!=(const Money& rhs);
-			// const Money operator++();
-			// const Money operator++(Money& rhs);
+	public:
+		// Money();
+		// Money() = default;
+		// Money(std::string);
+		// Money(int x, int y);
+		Money(const std::string s, const int x=0, const int y=0);
+		Money(const int x=0, const int y=0);
+		~Money();
+		std::string currency();
+		void print(std::ostream& out);
+		void setcurrency(std::string s);
+		void setunit(int x, int y);
+		friend std::ostream& operator<< (std::ostream& o, Money const& money);
+		const Money operator+(const Money& rhs);
+		const Money operator-(const Money& rhs);
+		Money&  operator=(const Money& rhs);
+		friend bool operator==(const Money& lhs, const Money& rhs);
+		friend bool operator<(const Money& lhs, const Money& rhs);
+		friend bool operator<=(const Money& lhs, const Money& rhs);
+		friend bool operator>(const Money& lhs, const Money& rhs);
+		friend bool operator>=(const Money& lhs, const Money& rhs);
+		friend bool operator!=(const Money& lhs, const Money& rhs);
+		Money& operator++();
+		Money operator++(int);
+		Money& operator--();
+		Money operator--(int);
+
 	};
 
 
