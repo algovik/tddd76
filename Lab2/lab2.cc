@@ -3,8 +3,9 @@
  * Lab: Lab 1 - Imperative programming
  * Authors: Andreas Algovik     890718-0031 I5
  *          Elisabeth Hanning   900419-2325 I5
- * Date:
- * Description:
+ * Date:031014
+ * Description: A test program for objects of the 
+ * class Money as part of Lab2.
  */
 
 #include <iostream>
@@ -45,11 +46,9 @@ int main(){
     tysk=fransk;
     cout << tysk << endl;
 
-    
-
     if(fransk < tysk){cout << "Frankrike är sämst!" << endl;}
     if(dansk < finsk){cout << "Finland kan inte dricka!" << endl;}
-    // if(fransk < svensk){cout << "Sverige är bäst!" << endl;}
+
     cout << ++fransk << endl;
     fransk.print(cout);
 
@@ -62,7 +61,8 @@ int main(){
     cout << fransk-- << endl;
     fransk.print(cout);
 
-
+    tysk -= fransk;
+    cout << tysk;
 
     return 0;
 }
