@@ -32,9 +32,12 @@ namespace monetary{
  	*/
 	class Money{
 
+	private:
 		std::string curr{""};
-	    int unit{0};
-	    int cunit{0};
+		int unit{0};
+		int cunit{0};
+		
+		void checkformat(const Money& money);
 
 	public:
 		Money(const std::string s, const int x=0, const int y=0);
@@ -42,12 +45,11 @@ namespace monetary{
 		~Money();
 		std::string currency();
 		void print(std::ostream& out);
-		void setcurrency(std::string s);
-		void setunit(int x, int y);
-		friend std::ostream& operator<< (std::ostream& o, Money const& money);
+		friend std::ostream& operator<<(std::ostream& out, Money const& money);
+		friend std::istream& operator>>(std::istream& in, Money& money);
 		const Money operator+(const Money& rhs);
 		const Money operator-(const Money& rhs);
-		void operator=(const Money& rhs);
+		Money operator=(const Money& rhs);
 		friend bool operator==(const Money& lhs, const Money& rhs);
 		friend bool operator<(const Money& lhs, const Money& rhs);
 		friend bool operator<=(const Money& lhs, const Money& rhs);

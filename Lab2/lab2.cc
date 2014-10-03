@@ -4,7 +4,7 @@
  * Authors: Andreas Algovik     890718-0031 I5
  *          Elisabeth Hanning   900419-2325 I5
  * Date:031014
- * Description: A test program for objects of the 
+ * Description: A test program for objects of the
  * class Money as part of Lab2.
  */
 
@@ -43,8 +43,8 @@ int main(){
     string valuta{svensk.currency()};
     cout << valuta << endl;
 
-    tysk=fransk;
-    cout << tysk << endl;
+    monetary::Money spansk=tysk=fransk;
+    cout << "Tysk: " << tysk << " Spansk: " << spansk << " Fransk: " << fransk << endl;
 
     if(fransk < tysk){cout << "Frankrike är sämst!" << endl;}
     if(dansk < finsk){cout << "Finland kan inte dricka!" << endl;}
@@ -62,7 +62,11 @@ int main(){
     fransk.print(cout);
 
     tysk -= fransk;
-    cout << tysk;
+    cout << tysk << endl;
+
+    monetary::Money x;
+    cin >> x;
+    x.print(cout);
 
     return 0;
 }

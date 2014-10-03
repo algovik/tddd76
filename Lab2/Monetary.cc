@@ -17,57 +17,74 @@ using namespace std;
 namespace monetary{
 
     /**
-    * A constructor for a object of the class Money
-    * @param   s  The currency of the Monetary object
-    *          x  The value for the number of units in the Monetary object
-    *          y  The value for the number of hundredhs on teh Monetary objct
-    */
+     * A constructor for an object of the class Money
+     * @param   s  The currency of the Money object
+     *          x  The value for the number of units in the Money object
+     *          y  The value for the number of hundredths on the Money object
+     */
     Money::Money(const string s, const int x, const int y)
-        :curr{s}, unit{x}, cunit{y} {}
+        :curr{s}, unit{x}, cunit{y} {
+            checkformat(*this);
+        }
 
     /**
-    * A constructor for a object of the class Money
-    * @param   x  The value for the number of units in the Monetary object
-    *          y  The value for the number of hundredhs on teh Monetary objct
-    */    
+     * A constructor for an object of the class Money
+     * @param   x  The value for the number of units in the Money object
+     *          y  The value for the number of hundredhs on teh Money obejct
+     */
     Money::Money(const int x, const int y)
-        :curr{""}, unit{x}, cunit{y} {}
+        :curr{""}, unit{x}, cunit{y} {
+            checkformat(*this);
+        }
 
-    
+
     /**
-    * A deconstructor for a object of the class Money
-    */
+     * A destructor for an object of the class Money
+     */
     Money::~Money(){
+
     }
 
     /**
-    * A helpfunction for printing for a object of the class Money
-    * @param   out  The outstream used for printing       
-    */     
+     * A member function for printing an object of the class Money
+     * @param   out  The outstream used for printing
+     */
     void Money::print(ostream& out){
         out << *this << endl;
     }
 
     /**
-    * Gives the currenecy of the Money object
-    * @return a string with the currency of the object     
-    */ 
+     * Gives the currenecy of the Money object
+     * @return a string with the currency of the object
+     */
     string Money::currency(){
         return curr;
     }
 
+    void Money::checkformat(const Money& money){
+        if(!money.curr.empty() && money.curr.length()!=3){
+            throw monetaryerror("Bad currency format.");
+        }
+        if(money.unit<0 || money.cunit<0 || money.cunit>99){
+            cout << money.unit << "." << money.cunit << endl;
+            throw monetaryerror("Invalid amount.");
+        }
+    }
+
     /**
-    * Operator overloading of + for the Money class
-    * @param   rhs the money object on the right hand side of the operator   
-    * @return  a Money object whose value has been added   
-    */
+     * Operator overloading of + for the Money class
+     * @param   rhs the money object on the right hand side of the operator
+     * @return  a Money object whose value has been added
+     */
     const Money Money::operator+(const Money& rhs){
         if(curr==rhs.curr){
-            Money res{curr,unit+rhs.unit,cunit+rhs.cunit};
-            if(res.cunit>=100){
-                res.cunit -= 100;
-                res.unit += 1;
+            int resunit = unit+rhs.unit;
+            int rescunit = cunit+rhs.cunit;
+            if(rescunit>=100){
+                rescunit -= 100;
+                resunit += 1;
             }
+            Money res{curr,resunit,rescunit};
             return res;
         }else{
             throw monetaryerror("Can't add two different currencies.");
@@ -75,20 +92,19 @@ namespace monetary{
     }
 
     /**
-    * Operator overloading of - for the Money class
-    * @param   rhs the money object on the right hand side of the operator   
-    * @return  a Money object whose value has been subtracted   
-    */
+     * Operator overloading of - for the Money class
+     * @param   rhs the money object on the right hand side of the operator
+     * @return  a Money object whose value has been subtracted
+     */
     const Money Money::operator-(const Money& rhs){
         if(curr==rhs.curr){
-            Money res{curr, unit-rhs.unit,cunit-rhs.cunit};
-            if(res.cunit<0){
-                res.cunit += 100;
-                res.unit -= 1;
+            int resunit = unit-rhs.unit;
+            int rescunit = cunit-rhs.cunit;
+            if(rescunit<0){
+                rescunit += 100;
+                resunit -= 1;
             }
-            if(res.unit<0){
-                throw monetaryerror("The resulting value can't be negative.");
-            }
+            Money res{curr,resunit,rescunit};
             return res;
         }else{
             throw monetaryerror("Can't subtract two different currencies.");
@@ -96,10 +112,10 @@ namespace monetary{
     }
 
     /**
-    * Operator overloading of = for the Money class
-    * @param   rhs the money object on the right hand side of the operator   
-    */
-    void Money::operator=(const Money& rhs){
+     * Operator overloading of = for the Money class
+     * @param   rhs the money object on the right hand side of the operator
+     */
+    Money Money::operator=(const Money& rhs){
         if(curr==rhs.curr || rhs.curr.empty()){
             unit=rhs.unit;
             cunit=rhs.cunit;
@@ -110,14 +126,15 @@ namespace monetary{
         }else{
             throw monetaryerror("A specified currency can't be changed.");
         }
+        return *this;
     }
 
     /**
-    * Operator overloading of << for printing for the Money class 
-    * @param   money the object that should be printed 
-    *          out  the outstream used for printing 
-    * @return  the outream that should be printed 
-    */
+     * Operator overloading of << for printing for the Money class
+     * @param   money the object that should be printed
+     *          out  the outstream used for printing
+     * @return  the outream that should be printed
+     */
     std::ostream& operator<<(std::ostream& out, Money const& money){
         if(money.curr == ""){
             if(money.cunit<10){
@@ -134,12 +151,22 @@ namespace monetary{
         }
     }
 
+    std::istream& operator>>(std::istream& in, Money& money){
+        string tmp;
+        int unit;
+        int cunit;
+        in >> money.curr >> std::ws >> money.unit >> money.cunit;
+
+        // Money::checkformat(money);
+        return in;
+    }
+
     /**
-    * Operator overloading of == for the Money class
-    * @param   rhs the money object on the right hand side of the operator   
-    *          lhs the money object on the left hand side of the operator 
-    * @return  true if the objects are equal, false otherwise
-    */
+     * Operator overloading of == for the Money class
+     * @param   rhs the money object on the right hand side of the operator
+     *          lhs the money object on the left hand side of the operator
+     * @return  true if the objects are equal, false otherwise
+     */
     bool operator==(const Money& lhs, const Money& rhs){
         if(lhs.curr==rhs.curr || rhs.curr.empty() || lhs.curr.empty()){
             if(lhs.unit==rhs.unit && lhs.cunit==rhs.cunit){
@@ -153,11 +180,11 @@ namespace monetary{
     }
 
     /**
-    * Operator overloading of < for the Money class
-    * @param   rhs the money object on the right hand side of the operator   
-    *          lhs the money object on the left hand side of the operator
-    * @return  true if the lhs object are smaller then the rhs, false otherwise 
-    */
+     * Operator overloading of < for the Money class
+     * @param   rhs the money object on the right hand side of the operator
+     *          lhs the money object on the left hand side of the operator
+     * @return  true if the lhs object are smaller then the rhs, false otherwise
+     */
     bool operator<(const Money& lhs, const Money& rhs){
         if(lhs.curr==rhs.curr || rhs.curr.empty() || lhs.curr.empty()){
             if(lhs.unit<rhs.unit){
@@ -173,49 +200,49 @@ namespace monetary{
     }
 
     /**
-    * Operator overloading of > for the Money class
-    * @param   rhs the money object on the right hand side of the operator   
-    *          lhs the money object on the left hand side of the operator
-    * @return  true if the lhs object are bigger then the rhs, false otherwise 
-    */
+     * Operator overloading of > for the Money class
+     * @param   rhs the money object on the right hand side of the operator
+     *          lhs the money object on the left hand side of the operator
+     * @return  true if the lhs object is bigger then the rhs, false otherwise
+     */
     bool operator>(const Money& lhs, const Money& rhs){
         return operator<(rhs,lhs);
     }
 
     /**
-    * Operator overloading of <= for the Money class
-    * @param   rhs the money object on the right hand side of the operator   
-    *          lhs the money object on the left hand side of the operator
-    * @return  true if the lhs object are bigger or equal to the rhs, false otherwise 
-    */
+     * Operator overloading of <= for the Money class
+     * @param   rhs the money object on the right hand side of the operator
+     *          lhs the money object on the left hand side of the operator
+     * @return  true if the lhs object is bigger or equal to the rhs, false otherwise
+     */
     bool operator<=(const Money& lhs, const Money& rhs){
         return !operator>(lhs,rhs);
     }
 
     /**
-    * Operator overloading of >= for the Money class
-    * @param   rhs the money object on the right hand side of the operator   
-    *          lhs the money object on the left hand side of the operator
-    * @return  true if the lhs object are smaller or equal to the rhs, false otherwise 
-    */
+     * Operator overloading of >= for the Money class
+     * @param   rhs the money object on the right hand side of the operator
+     *          lhs the money object on the left hand side of the operator
+     * @return  true if the lhs object is smaller or equal to the rhs, false otherwise
+     */
     bool operator>=(const Money& lhs, const Money& rhs){
         return !operator<(lhs,rhs);
     }
 
     /**
-    * Operator overloading of >= for the Money class
-    * @param   rhs the money object on the right hand side of the operator   
-    *          lhs the money object on the left hand side of the operator
-    * @return  true if the lhs objects are not equal, false otherwise 
-    */
+     * Operator overloading of != for the Money class
+     * @param   rhs the money object on the right hand side of the operator
+     *          lhs the money object on the left hand side of the operator
+     * @return  true if the lhs objects is not equal, false otherwise
+     */
     bool operator!=(const Money& lhs, const Money& rhs){
         return !operator==(lhs,rhs);
     }
 
     /**
-    * Operator overloading of ++ for the Money class
-    * @return  the object after 0.01 has been added to it
-    */
+     * Operator overloading of ++ for the Money class
+     * @return  the object after 0.01 has been added to it
+     */
     Money& Money::operator++(){
         cunit+=1;
         if(cunit>=100){
@@ -226,10 +253,10 @@ namespace monetary{
     }
 
     /**
-    * Operator overloading of ++ for the Money class
-    * @param   int 
-    * @return  the object before 0.01 has been added to it
-    */
+     * Operator overloading of ++ for the Money class
+     * @param   int
+     * @return  the object before 0.01 has been added to it
+     */
     Money Money::operator++(int){
         Money tmp{*this};
         operator++();
@@ -237,9 +264,9 @@ namespace monetary{
     }
 
     /**
-    * Operator overloading of --for the Money class
-    * @return  the object after 0.01 has been subtracted from it
-    */
+     * Operator overloading of -- for the Money class
+     * @return  the object after 0.01 has been subtracted from it
+     */
     Money& Money::operator--(){
         cunit-=1;
         if(cunit<0){
@@ -253,10 +280,10 @@ namespace monetary{
     }
 
     /**
-    * Operator overloading of --for the Money class
-    * @param   int 
-    * @return  the object before 0.01 has been removed fro it
-    */
+     * Operator overloading of -- for the Money class
+     * @param   int
+     * @return  the object before 0.01 has been removed from it
+     */
     Money Money::operator--(int){
         Money tmp{*this};
         operator--();
@@ -264,17 +291,17 @@ namespace monetary{
     }
 
     /**
-    * Operator overloading of += for the Money class
-    * @param   rhs the money object on the right hand side of the operator  
-    */
+     * Operator overloading of += for the Money class
+     * @param   rhs the money object on the right hand side of the operator
+     */
     void Money::operator+=(const Money& rhs){
         operator=(operator+(rhs));
     }
 
     /**
-    * Operator overloading of -= for the Money class
-    * @param   rhs the money object on the right hand side of the operator   
-    */
+     * Operator overloading of -= for the Money class
+     * @param   rhs the money object on the right hand side of the operator
+     */
     void Money::operator-=(const Money& rhs){
         operator=(operator-(rhs));
     }
