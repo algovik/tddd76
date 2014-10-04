@@ -34,8 +34,7 @@ int main(){
 
     Money dansk{4,2};
     cout << dansk << endl;
-
-    Money finsk{4,2};
+    Money finsk{4};
     cout << finsk << endl;
 
     cout << "Plussat: " << tysk+fransk << endl;
