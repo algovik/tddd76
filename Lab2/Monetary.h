@@ -1,9 +1,9 @@
 /**
  * Filename: Monetary.h
- * Lab: Lab2 - Klass, operatoröverlagring, undantag
+ * Lab: Lab2 - Classes, operator overloading, exceptions
  * Authors: Andreas Algovik     890718-0031 I5
  *          Elisabeth Hanning   900419-2325 I5
- * Date:031014
+ * Date: 031014
  * The interface declaration file listing all the function
  * that exist in Monetary.cc.
  */
@@ -16,7 +16,7 @@
 namespace monetary{
 
 	/**
- 	* A exception class for hadeling error in regards to the Monetary class.
+ 	* A exception class for errors in regards to the Money class.
  	*/
 	class monetaryerror : public std::logic_error {
 	public:
@@ -28,7 +28,7 @@ namespace monetary{
 	};
 
 	/**
- 	* A class for the objekt Money
+ 	* A class for the object Money
  	*/
 	class Money{
 
@@ -36,8 +36,8 @@ namespace monetary{
 		std::string curr{""};
 		int unit{0};
 		int cunit{0};
-		
-		void checkformat(const Money& money);
+
+		void checkformat();
 
 	public:
 		Money(const std::string s, const int x=0, const int y=0);

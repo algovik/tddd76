@@ -1,9 +1,9 @@
 /**
  * Filename: Monetary.cc
- * Lab: Lab2 - Klass, operatoröverlagring, undantag
+ * Lab: Lab2 - Classes, operator overloading, exceptions
  * Authors: Andreas Algovik     890718-0031 I5
  *          Elisabeth Hanning   900419-2325 I5
- * Date:031014
+ * Date: 031014
  * Description: The implementation file with the sourcecode for
  * the class Money and all function needed to complete Lab2.
  */
@@ -11,6 +11,7 @@
 #include "Monetary.h"
 #include <iostream>
 #include <stdexcept>
+#include <string>
 
 using namespace std;
 
@@ -24,7 +25,7 @@ namespace monetary{
      */
     Money::Money(const string s, const int x, const int y)
         :curr{s}, unit{x}, cunit{y} {
-            checkformat(*this);
+            checkformat();
         }
 
     /**
@@ -34,16 +35,14 @@ namespace monetary{
      */
     Money::Money(const int x, const int y)
         :curr{""}, unit{x}, cunit{y} {
-            checkformat(*this);
+            checkformat();
         }
 
 
     /**
      * A destructor for an object of the class Money
      */
-    Money::~Money(){
-
-    }
+    Money::~Money(){}
 
     /**
      * A member function for printing an object of the class Money
@@ -61,12 +60,16 @@ namespace monetary{
         return curr;
     }
 
-    void Money::checkformat(const Money& money){
-        if(!money.curr.empty() && money.curr.length()!=3){
+    /**
+     * Checks the format of the data in the Money class and throws
+     * exceptions if the format is invalid.
+     */
+    void Money::checkformat(){
+        if(!curr.empty() && curr.length()!=3){
             throw monetaryerror("Bad currency format.");
         }
-        if(money.unit<0 || money.cunit<0 || money.cunit>99){
-            cout << money.unit << "." << money.cunit << endl;
+        if(unit<0 || cunit<0 || cunit>99){
+            cout << unit << "." << cunit << endl;
             throw monetaryerror("Invalid amount.");
         }
     }
@@ -77,7 +80,16 @@ namespace monetary{
      * @return  a Money object whose value has been added
      */
     const Money Money::operator+(const Money& rhs){
-        if(curr==rhs.curr){
+        if(curr==rhs.curr || curr.empty()){
+            int resunit = unit+rhs.unit;
+            int rescunit = cunit+rhs.cunit;
+            if(rescunit>=100){
+                rescunit -= 100;
+                resunit += 1;
+            }
+            Money res{rhs.curr,resunit,rescunit};
+            return res;
+        }else if(rhs.curr.empty()){
             int resunit = unit+rhs.unit;
             int rescunit = cunit+rhs.cunit;
             if(rescunit>=100){
@@ -97,7 +109,16 @@ namespace monetary{
      * @return  a Money object whose value has been subtracted
      */
     const Money Money::operator-(const Money& rhs){
-        if(curr==rhs.curr){
+        if(curr==rhs.curr || curr.empty()){
+            int resunit = unit-rhs.unit;
+            int rescunit = cunit-rhs.cunit;
+            if(rescunit<0){
+                rescunit += 100;
+                resunit -= 1;
+            }
+            Money res{rhs.curr,resunit,rescunit};
+            return res;
+        }else if(rhs.curr.empty()){
             int resunit = unit-rhs.unit;
             int rescunit = cunit-rhs.cunit;
             if(rescunit<0){
@@ -131,8 +152,8 @@ namespace monetary{
 
     /**
      * Operator overloading of << for printing for the Money class
-     * @param   money the object that should be printed
-     *          out  the outstream used for printing
+     * @param   out   the outstream used for printing
+     *          money the object that should be printed
      * @return  the outream that should be printed
      */
     std::ostream& operator<<(std::ostream& out, Money const& money){
@@ -151,13 +172,39 @@ namespace monetary{
         }
     }
 
+    /**
+     * Operator overloading of >> for reading Money class objects
+     * @param   in      the instream read from
+     *          money   the object in which to save the data
+     * @return  the instream from which is being reaa
+     */
     std::istream& operator>>(std::istream& in, Money& money){
-        string tmp;
-        int unit;
-        int cunit;
-        in >> money.curr >> std::ws >> money.unit >> money.cunit;
+        string curr = "";
+        int unit = 0;
+        int cunit = 0;
+        bool b = false;
+        char c;
 
-        // Money::checkformat(money);
+        while(in.peek() != '\n'){
+
+            c = in.peek();
+
+            if(c==' ' || c=='.'){
+                in.get();
+            }else if(isalpha(c)){
+                in >> curr;
+            }else if(isdigit(c) && b){
+                in >> cunit;
+                break;
+            }else if(isdigit(c)){
+                in >> unit;
+                b= true;
+            }else{
+                throw monetaryerror("Bad input.");
+            }
+        }
+        money.curr=curr; money.unit=unit; money.cunit=cunit;
+        money.checkformat();
         return in;
     }
 

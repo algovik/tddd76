@@ -1,9 +1,9 @@
 /**
  * Filename: lab2.cc
- * Lab: Lab 1 - Imperative programming
+ * Lab: Lab2 - Classes, operator overloading, exceptions
  * Authors: Andreas Algovik     890718-0031 I5
  *          Elisabeth Hanning   900419-2325 I5
- * Date:031014
+ * Date: 031014
  * Description: A test program for objects of the
  * class Money as part of Lab2.
  */
@@ -12,29 +12,30 @@
 #include "Monetary.h"
 
 using namespace std;
+using namespace monetary;
 
 int main(){
 
-    monetary::Money def;
+    Money def;
     def.print(cout);
 
-    monetary::Money svensk{"SEK"};
+    Money svensk{"SEK"};
     svensk.print(cout);
 
-    monetary::Money tysk{"EUR",6,20};
+    Money tysk{"EUR",6,20};
     tysk.print(cout);
 
 
-    monetary::Money fransk{"EUR",3,99};
+    Money fransk{"EUR",3,99};
     cout << fransk << endl;
 
-    monetary::Money fransk2{fransk};
+    Money fransk2{fransk};
     cout << "fransk2: " << fransk2 << endl;
 
-    monetary::Money dansk{4,2};
+    Money dansk{4,2};
     cout << dansk << endl;
 
-    monetary::Money finsk{4,2};
+    Money finsk{4,2};
     cout << finsk << endl;
 
     cout << "Plussat: " << tysk+fransk << endl;
@@ -43,11 +44,11 @@ int main(){
     string valuta{svensk.currency()};
     cout << valuta << endl;
 
-    monetary::Money spansk=tysk=fransk;
+    Money spansk=tysk=fransk;
     cout << "Tysk: " << tysk << " Spansk: " << spansk << " Fransk: " << fransk << endl;
 
-    if(fransk < tysk){cout << "Frankrike är sämst!" << endl;}
-    if(dansk < finsk){cout << "Finland kan inte dricka!" << endl;}
+    if(fransk <= tysk){cout << "Frankrike är mindre än Tyskland." << endl;}
+    if(dansk > finsk){cout << "Danmark är större än Finland." << endl;}
 
     cout << ++fransk << endl;
     fransk.print(cout);
@@ -64,7 +65,9 @@ int main(){
     tysk -= fransk;
     cout << tysk << endl;
 
-    monetary::Money x;
+
+    cout << "Skriv in en valuta: ";
+    Money x;
     cin >> x;
     x.print(cout);
 
