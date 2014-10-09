@@ -13,30 +13,30 @@ int main()
 
    Expression_Tree* t1{ new Plus{ new Integer{7}, new Real{3.14} } };
 
-   try
-   {
-      cout << "t1->evaluate() = " << t1->evaluate() << '\n';
-   }
-   catch (const exception& e)
-   {
-      cout << "Undantag fångat: " << e.what() << '\n';
-   }
-
-   cout << "t1->get_postfix() = " << t1->get_postfix() << '\n';
-   cout << "t1->str() = " << t1->str() << "\n\n";
-
-   Expression_Tree* t2{ ct1->clone() };
-
-   try
-   {
-      cout << "t2->evaluate() = " << t2->evaluate() << '\n';
-   }
-   catch (const exception& e)
-   {
-      cout << "Undantag fångat: " << e.what() << '\n';
-   }
-   cout << "t2->get_postfix() = " << t2->get_postfix() << '\n';
-   cout << "t2->str() = " << t2->str() << "\n\n";
+   // try
+   // {
+   //    cout << "t1->evaluate() = " << t1->evaluate() << '\n';
+   // }
+   // catch (const exception& e)
+   // {
+   //    cout << "Undantag fångat: " << e.what() << '\n';
+   // }
+   //
+   // cout << "t1->get_postfix() = " << t1->get_postfix() << '\n';
+   // cout << "t1->str() = " << t1->str() << "\n\n";
+   //
+   // Expression_Tree* t2{ ct1->clone() };
+   //
+   // try
+   // {
+   //    cout << "t2->evaluate() = " << t2->evaluate() << '\n';
+   // }
+   // catch (const exception& e)
+   // {
+   //    cout << "Undantag fångat: " << e.what() << '\n';
+   // }
+   // cout << "t2->get_postfix() = " << t2->get_postfix() << '\n';
+   // cout << "t2->str() = " << t2->str() << "\n\n";
 
    return 0;
 }

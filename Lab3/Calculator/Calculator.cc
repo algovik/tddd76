@@ -106,7 +106,7 @@ execute_command()
    else if (command_ == 'S')
       cout << "Kalkylatorn avlutas, välkommen åter!\n";
    else
-      cout << "Detta ska inte h�nda!\n";
+      cout << "Detta ska inte hända!\n";
 }
 
 /**
