@@ -44,11 +44,11 @@ namespace monetary{
 		Money(const int x=0, const int y=0);
 		~Money();
 		std::string currency();
-		void print(std::ostream& out);
-		friend std::ostream& operator<<(std::ostream& out, Money const& money);
+		void print(std::ostream& out) const;
+		friend std::ostream& operator<<(std::ostream& out, const Money& money);
 		friend std::istream& operator>>(std::istream& in, Money& money);
-		const Money operator+(const Money& rhs);
-		const Money operator-(const Money& rhs);
+		Money operator+(const Money& rhs);
+		Money operator-(const Money& rhs);
 		Money operator=(const Money& rhs);
 		friend bool operator==(const Money& lhs, const Money& rhs);
 		friend bool operator<(const Money& lhs, const Money& rhs);

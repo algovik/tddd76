@@ -12,6 +12,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <string>
+#include <cmath>
 
 using namespace std;
 
@@ -48,8 +49,20 @@ namespace monetary{
      * A member function for printing an object of the class Money
      * @param   out  The outstream used for printing
      */
-    void Money::print(ostream& out){
-        out << *this << endl;
+    void Money::print(ostream& out) const{
+        if(curr == ""){
+            if(cunit<10){
+                out << unit << ".0" << cunit;
+            }else{
+                out << unit << "." << cunit;
+            }
+        }else{
+            if(cunit<10){
+                out << curr << " " << unit << ".0" << cunit;
+            }else{
+                out << curr << " " << unit << "." << cunit;
+            }
+        }
     }
 
     /**
@@ -79,28 +92,25 @@ namespace monetary{
      * @param   rhs the money object on the right hand side of the operator
      * @return  a Money object whose value has been added
      */
-    const Money Money::operator+(const Money& rhs){
+    Money Money::operator+(const Money& rhs){
+        int resunit, rescunit;
+        string rescurr;
+
         if(curr==rhs.curr || curr.empty()){
-            int resunit = unit+rhs.unit;
-            int rescunit = cunit+rhs.cunit;
-            if(rescunit>=100){
-                rescunit -= 100;
-                resunit += 1;
-            }
-            Money res{rhs.curr,resunit,rescunit};
-            return res;
+            rescurr = rhs.curr;
         }else if(rhs.curr.empty()){
-            int resunit = unit+rhs.unit;
-            int rescunit = cunit+rhs.cunit;
-            if(rescunit>=100){
-                rescunit -= 100;
-                resunit += 1;
-            }
-            Money res{curr,resunit,rescunit};
-            return res;
+            rescurr = curr;
         }else{
             throw monetaryerror("Can't add two different currencies.");
         }
+        resunit = unit+rhs.unit;
+        rescunit = cunit+rhs.cunit;
+        if(rescunit>=100){
+            rescunit -= 100;
+            resunit += 1;
+        }
+        Money res{rescurr,resunit,rescunit};
+        return res;
     }
 
     /**
@@ -108,28 +118,29 @@ namespace monetary{
      * @param   rhs the money object on the right hand side of the operator
      * @return  a Money object whose value has been subtracted
      */
-    const Money Money::operator-(const Money& rhs){
+    Money Money::operator-(const Money& rhs){
+        int resunit, rescunit;
+        string rescurr;
+
         if(curr==rhs.curr || curr.empty()){
-            int resunit = unit-rhs.unit;
-            int rescunit = cunit-rhs.cunit;
-            if(rescunit<0){
-                rescunit += 100;
-                resunit -= 1;
-            }
-            Money res{rhs.curr,resunit,rescunit};
-            return res;
+            rescurr = rhs.curr;
         }else if(rhs.curr.empty()){
-            int resunit = unit-rhs.unit;
-            int rescunit = cunit-rhs.cunit;
-            if(rescunit<0){
-                rescunit += 100;
-                resunit -= 1;
-            }
-            Money res{curr,resunit,rescunit};
-            return res;
+            rescurr = curr;
         }else{
             throw monetaryerror("Can't subtract two different currencies.");
         }
+        resunit = unit-rhs.unit;
+        rescunit = cunit-rhs.cunit;
+        if(rescunit<0){
+            rescunit += 100;
+            resunit -= 1;
+        }
+        // if(resunit<0){
+        //     throw monetaryerror("The resulting value can't be negative.");
+        // }
+
+        Money res{rescurr,resunit,rescunit}; //Sign of result is controlled at initiation
+        return res;
     }
 
     /**
@@ -157,19 +168,8 @@ namespace monetary{
      * @return  the outream that should be printed
      */
     std::ostream& operator<<(std::ostream& out, Money const& money){
-        if(money.curr == ""){
-            if(money.cunit<10){
-                return out << money.unit << ".0" << money.cunit;
-            }else{
-                return out << money.unit << "." << money.cunit;
-            }
-        }else{
-            if(money.cunit<10){
-                return out << money.curr << " " << money.unit << ".0" << money.cunit;
-            }else{
-                return out << money.curr << " " << money.unit << "." << money.cunit;
-            }
-        }
+        money.print(out);
+        return out;
     }
 
     /**
@@ -182,10 +182,11 @@ namespace monetary{
         string curr = "";
         int unit = 0;
         int cunit = 0;
+        double cunit2 = 0;
         bool b = false;
         char c;
 
-        while(in.peek() != '\n'){
+        while(in){
 
             c = in.peek();
 
@@ -193,12 +194,26 @@ namespace monetary{
                 in.get();
             }else if(isalpha(c)){
                 in >> curr;
-            }else if(isdigit(c) && b){
-                in >> cunit;
-                break;
+            // }else if(isdigit(c) && b){
+            //     in >> cunit;
+            //     if(c!='0' && cunit<10){
+            //         cunit = cunit*10;
+            //     }else if(cunit>99){
+            //         throw monetaryerror("Bad input.");
+            //     }
+            //     break;
+            // }else if(b){
+            //     break;
             }else if(isdigit(c)){
-                in >> unit;
-                b= true;
+                in >> cunit2;
+                // b = true;
+                cout << "cunit2: " << cunit2 << endl;
+                unit = floor(cunit2);
+                cout << "unit: " << unit << endl;
+                cout << "res: " << (cunit2-unit)*10 << endl;
+                cunit = (cunit2-unit)*100;
+                cout << "cunit: " << cunit << endl;
+                break;
             }else{
                 throw monetaryerror("Bad input.");
             }
