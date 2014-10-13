@@ -205,14 +205,16 @@ namespace monetary{
             // }else if(b){
             //     break;
             }else if(isdigit(c)){
+
                 in >> cunit2;
-                // b = true;
-                cout << "cunit2: " << cunit2 << endl;
                 unit = floor(cunit2);
-                cout << "unit: " << unit << endl;
-                cout << "res: " << (cunit2-unit)*10 << endl;
-                cunit = (cunit2-unit)*100;
-                cout << "cunit: " << cunit << endl;
+                float f = (cunit2-unit)*100;
+                cunit = round((cunit2-unit)*100);
+                   
+                if((f- cunit)>0){
+                    throw monetaryerror("To many decimals");
+                }
+
                 break;
             }else{
                 throw monetaryerror("Bad input.");
