@@ -182,9 +182,10 @@ namespace monetary{
         string curr = "";
         int unit = 0;
         int cunit = 0;
-        double cunit2 = 0;
-        bool b = false;
+        string temp;
         char c;
+        bool b= false;
+        int decimal = 0;
 
         while(in){
 
@@ -193,29 +194,37 @@ namespace monetary{
             if(c==' ' || c=='.'){
                 in.get();
             }else if(isalpha(c)){
+
                 in >> curr;
-            // }else if(isdigit(c) && b){
-            //     in >> cunit;
-            //     if(c!='0' && cunit<10){
-            //         cunit = cunit*10;
-            //     }else if(cunit>99){
-            //         throw monetaryerror("Bad input.");
-            //     }
-            //     break;
-            // }else if(b){
-            //     break;
+        
             }else if(isdigit(c)){
 
-                in >> cunit2;
-                unit = floor(cunit2);
-                float f = (cunit2-unit)*100;
-                cunit = round((cunit2-unit)*100);
+                in >> temp;
 
-                if((f-cunit)>0){
-                    throw monetaryerror("To many decimals.");
+                int j= temp.length();
+
+                for(int i = 0; i < j; ++i) { 
+                    if(temp[i]=='.'){
+                        b = true;
+                        decimal = i;
+                    }
                 }
-
+               
+                
+                if(b && (temp.length()-decimal > 3)){
+                     throw monetaryerror("To many decimals.");
+                }else if(b){
+                    unit = stoi(temp.substr(0,decimal));
+                    if(temp.length()-decimal<=2){
+                        cunit=stoi(temp.substr((decimal+1),(temp.length()-1)))*10;
+                    }else{
+                        cunit=stoi(temp.substr((decimal+1),(temp.length()-1)));
+                    }    
+                }else{
+                    unit = stoi(temp.substr(0,temp.length()));
+                }         
                 break;
+
             }else{
                 throw monetaryerror("Bad input.");
             }
