@@ -9,9 +9,9 @@ Binary_Operator::Binary_Operator(Expression_Tree* l, Expression_Tree* r) : left{
 
 }
 
-// Operand::Operand(long double val) : value{val}{
-//
-// }
+Operand::Operand(long double val) : value{val}{
+
+}
 
 Integer::Integer(int val) : value{val}{
 

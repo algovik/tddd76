@@ -51,8 +51,8 @@ class Operand : public Expression_Tree
 private:
     long double value;
 public:
-    // Operand(long double val);
-    Operand() = default;
+    Operand(long double val);
+    // Operand() = default;
     long double evaluate() const override;
     // std::string get_postfix();
     // std::string str();
@@ -100,8 +100,7 @@ public:
 
 class Real : public Operand
 {
-private:
-    long double value;
+
 };
 
 // class Variable : public Operand

@@ -210,9 +210,9 @@ namespace monetary{
                 unit = floor(cunit2);
                 float f = (cunit2-unit)*100;
                 cunit = round((cunit2-unit)*100);
-                   
-                if((f- cunit)>0){
-                    throw monetaryerror("To many decimals");
+
+                if((f-cunit)>0){
+                    throw monetaryerror("To many decimals.");
                 }
 
                 break;
