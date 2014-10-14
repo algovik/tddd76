@@ -2,6 +2,7 @@
  * Expression_Tree.cc
  */
 #include "Expression_Tree.h"
+#include <iostream>
 // INKLUDERA FÖR DET SOM KOMMER ATT ANVÄNDAS I DENNA FIL!
 using namespace std;
 
@@ -19,8 +20,12 @@ Integer::Integer(int val) : value{val}{
 
 }
 
-long double Integer::evaluate(){
+long double Integer::evaluate() const {
     return (long double) value;
+}
+
+void Integer::print(std::ostream& out) const {
+    out << value << endl;
 }
 
 Real::Real(long double val) : value{val}{
@@ -31,9 +36,12 @@ long double Real::evalute(){
     return value;
 }
 
-
-long double Plus::evaluate() {
+long double Plus::evaluate() const {
     return right->evaluate()+left->evaluate();
+}
+
+void Plus::print(std::ostream& out) const {
+    out << left << " + " << right << endl;
 }
 
 // Minus::evaluate(){

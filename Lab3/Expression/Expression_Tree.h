@@ -6,7 +6,7 @@
 #include <iosfwd>
 #include <string>
 #include <stdexcept>
-
+#include <iostream>
 /*
  * expression_error: kastas om ett fel inträffar i en Expression-operation;
  * ett diagnostiskt meddelande ska skickas med.
@@ -23,7 +23,7 @@ public:
    virtual long double      evaluate() const = 0;
    // virtual std::string      get_postfix() const = 0;
    // virtual std::string      str() const = 0;
-   // virtual void             print(std::ostream&) const = 0;
+   virtual void             print(std::ostream&) const = 0;
    // virtual Expression_Tree* clone() const = 0;
 };
 
@@ -35,10 +35,10 @@ private:
     Expression_Tree* right;
 public:
     Binary_Operator(Expression_Tree* l, Expression_Tree* r);
-    virtual long double evaluate() const;
+    //virtual long double evaluate() const;
     // std::string get_postfix();
     // std::string str();
-    // void print(std::ostream& out);
+    //virtual void print(std::ostream& out) const;
     // Expression_Tree* clone();
 
 };
@@ -48,10 +48,10 @@ class Operand : public Expression_Tree
 public:
     // Operand(long double val);
     // Operand() = default;
-    virtual long double evaluate() const;
+    //virtual long double evaluate() const;
     // std::string get_postfix();
     // std::string str();
-    // void print(std::ostream& out);
+    //virtual void print(std::ostream& out) const;
     // Expression_Tree* clone();
 };
 
@@ -66,7 +66,8 @@ private:
     Expression_Tree* right;
 public:
     using Binary_Operator::Binary_Operator;
-    long double evaluate();
+    long double evaluate() const override;
+    void print(std::ostream& out) const override;
 };
 
 // class Minus : public Binary_Operator
@@ -95,8 +96,8 @@ private:
     int value;
 public:
     Integer(const int val);
-    virtual long double evaluate();
-
+    long double evaluate() const override;
+    void print(std::ostream& out) const override;
 };
 
 class Real : public Operand
@@ -105,7 +106,7 @@ private:
     long double value;
 public:
     Real(const long double val);
-    virtual long double evalute();
+    long double evalute();
 };
 
 // class Variable : public Operand
