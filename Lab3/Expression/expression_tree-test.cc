@@ -11,7 +11,7 @@ int main()
    // Ska inte vara möjligt - Expression_Tree ska vara abstrakt:
    // Expression_Tree* t0{new Expression_Tree};
 
-   Expression_Tree* t1{ new Plus{ new Integer{7}, new Real{3.14} } };
+   Expression_Tree* t1{ new Plus{ new Integer{7}, new Integer{3} } };
 
    // try
    // {

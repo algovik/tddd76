@@ -2,7 +2,7 @@
 # Makefile för att kompilera Expression_Tree med g++
 #
 CCC = g++
-CCFLAGS += -g -std=c++11 -std=c++11 -Wpedantic -Wall -Wextra #-Werror
+CCFLAGS += -g -std=c++11 -std=c++11 -Wpedantic -Wall -Wextra -Werror
 # LDFLAGS += -L/sw/gcc-${GCC4_V}/lib -static-libstdc++
 
 expression_tree-test: expression_tree-test.o Expression_Tree.o

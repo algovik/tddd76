@@ -5,24 +5,35 @@
 // INKLUDERA FÖR DET SOM KOMMER ATT ANVÄNDAS I DENNA FIL!
 using namespace std;
 
-Binary_Operator::Binary_Operator(Expression_Tree* l, Expression_Tree* r) : left{l}, right{r}{
+Binary_Operator::Binary_Operator(Expression_Tree* l, Expression_Tree* r)
+    :left(l), right(r) {
 
 }
 
-Operand::Operand(long double val) : value{val}{
-
-}
+// Operand::Operand(long double val)
+//     :value{val}{
+//
+// }
 
 Integer::Integer(int val) : value{val}{
 
 }
 
-long double Operand::evaluate(){
+long double Integer::evaluate(){
     return (long double) value;
 }
 
-long double Plus::evaluate(){
-    return right.evaluate()+left.evaluate();
+Real::Real(long double val) : value{val}{
+
+}
+
+long double Real::evalute(){
+    return value;
+}
+
+
+long double Plus::evaluate() {
+    return right->evaluate()+left->evaluate();
 }
 
 // Minus::evaluate(){

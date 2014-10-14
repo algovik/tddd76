@@ -8,12 +8,10 @@
 #include <stdexcept>
 
 /*
- * expression_error: kastas om ett fel intr�ffar i en Expression-operation;
+ * expression_error: kastas om ett fel inträffar i en Expression-operation;
  * ett diagnostiskt meddelande ska skickas med.
  */
 // ATT GÖRA!
-
-
 // OBSERVERA: NEDANSTÅENDE ÄR ENDAST KODSKELETT - MODIFIERA OCH KOMPLETTERA!
 
 /*
@@ -35,10 +33,9 @@ class Binary_Operator : public Expression_Tree
 private:
     Expression_Tree* left;
     Expression_Tree* right;
-
 public:
     Binary_Operator(Expression_Tree* l, Expression_Tree* r);
-    virtual long double evaluate() const override;
+    virtual long double evaluate() const;
     // std::string get_postfix();
     // std::string str();
     // void print(std::ostream& out);
@@ -48,12 +45,10 @@ public:
 
 class Operand : public Expression_Tree
 {
-private:
-    long double value;
 public:
-    Operand(long double val);
+    // Operand(long double val);
     // Operand() = default;
-    long double evaluate() const override;
+    virtual long double evaluate() const;
     // std::string get_postfix();
     // std::string str();
     // void print(std::ostream& out);
@@ -66,41 +61,51 @@ class Assign : public Binary_Operator
 
 class Plus : public Binary_Operator
 {
-    long double evaluate() const override;
+private:
+    Expression_Tree* left;
+    Expression_Tree* right;
+public:
+    using Binary_Operator::Binary_Operator;
+    long double evaluate();
 };
 
-class Minus : public Binary_Operator
-{
-    // long double evaluate() override;
-};
-
-class Times : public Binary_Operator
-{
-    // long double evaluate() override;
-};
-
-class Divide : public Binary_Operator
-{
-    // long double evaluate() override;
-};
-
-class Power: public Binary_Operator
-{
-    // long double evaluate() override;
-};
+// class Minus : public Binary_Operator
+// {
+//     long double evaluate() override;
+// };
+//
+// class Times : public Binary_Operator
+// {
+//     long double evaluate() override;
+// };
+//
+// class Divide : public Binary_Operator
+// {
+//     long double evaluate() override;
+// };
+//
+// class Power: public Binary_Operator
+// {
+//     long double evaluate() override;
+// };
 
 class Integer : public Operand
 {
 private:
     int value;
-
 public:
-    Integer(int val);
+    Integer(const int val);
+    virtual long double evaluate();
+
 };
 
 class Real : public Operand
 {
-
+private:
+    long double value;
+public:
+    Real(const long double val);
+    virtual long double evalute();
 };
 
 // class Variable : public Operand
