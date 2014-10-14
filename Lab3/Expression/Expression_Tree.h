@@ -35,12 +35,14 @@ protected:
     Expression_Tree* right;
     const char c;       
 public:
+
     Binary_Operator(Expression_Tree* l, Expression_Tree* r);
     std::string get_postfix() const override;
     //virtual long double evaluate() const;
+
     // std::string get_postfix();
     // std::string str();
-    //virtual void print(std::ostream& out) const;
+    virtual void print(std::ostream& out) const override;
     // Expression_Tree* clone();
 
 };
@@ -48,12 +50,9 @@ public:
 class Operand : public Expression_Tree
 {
 public:
-    // Operand(long double val);
-    // Operand() = default;
-    //virtual long double evaluate() const;
     // std::string get_postfix();
     // std::string str();
-    //virtual void print(std::ostream& out) const;
+    virtual void print(std::ostream& out) const;
     // Expression_Tree* clone();
 };
 
@@ -65,28 +64,36 @@ class Plus : public Binary_Operator
 {
 public:
     using Binary_Operator::Binary_Operator;
+
+    // OBS!!!!!!!!!!!!!!!!!
+    // Plus(Expression_Tree*, Expression_Tree*) : Binary_Operator(left, right)
     long double evaluate() const override;
-    void print(std::ostream& out) const override;
+    // void print(std::ostream&) const override;
 };
 
-// class Minus : public Binary_Operator
-// {
-//     long double evaluate() override;
-// };
-//
-// class Times : public Binary_Operator
-// {
-//     long double evaluate() override;
-// };
-//
-// class Divide : public Binary_Operator
-// {
-//     long double evaluate() override;
-// };
+class Minus : public Binary_Operator
+{
+public:
+    using Binary_Operator::Binary_Operator;
+    long double evaluate() const override;
+    // void print(std::ostream&) const override;
+};
+
+class Times : public Binary_Operator
+{
+    using Binary_Operator::Binary_Operator;
+    long double evaluate() const override;
+};
+
+class Divide : public Binary_Operator
+{
+    using Binary_Operator::Binary_Operator;
+    long double evaluate() const override;
+};
 //
 // class Power: public Binary_Operator
 // {
-//     long double evaluate() override;
+//     long double evaluate() const override;
 // };
 
 class Integer : public Operand
@@ -94,10 +101,9 @@ class Integer : public Operand
 private:
     int value;
 public:
-    Integer(const int val);
+    Integer(const int);
     long double evaluate() const override;
-    void print(std::ostream& out) const override;
-
+    // void print(std::ostream&) const override;
 };
 
 class Real : public Operand
@@ -105,8 +111,9 @@ class Real : public Operand
 private:
     long double value;
 public:
-    Real(const long double val);
-    long double evalute();
+    Real(const long double);
+    long double evaluate() const override;
+    // void print(std::ostream&) const override;
 };
 
 // class Variable : public Operand
