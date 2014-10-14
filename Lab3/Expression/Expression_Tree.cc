@@ -3,24 +3,18 @@
  */
 #include "Expression_Tree.h"
 #include <iostream>
+
 // INKLUDERA FÖR DET SOM KOMMER ATT ANVÄNDAS I DENNA FIL!
 using namespace std;
 
-Binary_Operator::Binary_Operator(Expression_Tree* l, Expression_Tree* r)
-    :left(l), right(r) {
+Binary_Operator::Binary_Operator(Expression_Tree* left, Expression_Tree* right)
+    :left(left), right(right) {
 
 }
-
-
-//OBS!!!!!!!!!!
-// Plus::Plus(Expression_Tree*, Expression_Tree*) : Binary_Operator{left, right} {
-//     c_rep = '+';
-// }
 
 void Binary_Operator::print(std::ostream& out) const {
     out << "Binary_Operator tree" << endl;
 }
-
 
 void Operand::print(std::ostream& out) const {
     out << "Operand tree" << endl;
@@ -30,8 +24,13 @@ Integer::Integer(int val) : value{val}{
 
 }
 
-std::string get_postfix() const {
-	return left + " " + right + " " + c; 
+std::string Binary_Operator::get_postfix() const {
+	
+	return  "hej" ;//string(left->evaluate() + " " + right->evaluate() + " " + c_rep); få double till sträng?
+}
+
+std::string Binary_Operator::str() const{
+	return "skit"; //string(c_rep);
 }
 
 long double Integer::evaluate() const {

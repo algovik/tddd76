@@ -28,7 +28,6 @@ int main()
    Expression_Tree* t1{ new Plus{ new Integer{7}, new Integer{3} } };
    cout << t1->evaluate() << endl;
 
-
    // try
    // {
    //    cout << "t1->evaluate() = " << t1->evaluate() << '\n';
