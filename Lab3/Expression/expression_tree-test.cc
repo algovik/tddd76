@@ -10,11 +10,12 @@ int main()
 {
    // Ska inte vara möjligt - Expression_Tree ska vara abstrakt:
    // Expression_Tree* t0{new Expression_Tree};
-   Integer* t0{ new Integer{10} };
+   Expression_Tree* t0{ new Integer{10} };
    t0->print(cout);
    Expression_Tree* t1{ new Plus{ new Integer{7}, new Integer{3} } };
-
    t1->print(cout);
+   cout << t1->evaluate() << endl;
+   
 
    // try
    // {

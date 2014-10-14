@@ -36,13 +36,12 @@ long double Real::evalute(){
     return value;
 }
 
-
 long double Plus::evaluate() const {
     return right->evaluate()+left->evaluate();
 }
 
 void Plus::print(std::ostream& out) const {
-    out << left << " + " << right << endl;
+    out << left->evaluate() << " + " << right->evaluate() << endl;
 }
 
 // Minus::evaluate(){

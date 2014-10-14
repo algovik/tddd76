@@ -30,7 +30,7 @@ public:
 class Binary_Operator : public Expression_Tree
 {
 
-private:
+protected:
     Expression_Tree* left;
     Expression_Tree* right;
 public:
@@ -61,9 +61,6 @@ class Assign : public Binary_Operator
 
 class Plus : public Binary_Operator
 {
-private:
-    Expression_Tree* left;
-    Expression_Tree* right;
 public:
     using Binary_Operator::Binary_Operator;
     long double evaluate() const override;
