@@ -4,12 +4,30 @@
 #include "Expression_Tree.h"
 #include <iostream>
 #include <stdexcept>
+
 using namespace std;
 
-int main()
-{
+int main(){
+
    // Ska inte vara möjligt - Expression_Tree ska vara abstrakt:
    // Expression_Tree* t0{new Expression_Tree};
+
+
+   // (5 + ((1 + 2) × 4) − 3 can be written down like this in RPN:
+   // 5 1 2 + 4 × + 3 −
+   Expression_Tree* s1{new Integer{1} };
+   Expression_Tree* s2{new Integer{2} };
+   Expression_Tree* s3{new Integer{3} };
+   Expression_Tree* s4{new Integer{4} };
+   Expression_Tree* s5{new Integer{5} };
+
+   Expression_Tree* p1{new Plus{s1,s2}};
+   Expression_Tree* p2{new Times{p1,s4}};
+   Expression_Tree* p3{new Plus{s5,p2}};
+   Expression_Tree* p4{new Minus{p3,s3}};
+   cout << p4->get_postfix() << endl;
+
+
    Expression_Tree* t0{ new Integer{10} };
    Expression_Tree* t2{ new Real{10.24} };
 
@@ -27,6 +45,15 @@ int main()
 
    Expression_Tree* t1{ new Plus{ new Integer{7}, new Integer{3} } };
    cout << t1->evaluate() << endl;
+
+   cout << t0->str() << endl;
+   cout << t1->str() << endl;
+
+   Expression_Tree* t7{ new Plus{t4,t5}};
+
+   cout << t7->get_postfix() << endl;
+
+   cout << t1->get_postfix() << endl;
 
    // try
    // {
