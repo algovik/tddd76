@@ -21,7 +21,7 @@ class Expression_Tree
 {
 public:
    virtual long double      evaluate() const = 0;
-   // virtual std::string      get_postfix() const = 0;
+    virtual std::string      get_postfix() const = 0;
    // virtual std::string      str() const = 0;
    virtual void             print(std::ostream&) const = 0;
    // virtual Expression_Tree* clone() const = 0;
@@ -33,8 +33,10 @@ class Binary_Operator : public Expression_Tree
 protected:
     Expression_Tree* left;
     Expression_Tree* right;
+    const char c;       
 public:
     Binary_Operator(Expression_Tree* l, Expression_Tree* r);
+    std::string get_postfix() const override;
     //virtual long double evaluate() const;
     // std::string get_postfix();
     // std::string str();

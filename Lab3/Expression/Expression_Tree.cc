@@ -20,6 +20,10 @@ Integer::Integer(int val) : value{val}{
 
 }
 
+std::string get_postfix() const {
+	return left + " " + right + " " + c; 
+}
+
 long double Integer::evaluate() const {
     return (long double) value;
 }
