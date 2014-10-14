@@ -41,7 +41,7 @@ long double Plus::evaluate() const {
 }
 
 void Plus::print(std::ostream& out) const {
-    out << left << " + " << right << endl;
+    out << left->evaluate() << " + " << right->evaluate() << endl;
 }
 
 // Minus::evaluate(){
