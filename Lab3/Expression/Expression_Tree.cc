@@ -11,10 +11,20 @@ Binary_Operator::Binary_Operator(Expression_Tree* l, Expression_Tree* r)
 
 }
 
-// Operand::Operand(long double val)
-//     :value{val}{
-//
+
+//OBS!!!!!!!!!!
+// Plus::Plus(Expression_Tree*, Expression_Tree*) : Binary_Operator{left, right} {
+//     c_rep = '+';
 // }
+
+void Binary_Operator::print(std::ostream& out) const {
+    out << "Binary_Operator tree" << endl;
+}
+
+
+void Operand::print(std::ostream& out) const {
+    out << "Operand tree" << endl;
+}
 
 Integer::Integer(int val) : value{val}{
 
@@ -24,34 +34,42 @@ long double Integer::evaluate() const {
     return (long double) value;
 }
 
-void Integer::print(std::ostream& out) const {
-    out << value << endl;
-}
+// void Integer::print(std::ostream& out) const {
+//     out << value << endl;
+// }
 
 Real::Real(long double val) : value{val}{
 
 }
 
-long double Real::evalute(){
+long double Real::evaluate() const {
     return value;
 }
 
+// void Real::print(std::ostream& out) const {
+//     out << value << endl;
+// }
+
 long double Plus::evaluate() const {
-    return right->evaluate()+left->evaluate();
+    return left->evaluate()+right->evaluate();
 }
 
-void Plus::print(std::ostream& out) const {
-    out << left->evaluate() << " + " << right->evaluate() << endl;
+// void Plus::print(std::ostream& out) const {
+//     out << left->evaluate() << " + " << right->evaluate() << endl;
+// }
+
+long double Minus::evaluate() const {
+    return left->evaluate()-right->evaluate();
 }
 
-// Minus::evaluate(){
-//     return right.evaluate()-left.evaluate();
+// void Minus::print(std::ostream& out) const {
+//     out << left->evaluate() << " - " << right->evaluate() << endl;
 // }
-//
-// Times::evaluate(){
-//     return right.evaluate()*left.evaluate();
-// }
-//
-// Divide::evaluate(){
-//     return right.evaluate()/left.evaluate();
-// }
+
+long double Times::evaluate() const {
+    return left->evaluate()*right->evaluate();
+}
+
+long double Divide::evaluate() const {
+    return left->evaluate()/right->evaluate();
+}
