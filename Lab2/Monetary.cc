@@ -13,6 +13,7 @@
 #include <stdexcept>
 #include <string>
 #include <cmath>
+#include <sstream>
 
 using namespace std;
 
@@ -179,56 +180,72 @@ namespace monetary{
      * @return  the instream from which is being reaa
      */
     std::istream& operator>>(std::istream& in, Money& money){
-        string curr = "";
-        int unit = 0;
-        int cunit = 0;
-        string temp;
+        std::string curr;
+        char buf[3];
+        char decimal[2];
         char c;
-        bool b= false;
-        int decimal = 0;
+        int unit=0;
+        int cunit=0;
+        std::stringstream ss;
 
-        while(in){
+        in>>ws;
 
+        c = in.peek();
+
+        if(isalpha(c)){
+            in.get(buf, 4);
+            curr = buf;
+            in>>ws;
             c = in.peek();
 
-            if(c==' ' || c=='.'){
-                in.get();
-            }else if(isalpha(c)){
+            if(isdigit(c)){
+                in >> unit;
+                c = in.peek();
 
-                in >> curr;
-        
-            }else if(isdigit(c)){
+                if(c=='.'){
+                    c = in.get(); 
+                    c = in.peek();   
+                    if(isdigit(c)){
+                        in.get(decimal,3);
+                        cunit=atoi(decimal);
 
-                in >> temp;
-
-                int j= temp.length();
-
-                for(int i = 0; i < j; ++i) { 
-                    if(temp[i]=='.'){
-                        b = true;
-                        decimal = i;
-                    }
-                }
-               
-                
-                if(b && (temp.length()-decimal > 3)){
-                     throw monetaryerror("To many decimals.");
-                }else if(b){
-                    unit = stoi(temp.substr(0,decimal));
-                    if(temp.length()-decimal<=2){
-                        cunit=stoi(temp.substr((decimal+1),(temp.length()-1)))*10;
+                        if(decimal[1] == '\0'){
+                            cunit = cunit * 10;
+                        }
                     }else{
-                        cunit=stoi(temp.substr((decimal+1),(temp.length()-1)));
+                        in.setstate(std::ios_base::failbit);
+                        throw monetaryerror("Bad input.");      
                     }    
-                }else{
-                    unit = stoi(temp.substr(0,temp.length()));
-                }         
-                break;
-
+                }
             }else{
-                throw monetaryerror("Bad input.");
+            in.setstate(std::ios_base::failbit);
+            throw monetaryerror("Bad input.");     
             }
+        }else if(isdigit(c)){
+            in >> unit;
+            c = in.peek();  
+
+            if(c=='.'){
+                c = in.get();  
+                c = in.peek();   
+                if(isdigit(c)){    
+                    in.get(decimal,3);
+                    cunit=atoi(decimal);
+
+                    if(decimal[1] == '\0'){
+                        cunit = cunit * 10;
+                    }
+                }else{
+                    in.setstate(std::ios_base::failbit);
+                    throw monetaryerror("Bad input.");    
+                }    
+            }
+
+        }else{
+            in.setstate(std::ios_base::failbit);
+            throw monetaryerror("Bad input."); 
         }
+
         money.curr=curr; money.unit=unit; money.cunit=cunit;
         money.checkformat();
         return in;

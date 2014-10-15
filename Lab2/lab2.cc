@@ -64,11 +64,13 @@ int main(){
     tysk -= fransk;
     cout << tysk << endl;
 
-
     cout << "Skriv in en valuta: ";
-    Money x;
+    Money x, x1;
     cin >> x;
+    cin >> x1;
     x.print(cout);
+    cout << endl;
+    x1.print(cout);  
 
     return 0;
 }

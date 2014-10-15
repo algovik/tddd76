@@ -45,17 +45,13 @@ namespace monetary{
 		~Money();
 		std::string currency();
 		void print(std::ostream& out) const;
-		friend std::ostream& operator<<(std::ostream& out, const Money& money);
+		
 		friend std::istream& operator>>(std::istream& in, Money& money);
 		Money operator+(const Money& rhs);
 		Money operator-(const Money& rhs);
 		Money operator=(const Money& rhs);
 		friend bool operator==(const Money& lhs, const Money& rhs);
 		friend bool operator<(const Money& lhs, const Money& rhs);
-		friend bool operator<=(const Money& lhs, const Money& rhs);
-		friend bool operator>(const Money& lhs, const Money& rhs);
-		friend bool operator>=(const Money& lhs, const Money& rhs);
-		friend bool operator!=(const Money& lhs, const Money& rhs);
 		Money& operator++();
 		Money operator++(int);
 		Money& operator--();
@@ -63,5 +59,11 @@ namespace monetary{
 		void operator+=(const Money& rhs);
 		void operator-=(const Money& rhs);
 	};
+
+	bool operator<=(const Money& lhs, const Money& rhs);
+	bool operator>(const Money& lhs, const Money& rhs);
+	bool operator>=(const Money& lhs, const Money& rhs);
+	bool operator!=(const Money& lhs, const Money& rhs);
+	std::ostream& operator<<(std::ostream& out, const Money& money);
 }
  #endif
