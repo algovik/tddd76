@@ -189,7 +189,6 @@ namespace monetary{
         std::stringstream ss;
 
         in>>ws;
-
         c = in.peek();
 
         if(isalpha(c)){
@@ -197,53 +196,38 @@ namespace monetary{
             curr = buf;
             in>>ws;
             c = in.peek();
+        }    
 
-            if(isdigit(c)){
-                in >> unit;
-                c = in.peek();
-
-                if(c=='.'){
-                    c = in.get(); 
-                    c = in.peek();   
-                    if(isdigit(c)){
-                        in.get(decimal,3);
-                        cunit=atoi(decimal);
-
-                        if(decimal[1] == '\0'){
-                            cunit = cunit * 10;
-                        }
-                    }else{
-                        in.setstate(std::ios_base::failbit);
-                        throw monetaryerror("Bad input.");      
-                    }    
-                }
-            }else{
-            in.setstate(std::ios_base::failbit);
-            throw monetaryerror("Bad input.");     
-            }
-        }else if(isdigit(c)){
+        if(isdigit(c)){
             in >> unit;
-            c = in.peek();  
-
+            c = in.peek();
+          
             if(c=='.'){
-                c = in.get();  
-                c = in.peek();   
-                if(isdigit(c)){    
+                c = in.get(); 
+                c = in.peek(); 
+              
+        
+                if(isdigit(c)){
                     in.get(decimal,3);
-                    cunit=atoi(decimal);
-
-                    if(decimal[1] == '\0'){
+                    
+                    if(isdigit(decimal[0])&&isdigit(decimal[1])){
+                        cunit=atoi(decimal);
+                    }else if(isdigit(decimal[0]) && decimal[1] == '\0'){
+                        cunit=atoi(decimal);
                         cunit = cunit * 10;
-                    }
-                }else{
+                    }else{
                     in.setstate(std::ios_base::failbit);
                     throw monetaryerror("Bad input.");    
-                }    
-            }
+                    }
 
+                }else{
+                in.setstate(std::ios_base::failbit);
+                throw monetaryerror("Bad input."); 
+                }           
+            }
         }else{
-            in.setstate(std::ios_base::failbit);
-            throw monetaryerror("Bad input."); 
+           in.setstate(std::ios_base::failbit);
+           throw monetaryerror("Bad input."); 
         }
 
         money.curr=curr; money.unit=unit; money.cunit=cunit;
