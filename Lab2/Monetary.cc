@@ -184,6 +184,7 @@ namespace monetary{
         char buf[3];
         char decimal[2];
         char c;
+        char d = ' ';
         int unit=0;
         int cunit=0;
         std::stringstream ss;
@@ -208,18 +209,26 @@ namespace monetary{
               
         
                 if(isdigit(c)){
-                    in.get(decimal,3);
-                    
-                    if(isdigit(decimal[0])&&isdigit(decimal[1])){
-                        cunit=atoi(decimal);
-                    }else if(isdigit(decimal[0]) && decimal[1] == '\0'){
-                        cunit=atoi(decimal);
-                        cunit = cunit * 10;
-                    }else{
-                    in.setstate(std::ios_base::failbit);
-                    throw monetaryerror("Bad input.");    
-                    }
+                    c =in.get();
+                    d = in.peek();
 
+                    if(isdigit(d)){
+                        
+                        d=in.get();
+                        if(isdigit(in.peek())){
+                            in.setstate(std::ios_base::failbit);
+                            throw monetaryerror("Too many decimals!"); 
+                        }
+                        decimal[0]=c;
+                        decimal[1]=d;
+                        cunit=atoi(decimal);
+                        // decimal[0]=' ';
+                        // decimal[1]=' ';
+                    }else{
+                        cunit= (int) c - '0';
+                        cunit = cunit * 10;
+                    }
+                        
                 }else{
                 in.setstate(std::ios_base::failbit);
                 throw monetaryerror("Bad input."); 
@@ -229,7 +238,6 @@ namespace monetary{
            in.setstate(std::ios_base::failbit);
            throw monetaryerror("Bad input."); 
         }
-
         money.curr=curr; money.unit=unit; money.cunit=cunit;
         money.checkformat();
         return in;
