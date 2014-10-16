@@ -27,7 +27,8 @@ int main(){
    Expression_Tree* p4{new Minus{p3,s3}};
    cout << p4->get_postfix() << endl;
 
-
+   Expression_Tree* p5{new Plus{p1,s2}}; //tillagd
+   Expression_Tree* p6{new Plus{p5,s5}};
    Expression_Tree* t0{ new Integer{10} };
    Expression_Tree* t2{ new Real{10.24} };
 
@@ -54,6 +55,10 @@ int main(){
    cout << t7->get_postfix() << endl;
 
    cout << t1->get_postfix() << endl;
+
+   cout << "--------------------------------" << endl;
+
+   p6->print(cout, 20);
 
    // try
    // {
