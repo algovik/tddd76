@@ -179,58 +179,11 @@ namespace monetary{
      * @return  the instream from which is being reaa
      */
     std::istream& operator>>(std::istream& in, Money& money){
-        string curr = "";
-        int unit = 0;
-        int cunit = 0;
-        string temp;
-        char c;
-        bool b= false;
-        int decimal = 0;
 
-        while(in){
+        if(isalpha(in.peek())){
 
-            c = in.peek();
-
-            if(c==' ' || c=='.'){
-                in.get();
-            }else if(isalpha(c)){
-
-                in >> curr;
-        
-            }else if(isdigit(c)){
-
-                in >> temp;
-
-                int j= temp.length();
-
-                for(int i = 0; i < j; ++i) { 
-                    if(temp[i]=='.'){
-                        b = true;
-                        decimal = i;
-                    }
-                }
-               
-                
-                if(b && (temp.length()-decimal > 3)){
-                     throw monetaryerror("To many decimals.");
-                }else if(b){
-                    unit = stoi(temp.substr(0,decimal));
-                    if(temp.length()-decimal<=2){
-                        cunit=stoi(temp.substr((decimal+1),(temp.length()-1)))*10;
-                    }else{
-                        cunit=stoi(temp.substr((decimal+1),(temp.length()-1)));
-                    }    
-                }else{
-                    unit = stoi(temp.substr(0,temp.length()));
-                }         
-                break;
-
-            }else{
-                throw monetaryerror("Bad input.");
-            }
         }
-        money.curr=curr; money.unit=unit; money.cunit=cunit;
-        money.checkformat();
+
         return in;
     }
 
