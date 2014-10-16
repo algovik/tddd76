@@ -26,8 +26,13 @@ public:
     virtual long double      evaluate() const = 0;
     virtual std::string      get_postfix() const = 0;
     virtual std::string      str() const = 0;
+<<<<<<< HEAD
     virtual void             print(std::ostream&, int) const = 0;
     // virtual Expression_Tree* clone() const = 0;
+=======
+    virtual void             print(std::ostream&) const = 0;
+    virtual Expression_Tree* clone() const = 0;
+>>>>>>> dbadcf27abafe602fdb15668d6385d3ac7d8485c
 };
 
 class Binary_Operator : public Expression_Tree
@@ -42,9 +47,13 @@ public:
     Binary_Operator(Expression_Tree*, Expression_Tree*);
     virtual std::string get_postfix() const override;
     virtual std::string str() const override;
+<<<<<<< HEAD
     virtual void print(std::ostream&, int) const override;
     // Expression_Tree* clone() const override;
 
+=======
+    virtual void print(std::ostream&) const override;
+>>>>>>> dbadcf27abafe602fdb15668d6385d3ac7d8485c
 };
 
 class Operand : public Expression_Tree
@@ -52,51 +61,58 @@ class Operand : public Expression_Tree
 public:
     std::string get_postfix() const override;
     std::string str() const override;
+<<<<<<< HEAD
     virtual void print(std::ostream&,int) const;
     // Expression_Tree* clone() const override;
+=======
+    virtual void print(std::ostream&) const;
+>>>>>>> dbadcf27abafe602fdb15668d6385d3ac7d8485c
 };
 
 class Assign : public Binary_Operator
 {
+public:
+    Assign(Expression_Tree* left, Expression_Tree* right)
+        : Binary_Operator{left, right}{ s_rep = "=";};
+    long double evaluate() const override;
+    Expression_Tree* clone() const override;
 
 };
 
 class Plus : public Binary_Operator
 {
 public:
-    //using Binary_Operator::Binary_Operator;
     Plus(Expression_Tree* left, Expression_Tree* right)
         : Binary_Operator{left, right}{ s_rep = "+";};
     long double evaluate() const override;
-    // void print(std::ostream&) const override;
+    Expression_Tree* clone() const override;
 };
 
 class Minus : public Binary_Operator
 {
 public:
-    //using Binary_Operator::Binary_Operator;
     Minus(Expression_Tree* left, Expression_Tree* right)
         : Binary_Operator{left, right}{ s_rep = "-";};
     long double evaluate() const override;
-    // void print(std::ostream&) const override;
+    Expression_Tree* clone() const override;
 };
 
 class Times : public Binary_Operator
 {
 public:
-    //using Binary_Operator::Binary_Operator;
     Times(Expression_Tree* left, Expression_Tree* right)
         : Binary_Operator{left, right}{ s_rep = "*";};
     long double evaluate() const override;
+    Expression_Tree* clone() const override;
 };
 
 class Divide : public Binary_Operator
 {
 public:
-    //using Binary_Operator::Binary_Operator;
     Divide(Expression_Tree* left, Expression_Tree* right)
         : Binary_Operator{left, right}{ s_rep = "/";};
     long double evaluate() const override;
+    Expression_Tree* clone() const override;
 };
 
 class Power: public Binary_Operator
@@ -105,6 +121,7 @@ public:
     Power(Expression_Tree* left, Expression_Tree* right)
         : Binary_Operator{left, right}{ s_rep = "^";};
     long double evaluate() const override;
+    Expression_Tree* clone() const override;
 };
 
 class Integer : public Operand
@@ -114,6 +131,7 @@ private:
 public:
     Integer(const int val) : value{val} {};
     long double evaluate() const override{return (long double) value;};
+    Expression_Tree* clone() const override;
     // void print(std::ostream&) const override;
 };
 
@@ -124,16 +142,19 @@ private:
 public:
     Real(const long double val) : value{val} {};
     long double evaluate() const override{return value;};
+    Expression_Tree* clone() const override;
     // void print(std::ostream&) const override;
 };
 
 class Variable : public Operand
 {
 private:
+    std::string name;
     long double value;
 public:
-    Variable(const long double val) : value{val} {};
+Variable(std::string s, const long double val=0) : name{s}, value{val} {};
     long double evaluate() const override{return value;};
+    Expression_Tree* clone() const override;
     void set_value(const long double val){value=val;};
     long double get_value(){return value;};
 };

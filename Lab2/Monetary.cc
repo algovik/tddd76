@@ -13,7 +13,6 @@
 #include <stdexcept>
 #include <string>
 #include <cmath>
-#include <sstream>
 
 using namespace std;
 
@@ -180,66 +179,11 @@ namespace monetary{
      * @return  the instream from which is being reaa
      */
     std::istream& operator>>(std::istream& in, Money& money){
-        std::string curr;
-        char buf[3];
-        char decimal[2];
-        char c;
-        char d = ' ';
-        int unit=0;
-        int cunit=0;
-        std::stringstream ss;
 
-        in>>ws;
-        c = in.peek();
+        if(isalpha(in.peek())){
 
-        if(isalpha(c)){
-            in.get(buf, 4);
-            curr = buf;
-            in>>ws;
-            c = in.peek();
-        }    
-
-        if(isdigit(c)){
-            in >> unit;
-            c = in.peek();
-          
-            if(c=='.'){
-                c = in.get(); 
-                c = in.peek(); 
-              
-        
-                if(isdigit(c)){
-                    c =in.get();
-                    d = in.peek();
-
-                    if(isdigit(d)){
-                        
-                        d=in.get();
-                        if(isdigit(in.peek())){
-                            in.setstate(std::ios_base::failbit);
-                            throw monetaryerror("Too many decimals!"); 
-                        }
-                        decimal[0]=c;
-                        decimal[1]=d;
-                        cunit=atoi(decimal);
-                        // decimal[0]=' ';
-                        // decimal[1]=' ';
-                    }else{
-                        cunit= (int) c - '0';
-                        cunit = cunit * 10;
-                    }
-                        
-                }else{
-                in.setstate(std::ios_base::failbit);
-                throw monetaryerror("Bad input."); 
-                }           
-            }
-        }else{
-           in.setstate(std::ios_base::failbit);
-           throw monetaryerror("Bad input."); 
         }
-        money.curr=curr; money.unit=unit; money.cunit=cunit;
-        money.checkformat();
+
         return in;
     }
 
