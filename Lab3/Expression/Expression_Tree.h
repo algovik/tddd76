@@ -26,13 +26,9 @@ public:
     virtual long double      evaluate() const = 0;
     virtual std::string      get_postfix() const = 0;
     virtual std::string      str() const = 0;
-<<<<<<< HEAD
     virtual void             print(std::ostream&, int) const = 0;
-    // virtual Expression_Tree* clone() const = 0;
-=======
-    virtual void             print(std::ostream&) const = 0;
     virtual Expression_Tree* clone() const = 0;
->>>>>>> dbadcf27abafe602fdb15668d6385d3ac7d8485c
+
 };
 
 class Binary_Operator : public Expression_Tree
@@ -47,13 +43,8 @@ public:
     Binary_Operator(Expression_Tree*, Expression_Tree*);
     virtual std::string get_postfix() const override;
     virtual std::string str() const override;
-<<<<<<< HEAD
     virtual void print(std::ostream&, int) const override;
     // Expression_Tree* clone() const override;
-
-=======
-    virtual void print(std::ostream&) const override;
->>>>>>> dbadcf27abafe602fdb15668d6385d3ac7d8485c
 };
 
 class Operand : public Expression_Tree
@@ -61,12 +52,8 @@ class Operand : public Expression_Tree
 public:
     std::string get_postfix() const override;
     std::string str() const override;
-<<<<<<< HEAD
     virtual void print(std::ostream&,int) const;
     // Expression_Tree* clone() const override;
-=======
-    virtual void print(std::ostream&) const;
->>>>>>> dbadcf27abafe602fdb15668d6385d3ac7d8485c
 };
 
 class Assign : public Binary_Operator
