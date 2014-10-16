@@ -15,6 +15,7 @@ int main(){
 
    // (5 + ((1 + 2) × 4) − 3 can be written down like this in RPN:
    // 5 1 2 + 4 × + 3 −
+
    // Expression_Tree* s1{new Integer{1} };
    // Expression_Tree* s2{new Integer{2} };
    // Expression_Tree* s3{new Integer{3} };
@@ -45,6 +46,7 @@ int main(){
    //
    Expression_Tree* t1{ new Plus{ new Integer{7}, new Integer{3} } };
    // cout << t1->evaluate() << endl;
+
    //
    // cout << t0->str() << endl;
    // cout << t1->str() << endl;

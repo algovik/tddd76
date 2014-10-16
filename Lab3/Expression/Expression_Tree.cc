@@ -4,6 +4,7 @@
 #include "Expression_Tree.h"
 #include <iostream>
 #include <sstream>
+#include <iomanip>
 
 // INKLUDERA FÖR DET SOM KOMMER ATT ANVÄNDAS I DENNA FIL!
 using namespace std;
@@ -18,8 +19,13 @@ Binary_Operator::Binary_Operator(Expression_Tree* left, Expression_Tree* right)
 
 }
 
-void Binary_Operator::print(std::ostream& out) const {
-    out << "Binary_Operator tree" << endl;
+void Binary_Operator::print(std::ostream& out, int i) const {
+    out << setw(i);
+    left->print(out, i+2);
+    out << endl << setw(i-1) << "/" << endl 
+    << setw(i-2) << str() << endl 
+    << setw(i-1) << "\\" << endl << setw(i);
+    right->print(out, i+2);
 }
 
 
@@ -37,8 +43,9 @@ std::string Binary_Operator::get_postfix() const {
  * Class: Operand
  */
 
-void Operand::print(std::ostream& out) const {
-    out << "Operand tree" << endl;
+void Operand::print(std::ostream& out, int i) const {
+    i = i+1;
+    out << str();
 }
 
 std::string Operand::str() const {
