@@ -21,11 +21,11 @@ Binary_Operator::Binary_Operator(Expression_Tree* left, Expression_Tree* right)
 
 void Binary_Operator::print(std::ostream& out, int i) const {
     out << setw(i);
-    left->print(out, i+2);
+    right->print(out, i+2);
     out << endl << setw(i-1) << "/" << endl
     << setw(i-2) << str() << endl
     << setw(i-1) << "\\" << endl << setw(i);
-    right->print(out, i+2);
+    left->print(out, i+2);
 }
 
 
@@ -36,6 +36,12 @@ std::string Binary_Operator::str() const{
 std::string Binary_Operator::get_postfix() const {
     std::stringstream sstream;
     sstream << left->get_postfix() << " " << right->get_postfix() << " " << str();
+    return sstream.str();
+}
+
+std::string Binary_Operator::get_infix() const {
+    std::stringstream sstream;
+    sstream << left->get_infix() << " " << str() << " " << right->get_infix();
     return sstream.str();
 }
 
@@ -56,7 +62,13 @@ std::string Operand::str() const {
 
 std::string Operand::get_postfix() const {
     std::stringstream sstream;
-    sstream << evaluate();
+    sstream << str();
+    return sstream.str();
+}
+
+std::string Operand::get_infix() const {
+    std::stringstream sstream;
+    sstream << str();
     return sstream.str();
 }
 

@@ -28,6 +28,7 @@ public:
     virtual std::string      str() const = 0;
     virtual void             print(std::ostream&, int) const = 0;
     virtual Expression_Tree* clone() const = 0;
+    virtual std::string      get_infix() const = 0;
 
 };
 
@@ -42,6 +43,7 @@ public:
 
     Binary_Operator(Expression_Tree*, Expression_Tree*);
     virtual std::string get_postfix() const override;
+    virtual std::string get_infix() const override;
     virtual std::string str() const override;
     virtual void print(std::ostream&, int) const override;
     // Expression_Tree* clone() const override;
@@ -51,6 +53,7 @@ class Operand : public Expression_Tree
 {
 public:
     std::string get_postfix() const override;
+    virtual std::string get_infix() const override;
     virtual std::string str() const override;
     virtual void print(std::ostream&,int) const;
     // Expression_Tree* clone() const override;
