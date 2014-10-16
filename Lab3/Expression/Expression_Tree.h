@@ -27,7 +27,7 @@ public:
     virtual std::string      get_postfix() const = 0;
     virtual std::string      str() const = 0;
     virtual void             print(std::ostream&) const = 0;
-    // virtual Expression_Tree* clone() const = 0;
+    virtual Expression_Tree* clone() const = 0;
 };
 
 class Binary_Operator : public Expression_Tree
@@ -43,8 +43,6 @@ public:
     virtual std::string get_postfix() const override;
     virtual std::string str() const override;
     virtual void print(std::ostream&) const override;
-    // Expression_Tree* clone() const override;
-
 };
 
 class Operand : public Expression_Tree
@@ -53,53 +51,52 @@ public:
     std::string get_postfix() const override;
     std::string str() const override;
     virtual void print(std::ostream&) const;
-    // Expression_Tree* clone() const override;
 };
 
 class Assign : public Binary_Operator
 {
+public:
     Assign(Expression_Tree* left, Expression_Tree* right)
         : Binary_Operator{left, right}{ s_rep = "=";};
     long double evaluate() const override;
+    Expression_Tree* clone() const override;
 
 };
 
 class Plus : public Binary_Operator
 {
 public:
-    //using Binary_Operator::Binary_Operator;
     Plus(Expression_Tree* left, Expression_Tree* right)
         : Binary_Operator{left, right}{ s_rep = "+";};
     long double evaluate() const override;
-    // void print(std::ostream&) const override;
+    Expression_Tree* clone() const override;
 };
 
 class Minus : public Binary_Operator
 {
 public:
-    //using Binary_Operator::Binary_Operator;
     Minus(Expression_Tree* left, Expression_Tree* right)
         : Binary_Operator{left, right}{ s_rep = "-";};
     long double evaluate() const override;
-    // void print(std::ostream&) const override;
+    Expression_Tree* clone() const override;
 };
 
 class Times : public Binary_Operator
 {
 public:
-    //using Binary_Operator::Binary_Operator;
     Times(Expression_Tree* left, Expression_Tree* right)
         : Binary_Operator{left, right}{ s_rep = "*";};
     long double evaluate() const override;
+    Expression_Tree* clone() const override;
 };
 
 class Divide : public Binary_Operator
 {
 public:
-    //using Binary_Operator::Binary_Operator;
     Divide(Expression_Tree* left, Expression_Tree* right)
         : Binary_Operator{left, right}{ s_rep = "/";};
     long double evaluate() const override;
+    Expression_Tree* clone() const override;
 };
 
 class Power: public Binary_Operator
@@ -108,6 +105,7 @@ public:
     Power(Expression_Tree* left, Expression_Tree* right)
         : Binary_Operator{left, right}{ s_rep = "^";};
     long double evaluate() const override;
+    Expression_Tree* clone() const override;
 };
 
 class Integer : public Operand
@@ -117,6 +115,7 @@ private:
 public:
     Integer(const int val) : value{val} {};
     long double evaluate() const override{return (long double) value;};
+    Expression_Tree* clone() const override;
     // void print(std::ostream&) const override;
 };
 
@@ -127,6 +126,7 @@ private:
 public:
     Real(const long double val) : value{val} {};
     long double evaluate() const override{return value;};
+    Expression_Tree* clone() const override;
     // void print(std::ostream&) const override;
 };
 
@@ -136,8 +136,9 @@ private:
     std::string name;
     long double value;
 public:
-    Variable(std::string s, const long double val) : name{s}, value{val} {};
+Variable(std::string s, const long double val=0) : name{s}, value{val} {};
     long double evaluate() const override{return value;};
+    Expression_Tree* clone() const override;
     void set_value(const long double val){value=val;};
     long double get_value(){return value;};
 };

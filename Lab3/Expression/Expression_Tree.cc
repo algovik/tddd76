@@ -33,13 +33,6 @@ std::string Binary_Operator::get_postfix() const {
     return sstream.str();
 }
 
-// Expression_Tree* Binary_Operator::clone() const {
-//     DYNAMIC CASTING
-//     Expression_Tree* p = new Binary_Operator{left->clone(),right->clone()};
-//     return p;
-// }
-
-
 /**
  * Class: Operand
  */
@@ -59,13 +52,6 @@ std::string Operand::get_postfix() const {
     sstream << evaluate();
     return sstream.str();
 }
-//
-// Expression_Tree* Operand::clone() const {
-//     DYNAMIC CASTING
-//     Expression_Tree* p = new Operand{evaluate()};
-//     return p;
-// }
-
 
 /**
  * Class: Integer
@@ -79,10 +65,10 @@ std::string Operand::get_postfix() const {
 //     return (long double) value;
 // }
 
-// void Integer::print(std::ostream& out) const {
-//     out << value << endl;
-// }
-
+Expression_Tree* Integer::clone() const {
+    Expression_Tree* p = new Integer{value};
+    return p;
+}
 
 /**
  * Class: Real
@@ -96,9 +82,20 @@ std::string Operand::get_postfix() const {
 //     return value;
 // }
 
-// void Real::print(std::ostream& out) const {
-//     out << value << endl;
-// }
+Expression_Tree* Real::clone() const {
+    Expression_Tree* p = new Real{value};
+    return p;
+}
+
+/**
+ * Class: Variable
+ */
+
+Expression_Tree* Variable::clone() const {
+    Expression_Tree* p = new Variable{name,value};
+    return p;
+}
+
 
 /**
  * Class: Assign
@@ -106,12 +103,14 @@ std::string Operand::get_postfix() const {
 
 long double Assign::evaluate() const {
     long double tmp{right->evaluate()};
-    // DYNAMIC CASTING
-    // left->set_value(tmp);
+    Variable* p = dynamic_cast<Variable*>(left);
+    p->set_value(tmp);
     return tmp;
 }
 
-
+Expression_Tree* Assign::clone() const {
+    return 0;
+}
 
 /**
  * Class: Plus
@@ -120,6 +119,12 @@ long double Assign::evaluate() const {
 long double Plus::evaluate() const {
     return left->evaluate()+right->evaluate();
 }
+
+Expression_Tree* Plus::clone() const {
+    Expression_Tree* p = new Plus{left->clone(), right->clone()};
+    return p;
+}
+
 
 // void Plus::print(std::ostream& out) const {
 //     out << left->evaluate() << " + " << right->evaluate() << endl;
@@ -131,6 +136,11 @@ long double Plus::evaluate() const {
 
 long double Minus::evaluate() const {
     return left->evaluate()-right->evaluate();
+}
+
+Expression_Tree* Minus::clone() const {
+    Expression_Tree* p = new Minus{left->clone(), right->clone()};
+    return p;
 }
 
 // void Minus::print(std::ostream& out) const {
@@ -145,6 +155,11 @@ long double Times::evaluate() const {
     return left->evaluate()*right->evaluate();
 }
 
+Expression_Tree* Times::clone() const {
+    Expression_Tree* p = new Times{left->clone(), right->clone()};
+    return p;
+}
+
 /**
  * Class: Divide
  */
@@ -153,10 +168,20 @@ long double Divide::evaluate() const {
     return left->evaluate()/right->evaluate();
 }
 
+Expression_Tree* Divide::clone() const {
+    Expression_Tree* p = new Divide{left->clone(), right->clone()};
+    return p;
+}
+
 /**
  * Class: Power
  */
 
 long double Power::evaluate() const{
     return pow(left->evaluate(),right->evaluate());
+}
+
+Expression_Tree* Power::clone() const {
+    Expression_Tree* p = new Power{left->clone(), right->clone()};
+    return p;
 }
