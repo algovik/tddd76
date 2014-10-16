@@ -51,7 +51,7 @@ class Operand : public Expression_Tree
 {
 public:
     std::string get_postfix() const override;
-    std::string str() const override;
+    virtual std::string str() const override;
     virtual void print(std::ostream&,int) const;
     // Expression_Tree* clone() const override;
 };
@@ -141,6 +141,7 @@ private:
 public:
 Variable(std::string s, const long double val=0) : name{s}, value{val} {};
     long double evaluate() const override{return value;};
+    std::string str() const override {return name;};
     Expression_Tree* clone() const override;
     void set_value(const long double val){value=val;};
     long double get_value(){return value;};

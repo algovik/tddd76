@@ -82,11 +82,13 @@ int main(){
    cout << "t2->get_postfix() = " << t2->get_postfix() << '\n';
    cout << "t2->str() = " << t2->str() << "\n\n";
 
-   Expression_Tree* t3{ new Variable{"variabel1"}};
+   Expression_Tree* t3{ new Variable{"x"}};
    cout << t3->evaluate() << endl;
 
    Expression_Tree* t4{ new Assign{t3,t2}};
    cout << t4->evaluate() << " : " << t3->evaluate() << endl;
+   cout << t4->get_postfix() << endl;
+   t4->print(cout,20);
 
    return 0;
 }

@@ -22,8 +22,8 @@ Binary_Operator::Binary_Operator(Expression_Tree* left, Expression_Tree* right)
 void Binary_Operator::print(std::ostream& out, int i) const {
     out << setw(i);
     left->print(out, i+2);
-    out << endl << setw(i-1) << "/" << endl 
-    << setw(i-2) << str() << endl 
+    out << endl << setw(i-1) << "/" << endl
+    << setw(i-2) << str() << endl
     << setw(i-1) << "\\" << endl << setw(i);
     right->print(out, i+2);
 }
@@ -102,7 +102,6 @@ Expression_Tree* Variable::clone() const {
     Expression_Tree* p = new Variable{name,value};
     return p;
 }
-
 
 /**
  * Class: Assign
