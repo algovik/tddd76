@@ -109,7 +109,8 @@ long double Assign::evaluate() const {
 }
 
 Expression_Tree* Assign::clone() const {
-    return 0;
+    Expression_Tree* p = new Assign{left->clone(), right->clone()};
+    return p;
 }
 
 /**
