@@ -19,6 +19,10 @@ Binary_Operator::Binary_Operator(Expression_Tree* left, Expression_Tree* right)
 
 }
 
+// Binary_Operator::~Binary_Operator(){
+//
+// }
+
 void Binary_Operator::print(std::ostream& out, int i) const {
     out << setw(i);
     right->print(out, i+2);
@@ -63,7 +67,6 @@ std::string Operand::str() const {
 std::string Operand::get_postfix() const {
     return str();
 }
-
 std::string Operand::get_infix() const {
     return str();
 }
@@ -71,14 +74,6 @@ std::string Operand::get_infix() const {
 /**
  * Class: Integer
  */
-
-// Integer::Integer(int val) : value{val}{
-//
-// }
-
-// long double Integer::evaluate() const {
-//     return (long double) value;
-// }
 
 Expression_Tree* Integer::clone() const {
     Expression_Tree* p = new Integer{value};
@@ -88,14 +83,6 @@ Expression_Tree* Integer::clone() const {
 /**
  * Class: Real
  */
-
-// Real::Real(long double val) : value{val}{
-//
-// }
-
-// long double Real::evaluate() const {
-//     return value;
-// }
 
 Expression_Tree* Real::clone() const {
     Expression_Tree* p = new Real{value};
@@ -140,11 +127,6 @@ Expression_Tree* Plus::clone() const {
     return p;
 }
 
-
-// void Plus::print(std::ostream& out) const {
-//     out << left->evaluate() << " + " << right->evaluate() << endl;
-// }
-
 /**
  * Class: Minus
  */
@@ -157,10 +139,6 @@ Expression_Tree* Minus::clone() const {
     Expression_Tree* p = new Minus{left->clone(), right->clone()};
     return p;
 }
-
-// void Minus::print(std::ostream& out) const {
-//     out << left->evaluate() << " - " << right->evaluate() << endl;
-// }
 
 /**
  * Class: Times

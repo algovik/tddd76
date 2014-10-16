@@ -89,7 +89,8 @@ int main(){
    cout << t4->evaluate() << " : " << t3->evaluate() << endl;
    cout << t4->get_postfix() << endl;
    cout << t4->get_infix() << endl;
-   t4->print(cout,8);
+   t4->print(cout);
+   cout << "\n";
 
    return 0;
 }
