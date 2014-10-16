@@ -58,6 +58,9 @@ public:
 
 class Assign : public Binary_Operator
 {
+    Assign(Expression_Tree* left, Expression_Tree* right)
+        : Binary_Operator{left, right}{ s_rep = "=";};
+    long double evaluate() const override;
 
 };
 
@@ -130,9 +133,10 @@ public:
 class Variable : public Operand
 {
 private:
+    std::string name;
     long double value;
 public:
-    Variable(const long double val) : value{val} {};
+    Variable(std::string s, const long double val) : name{s}, value{val} {};
     long double evaluate() const override{return value;};
     void set_value(const long double val){value=val;};
     long double get_value(){return value;};

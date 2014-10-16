@@ -28,12 +28,13 @@ std::string Binary_Operator::str() const{
 }
 
 std::string Binary_Operator::get_postfix() const {
-    std::ostringstream sstream;
+    std::stringstream sstream;
     sstream << left->get_postfix() << " " << right->get_postfix() << " " << str();
     return sstream.str();
 }
 
 // Expression_Tree* Binary_Operator::clone() const {
+//     DYNAMIC CASTING
 //     Expression_Tree* p = new Binary_Operator{left->clone(),right->clone()};
 //     return p;
 // }
@@ -48,18 +49,19 @@ void Operand::print(std::ostream& out) const {
 }
 
 std::string Operand::str() const {
-    std::ostringstream sstream;
+    std::stringstream sstream;
     sstream << evaluate();
     return sstream.str();
 }
 
 std::string Operand::get_postfix() const {
-    std::ostringstream sstream;
+    std::stringstream sstream;
     sstream << evaluate();
     return sstream.str();
 }
 //
 // Expression_Tree* Operand::clone() const {
+//     DYNAMIC CASTING
 //     Expression_Tree* p = new Operand{evaluate()};
 //     return p;
 // }
@@ -97,6 +99,18 @@ std::string Operand::get_postfix() const {
 // void Real::print(std::ostream& out) const {
 //     out << value << endl;
 // }
+
+/**
+ * Class: Assign
+ */
+
+long double Assign::evaluate() const {
+    long double tmp{right->evaluate()};
+    // DYNAMIC CASTING
+    // left->set_value(tmp);
+    return tmp;
+}
+
 
 
 /**

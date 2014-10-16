@@ -66,9 +66,11 @@ int main(){
 
 
     cout << "Skriv in en valuta: ";
-    Money x;
+    Money x, x2;
     cin >> x;
+    cin >> x2;
     x.print(cout);
+    x2.print(cout);
 
     return 0;
 }
