@@ -88,7 +88,9 @@ int main(){
    Expression_Tree* t4{ new Assign{t3,t2}};
    cout << t4->evaluate() << " : " << t3->evaluate() << endl;
    cout << t4->get_postfix() << endl;
-   t4->print(cout,20);
+   cout << t4->get_infix() << endl;
+   t4->print(cout);
+   cout << "\n";
 
    return 0;
 }

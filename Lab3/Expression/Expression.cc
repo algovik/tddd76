@@ -14,52 +14,98 @@
 #include <vector>
 using namespace std;
 
+Expression::Expression(const Expression& orig){
+    if(orig.empty()){
+        root = nullptr;
+    }else{
+        root = orig.copy();
+    }
+}
+
 /*
  * evaluate()
  */
-long double Expression::evaluate() const
-{
-   return 0;  // ATT GÖRA!
+long double Expression::evaluate() const {
+   if(empty()){
+       throw expression_error("Expression does not have a tree.");
+   }else{
+       return root->evaluate();
+   }
 }
 
 /*
  * get_postfix()
  */
-std::string Expression::get_postfix() const
-{
-   return string();  // ATT GÖRA!
+std::string Expression::get_postfix() const {
+   if(empty()){
+       return "";
+   }else{
+       return root->get_postfix();
+   }
 }
 
 /*
  * empty()
  */
-bool Expression::empty() const
-{
-   return false;  // ATT GÖRA!
+bool Expression::empty() const {
+   if(root==nullptr){
+       return true;
+   }else{
+       return false;
+   }
 }
 
 /*
  * print_tree()
  */
-void Expression::print_tree(std::ostream&) const
-{
-   // ATT GÖRA!
+void Expression::print_tree(std::ostream&) const {
+   if(empty()){
+       throw expression_error("Expression does not have a tree.");
+   }else{
+       root->print(cout);
+   }
 }
 
 /*
  * swap(other)
  */
-void Expression::swap(Expression&)
-{
-   // ATT GÖRA!
+void Expression::swap(Expression& other){
+   Expression_Tree* tmp = other.get_tree();
+   other.set_tree(get_tree());
+   set_tree(tmp);
 }
 
 /*
  * swap(x, y)
  */
-void swap(Expression&, Expression&)
-{
-   // ATT GÖRA!
+void swap(Expression& x, Expression& y){
+   Expression_Tree* tmp = y.get_tree();
+   y.set_tree(x.get_tree());
+   x.set_tree(tmp);
+}
+
+Expression_Tree* Expression::copy() const {
+    Expression_Tree* p = root->clone();
+    return p;
+}
+
+Expression& Expression::operator=(const Expression& right){
+    delete root;
+    root=right.copy();
+    return *this;
+}
+
+Expression& Expression::operator=(Expression&& right){
+    delete root;
+    root = nullptr;
+    swap(right);
+    return *this;
+}
+
+Expression& Expression::operator=(nullptr_t){
+    delete root;
+    root = nullptr;
+    return *this;
 }
 
 /*
@@ -354,7 +400,7 @@ namespace
 	 }
 	 else if (is_integer(token))
 	 {
-	    tree_stack.push(new Integer{std::stoll(token.c_str())});
+	    tree_stack.push(new Integer{static_cast<int>(std::stoll(token.c_str()))}); // OBS, TILLSKRIVEN STATIC_CAST
 	 }
 	 else if (is_real(token))
 	 {
