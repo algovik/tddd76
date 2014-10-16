@@ -55,9 +55,7 @@ std::string Operand::str() const {
 }
 
 std::string Operand::get_postfix() const {
-    std::stringstream sstream;
-    sstream << evaluate();
-    return sstream.str();
+    return str();
 }
 
 /**
