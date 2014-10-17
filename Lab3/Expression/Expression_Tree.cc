@@ -49,6 +49,15 @@ std::string Binary_Operator::get_infix() const {
     return sstream.str();
 }
 
+// void Binary_Operator::clear() const {
+//     right->clear();
+//     delete right;
+//     right = nullptr;
+//     left->clear();
+//     delete left;
+//     left = nullptr;
+// }
+
 /**
  * Class: Operand
  */
@@ -72,6 +81,10 @@ std::string Operand::get_infix() const {
     sstream << str();
     return sstream.str();
 }
+
+// void Operand::clear() const {
+//
+// }
 
 /**
  * Class: Integer
