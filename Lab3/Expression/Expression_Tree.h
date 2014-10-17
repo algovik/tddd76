@@ -1,5 +1,11 @@
-/*
- * Expression_Tree.h
+/**
+ * Filename: Expression_Tree.h
+ * Lab: Lab3 - Kalkylator för aritmetiska uttryck 
+ * Authors: Andreas Algovik     890718-0031 I5
+ *          Elisabeth Hanning   900419-2325 I5
+ * Date: 161014
+ * The interface declaration file listing all the function
+ * that exist in Expression_Tree.cc.
  */
 #ifndef EXPRESSIONTREE_H
 #define EXPRESSIONTREE_H
@@ -9,17 +15,16 @@
 #include <iostream>
 #include <sstream>
 #include <math.h>
+
 /*
  * expression_error: kastas om ett fel inträffar i en Expression-operation;
  * ett diagnostiskt meddelande ska skickas med.
  */
-// ATT GÖRA!
-// OBSERVERA: NEDANSTÅENDE ÄR ENDAST KODSKELETT - MODIFIERA OCH KOMPLETTERA!
+
 
 /*
  * Expression_Tree: Abstrakt, polymorf basklass för alla trädnodklasser.
  */
-
 class Expression_Tree
 {
 public:
@@ -32,9 +37,11 @@ public:
     // virtual void             clear() const = 0;
 };
 
+/*
+ * Binary_Operator class one of the two main catagories of Expression_Tree
+ */
 class Binary_Operator : public Expression_Tree
 {
-
 protected:
     Expression_Tree* left;
     Expression_Tree* right;
@@ -49,6 +56,9 @@ public:
     // virtual void clear() const override;
 };
 
+/*
+ * Operand class one of the two main catagories of Expression_Tree
+ */
 class Operand : public Expression_Tree
 {
 public:
@@ -59,6 +69,9 @@ public:
     // virtual void clear() const;
 };
 
+/*
+ * A class for the object Assign a subclass to Binary_Operator
+ */
 class Assign : public Binary_Operator
 {
 public:
@@ -69,6 +82,9 @@ public:
 
 };
 
+/*
+ * A class for the object Plus a subclass to Binary_Operator
+ */
 class Plus : public Binary_Operator
 {
 public:
@@ -78,6 +94,9 @@ public:
     Expression_Tree* clone() const override;
 };
 
+/*
+ * A class for the object Minus a subclass to Binary_Operator
+ */
 class Minus : public Binary_Operator
 {
 public:
@@ -87,6 +106,9 @@ public:
     Expression_Tree* clone() const override;
 };
 
+/*
+ * A class for the object Times a subclass to Binary_Operator
+ */
 class Times : public Binary_Operator
 {
 public:
@@ -96,6 +118,9 @@ public:
     Expression_Tree* clone() const override;
 };
 
+/*
+ * A class for the object Divide a subclass to Binary_Operator
+ */
 class Divide : public Binary_Operator
 {
 public:
@@ -105,6 +130,9 @@ public:
     Expression_Tree* clone() const override;
 };
 
+/*
+ * A class for the object Power a subclass to Binary_Operator
+ */
 class Power: public Binary_Operator
 {
 public:
@@ -114,6 +142,9 @@ public:
     Expression_Tree* clone() const override;
 };
 
+/*
+ * A class for the object Integer a subclass to Operand
+ */
 class Integer : public Operand
 {
 private:
@@ -122,9 +153,11 @@ public:
     Integer(const int val) : value{val} {};
     long double evaluate() const override{return (long double) value;};
     Expression_Tree* clone() const override;
-    // void print(std::ostream&) const override;
 };
 
+/*
+ * A class for the object Real a subclass to Operand
+ */
 class Real : public Operand
 {
 private:
@@ -133,9 +166,11 @@ public:
     Real(const long double val) : value{val} {};
     long double evaluate() const override{return value;};
     Expression_Tree* clone() const override;
-    // void print(std::ostream&) const override;
 };
 
+/*
+ * A class for the object Variable a subclass to Operand
+ */
 class Variable : public Operand
 {
 private:

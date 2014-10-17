@@ -1,5 +1,10 @@
-/*
- * expression-test.cc
+/**
+ * Filename: Expression-test.cc
+ * Lab: Lab3 - Kalkylator för aritmetiska uttryck 
+ * Authors: Andreas Algovik     890718-0031 I5
+ *          Elisabeth Hanning   900419-2325 I5
+ * Date: 161014
+ * A test program for the Expression class
  */
 #include "Expression.h"
 #include "Expression_Tree.h"

@@ -1,5 +1,11 @@
-/*
- * Expression.cc
+/**
+ * Filename: Expression.cc
+ * Lab: Lab3 - Kalkylator för aritmetiska uttryck 
+ * Authors: Andreas Algovik     890718-0031 I5
+ *          Elisabeth Hanning   900419-2325 I5
+ * Date: 161014
+ * Description: The implementation file with the sourcecode for
+ * the class Expression 
  */
 #include "Expression.h"
 #include "Expression_Tree.h"
@@ -23,8 +29,8 @@ Expression::Expression(const Expression& orig){
 }
 
 /*
- * evaluate()
- */
+* evaluate()
+*/
 long double Expression::evaluate() const {
    if(empty()){
        throw expression_error("Expression does not have a tree.");
@@ -34,8 +40,8 @@ long double Expression::evaluate() const {
 }
 
 /*
- * get_postfix()
- */
+* get_postfix()
+*/
 std::string Expression::get_postfix() const {
    if(empty()){
        return "";
@@ -45,8 +51,8 @@ std::string Expression::get_postfix() const {
 }
 
 /*
- * empty()
- */
+* empty()
+*/
 bool Expression::empty() const {
    if(root==nullptr){
        return true;
@@ -56,8 +62,8 @@ bool Expression::empty() const {
 }
 
 /*
- * print_tree()
- */
+* print_tree()
+*/
 void Expression::print_tree(std::ostream&) const {
    if(empty()){
        throw expression_error("Expression does not have a tree.");
@@ -67,8 +73,8 @@ void Expression::print_tree(std::ostream&) const {
 }
 
 /*
- * swap(other)
- */
+* swap(other)
+*/
 void Expression::swap(Expression& other){
    Expression_Tree* tmp = other.get_tree();
    other.set_tree(get_tree());
@@ -76,25 +82,34 @@ void Expression::swap(Expression& other){
 }
 
 /*
- * swap(x, y)
- */
+* swap(x, y)
+*/
 void swap(Expression& x, Expression& y){
    Expression_Tree* tmp = y.get_tree();
    y.set_tree(x.get_tree());
    x.set_tree(tmp);
 }
 
+/*
+* copy()
+*/
 Expression_Tree* Expression::copy() const {
     Expression_Tree* p = root->clone();
     return p;
 }
 
+/*
+* överlagring tilldelsoperator
+*/
 Expression& Expression::operator=(const Expression& right){
     delete root;
     root=right.copy();
     return *this;
 }
 
+/*
+* Flytt tilldelning
+*/
 Expression& Expression::operator=(Expression&& right){
     delete root;
     root = nullptr;
@@ -102,6 +117,9 @@ Expression& Expression::operator=(Expression&& right){
     return *this;
 }
 
+/*
+* Special fall för nullpointer
+*/
 Expression& Expression::operator=(nullptr_t){
     delete root;
     root = nullptr;

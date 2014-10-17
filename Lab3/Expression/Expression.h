@@ -1,5 +1,11 @@
-/*
- * Expression.h
+/**
+ * Filename: Expression.h
+ * Lab: Lab3 - Kalkylator för aritmetiska uttryck 
+ * Authors: Andreas Algovik     890718-0031 I5
+ *          Elisabeth Hanning   900419-2325 I5
+ * Date: 161014
+ * The interface declaration file listing all the function
+ * that exist in Expression.cc.
  */
 #ifndef EXPRESSION_H
 #define EXPRESSION_H
@@ -9,9 +15,9 @@
 #include <string>
 
 /**
- * expression_error: kastas om fel inträffar i en Expression- operation;
- * ett diagnostiskt meddelande ska skickas med.
- */
+* expression_error: kastas om fel inträffar i en Expression- operation;
+* ett diagnostiskt meddelande ska skickas med.
+*/
 class expression_error : public std::logic_error {
 	public:
 		explicit expression_error(const std::string& whatarg) noexcept
@@ -23,14 +29,15 @@ class expression_error : public std::logic_error {
 
 
 /**
- * Expression: Klass för att representera ett enkelt aritmetiskt uttryck.
- */
+* Expression: Klass för att representera ett enkelt aritmetiskt uttryck.
+*/
 class Expression
 {
 private:
     Expression_Tree* root=nullptr;
+
 public:
-   // OBSERVERA: DETTA ÄR ENDAST KODSKELETT - MODIFIERA OCH KOMPLETTERA!
+
    Expression(Expression_Tree* tree = nullptr) : root{tree} {}
    Expression(const Expression& orig);
    Expression(Expression&& orig) noexcept {swap(orig);}
@@ -53,14 +60,14 @@ public:
 };
 
 /**
- * swap: Byter innehåll på två Expression-objekt.
- */
+* swap: Byter innehåll på två Expression-objekt.
+*/
 void swap(Expression&, Expression&);
 
 /**
- * make_expression: Hjälpfunktion för att skapa ett Expression-objekt, givet
- * ett infixuttryck i form av en sträng.
- */
+* make_expression: Hjälpfunktion för att skapa ett Expression-objekt, givet
+* ett infixuttryck i form av en sträng.
+*/
 Expression make_expression(const std::string& infix);
 
 #endif

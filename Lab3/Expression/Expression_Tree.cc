@@ -1,12 +1,17 @@
-/*
- * Expression_Tree.cc
+/**
+ * Filename: Expression_Tree.cc
+ * Lab: Lab3 - Kalkylator för aritmetiska uttryck 
+ * Authors: Andreas Algovik     890718-0031 I5
+ *          Elisabeth Hanning   900419-2325 I5
+ * Date: 161014
+ * Description: The implementation file with the sourcecode for
+ * the class Expression_Tree 
  */
 #include "Expression_Tree.h"
 #include <iostream>
 #include <sstream>
 #include <iomanip>
 
-// INKLUDERA FÖR DET SOM KOMMER ATT ANVÄNDAS I DENNA FIL!
 using namespace std;
 
 
@@ -77,9 +82,7 @@ std::string Operand::get_postfix() const {
     return str();
 }
 std::string Operand::get_infix() const {
-    std::stringstream sstream;
-    sstream << str();
-    return sstream.str();
+    return str();
 }
 
 // void Operand::clear() const {
