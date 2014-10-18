@@ -3,6 +3,7 @@
  */
 #include "Calculator.h"
 #include "Expression.h"
+#include "Variable_Table.h"
 #include <cctype>
 #include <iostream>
 #include <stdexcept>
@@ -21,6 +22,7 @@ run()
 {
    cout << "Välkommen till Kalkylatorn!\n\n";
    print_help();
+
 
    do
    {
@@ -51,7 +53,7 @@ print_help()
    cout << "  B n   Beräkna uttryck n\n";                      //finns ej
    cout << "  P     Visa aktuellt uttryck som postfix\n";
    cout << "  P n   Visa uttryck n som postfix\n";             //finns ej
-   cout << "  I     Visa aktuellt uttryck som infix\n";        //finns ej
+   cout << "  I     Visa aktuellt uttryck som infix\n";        
    cout << "  I n   Visa uttryck n som infix\n";               //finns ej
    cout << "  L     Lista alla uttryck som infix\n";           //finns ej              
    cout << "  T     Visa aktuellt uttryck som träd\n";
@@ -77,15 +79,16 @@ get_command()
    cout << ">> ";
    cin >> command_;
    command_ = toupper(command_);
-   //cin >> ws;
-   //command_2 = cin.peek();
-   //if(isdigit(command_2)){
-   //   cin>>command_2
-   //}else{
-   //      command_2=0;
-   //   }
-   //
-}
+
+   cin >> ws;
+   command_2 = cin.peek();
+   if(isdigit(command_2)){
+     cin>>command_2;
+   }else{
+        command_2=0;
+     }
+   cout << "Input: " << command_ << " " << command_2 << endl;
+ }
 
 /**
  * valid_command: Kontrollerar om kommandot som finns i medlemmen command_
@@ -113,15 +116,15 @@ void
 Calculator::
 execute_command()
 {
-   if (command_ == 'H' || command_ == '?')
+   if (command_ == 'H' || command_ == '?'){
       print_help();
-   else if (command_ == 'U')
+   }else if (command_ == 'U'){
       read_expression(cin);
-   else if (command_ == 'B')
+   }else if (command_ == 'B'){
       cout << current_expression_.evaluate() << "\n";
    //else if (command_.size()==3 && command_.at(0) == 'B')
    //   Beräkna uttryck n 
-   else if (command_ == 'P')
+   }else if (command_ == 'P'){
 
       //if(command_2!=0){
       //   Visa uttryck n som postfix
@@ -129,19 +132,20 @@ execute_command()
       cout << current_expression_.get_postfix() << "\n";
       //}
   
-   //else if (command_ == 'I')
+   }else if (command_ == 'I'){
          // if(command_2!=0){
          //   Visa uttryck n=command_2 som infix 
          // }else{
-         //    cout << current_expression_.get_infix();
+            cout << current_expression_.get_infix();
          // }    
    //else if (command_ == 'L')
    //   Lista alla uttryck som infix
-   // else if (command_ == 'T')
+    }else if (command_ == 'T'){
    //    if(command_2!=0){
    //       Visa uttryck n=command_2 som ett träd
    //    }else{
-   //    current_expression_.print_tree(cout);
+       cout << "i träet";
+       current_expression_.print_tree(cout);
    //    }
    
    //else if (command_ == 'N')
@@ -158,10 +162,11 @@ execute_command()
    //Lista alla variabler
    //else if (command_ == 'X')
    // Radera alla variabler
-   else if (command_ == 'S')
+   }else if (command_ == 'S'){
       cout << "Kalkylatorn avlutas, välkommen åter!\n";
-   else
+   }else{
       cout << "Detta ska inte hända!\n";
+   }
 }
 
 /**

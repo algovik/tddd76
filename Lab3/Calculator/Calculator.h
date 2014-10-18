@@ -4,6 +4,7 @@
 #ifndef CALCULATOR_H
 #define CALCULATOR_H
 #include "Expression.h"
+#include "Variable_Table.h"
 #include <iosfwd>
 
 /**
@@ -31,8 +32,10 @@ private:
 
    Expression current_expression_;
 
+   Variable_Table table;
+
    char command_;
-   int command_2; //tillagd av Lisa
+   int command_2=0; //tillagd av Lisa
 
    static void print_help();
 
