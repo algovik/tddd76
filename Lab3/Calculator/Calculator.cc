@@ -125,12 +125,12 @@ execute_command()
       read_expression(cin);
    }else if (command_ == 'B'){
 
-      if(command_2!=0){
-         temporary_expression_ = list.at(command_2);
-         cout << temporary_expression_.evaluate() << "\n";
-      }else{
-         cout << current_expression_.evaluate() << "\n";
-      }
+      // if(command_2!=0){
+      //    temporary_expression_ = list.at(command_2);
+      //    cout << temporary_expression_.evaluate() << "\n";
+      // }else{
+      //    cout << current_expression_.evaluate() << "\n";
+      // }
 
    }else if (command_ == 'P'){
 
@@ -152,23 +152,27 @@ execute_command()
 
    //}else if (command_ == 'L'){
    //   Lista alla uttryck som infix
+         // for(vector<list>::iterator it = list.begin(); it != list.end(); ++it){
+         //    cout << it << ": " << it.get_infix();
+         // }
     }else if (command_ == 'T'){
    //    if(command_2!=0){
-   //       Visa uttryck n=command_2 som ett träd
+   //      temporary_expression_ = list.at(command_2);
+   //      temporary_expression_.print_tree(cout);
    //    }else{
-       cout << "i träet";
-       current_expression_.print_tree(cout);
+            current_expression_.print_tree(cout);
    //    }
    
    //}else if (command_ == 'N'){
-   //   Visa antal lagrade uttryck
+   //   cout << list.size();
    //}else if (command_ == 'A'){
    //   temporary_expression_ = list.at(command_2);
    //   current_expression_ = temporary_expression_;      //Gör uttryck n till aktuellt uttryck
    }else if (command_ == 'R'){
 
          // if(command_2!=0){
-         //    Radera uttryck n=command_2
+         //   temporary_expression_ = list.at(command_2);
+         //   temporary_expression_ = make_expression("");  
          // }else{
           current_expression_ = make_expression("");  //Eventuell minnesläcka, tas trädet bort?
          // } 
