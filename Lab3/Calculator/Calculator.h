@@ -6,6 +6,9 @@
 #include "Expression.h"
 #include "Variable_Table.h"
 #include <iosfwd>
+#include <vector>
+#include <iomanip>
+
 
 /**
  * Calculator: klass för att läsa in, lagra och bearbeta enkla aritmetiska
@@ -30,11 +33,13 @@ public:
 private:
    static const std::string valid_cmds_;
 
-   Variable_Table table;
+   //Variable_Table table;
    Expression current_expression_;
+   Expression temporary_expression_;
+   std::vector<Expression> list;
    
    char command_;
-   int command_2=0; //tillagd av Lisa
+   int command_2 = 0; 
 
    static void print_help();
 

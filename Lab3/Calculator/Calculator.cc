@@ -8,6 +8,9 @@
 #include <iostream>
 #include <stdexcept>
 #include <string>
+#include <vector>
+#include <iomanip>
+
 using namespace std;
 
 const string Calculator::valid_cmds_("?HUBPILTNARVXS");
@@ -23,8 +26,6 @@ run()
 
    cout << "Välkommen till Kalkylatorn!\n\n";
    print_help();
-
-   table.insert("anna",0);
 
    do
    {
@@ -124,26 +125,32 @@ execute_command()
       read_expression(cin);
    }else if (command_ == 'B'){
 
-      //if(command_2!=0){
-      //   Beräkna uttryck n 
-      //}else{
-      cout << current_expression_.evaluate() << "\n";
-      //}
+      if(command_2!=0){
+         temporary_expression_ = list.at(command_2);
+         cout << temporary_expression_.evaluate() << "\n";
+      }else{
+         cout << current_expression_.evaluate() << "\n";
+      }
+
    }else if (command_ == 'P'){
 
       //if(command_2!=0){
-      //   Visa uttryck n som postfix
+      //  temporary_expression_ = list.at(command_2);
+      //  cout << temporary_expression_.get_postfix() << "\n";
       //}else{
-      cout << current_expression_.get_postfix() << "\n";
+      //  cout << current_expression_.get_postfix() << "\n";
       //}
   
    }else if (command_ == 'I'){
+
          // if(command_2!=0){
-         //   Visa uttryck n=command_2 som infix 
+         //  temporary_expression_ = list.at(command_2);
+         //  cout << temporary_expression_.get_infix() << "\n";
          // }else{
             cout << current_expression_.get_infix();
-         // }    
-   //else if (command_ == 'L')
+         // }  
+
+   //}else if (command_ == 'L'){
    //   Lista alla uttryck som infix
     }else if (command_ == 'T'){
    //    if(command_2!=0){
@@ -153,10 +160,11 @@ execute_command()
        current_expression_.print_tree(cout);
    //    }
    
-   //else if (command_ == 'N')
+   //}else if (command_ == 'N'){
    //   Visa antal lagrade uttryck
-   //else if (command_ == 'A')
-   //   Gör uttryck n till aktuellt uttryck
+   //}else if (command_ == 'A'){
+   //   temporary_expression_ = list.at(command_2);
+   //   current_expression_ = temporary_expression_;      //Gör uttryck n till aktuellt uttryck
    }else if (command_ == 'R'){
 
          // if(command_2!=0){
@@ -165,10 +173,10 @@ execute_command()
           current_expression_ = make_expression("");  //Eventuell minnesläcka, tas trädet bort?
          // } 
 
-   //else if (command_ == 'V')
-   //Lista alla variabler
-   //else if (command_ == 'X')
-   // Radera alla variabler
+   //}else if (command_ == 'V'){
+   //    table.list(cout);          //Lista alla variabler
+   //}else if (command_ == 'X'){
+   //    table.clear();             // Radera alla variabler
    }else if (command_ == 'S'){
       cout << "Kalkylatorn avlutas, välkommen åter!\n";
    }else{
@@ -192,9 +200,11 @@ read_expression(istream& is)
    if (getline(is, infix))
    {
       current_expression_ = make_expression(infix);
+      list.push_back(current_expression_);
    }
    else
    {
       cout << "Felaktig inmatning!\n";
    }
 }
+
