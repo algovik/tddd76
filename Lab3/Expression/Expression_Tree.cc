@@ -11,6 +11,7 @@
 #include <iostream>
 #include <sstream>
 #include <iomanip>
+#include <typeinfo>
 
 using namespace std;
 
@@ -60,7 +61,13 @@ std::string Binary_Operator::get_infix() const {
         throw expression_error("Branch does not exist.");
     }
     std::stringstream sstream;
+    if(typeid(*this) != typeid(Assign)){
+       sstream << "(";
+    }
     sstream << left->get_infix() << " " << str() << " " << right->get_infix();
+    if(typeid(*this) != typeid(Assign)){
+       sstream << ")";
+    }
     return sstream.str();
 }
 

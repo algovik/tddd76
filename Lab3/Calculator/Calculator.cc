@@ -23,7 +23,6 @@ void
 Calculator::
 run()
 {
-
    cout << "Välkommen till Kalkylatorn!\n\n";
    print_help();
 
@@ -125,57 +124,54 @@ execute_command()
       read_expression(cin);
    }else if (command_ == 'B'){
 
-      // if(command_2!=0){
-      //    temporary_expression_ = list.at(command_2);
-      //    cout << temporary_expression_.evaluate() << "\n";
-      // }else{
-      //    cout << current_expression_.evaluate() << "\n";
-      // }
+       if(command_2!=0){
+          temporary_expression_ = list.at(command_2-1);
+          cout << temporary_expression_.evaluate() << "\n";
+       }else{
+          cout << current_expression_.evaluate() << "\n";
+       }
 
    }else if (command_ == 'P'){
 
-      //if(command_2!=0){
-      //  temporary_expression_ = list.at(command_2);
-      //  cout << temporary_expression_.get_postfix() << "\n";
-      //}else{
-      //  cout << current_expression_.get_postfix() << "\n";
-      //}
+      if(command_2!=0){
+        temporary_expression_ = list.at(command_2-1);
+        cout << temporary_expression_.get_postfix() << "\n";
+      }else{
+        cout << current_expression_.get_postfix() << "\n";
+      }
   
    }else if (command_ == 'I'){
 
-         // if(command_2!=0){
-         //  temporary_expression_ = list.at(command_2);
-         //  cout << temporary_expression_.get_infix() << "\n";
-         // }else{
+          if(command_2!=0){
+           temporary_expression_ = list.at(command_2-1);
+           cout << temporary_expression_.get_infix() << "\n";
+          }else{
             cout << current_expression_.get_infix();
-         // }  
+          }  
 
-   //}else if (command_ == 'L'){
-   //   Lista alla uttryck som infix
-         // for(vector<list>::iterator it = list.begin(); it != list.end(); ++it){
-         //    cout << it << ": " << it.get_infix();
-         // }
+   }else if (command_ == 'L'){
+          for(vector<Expression>::iterator it = list.begin(); it != list.end(); ++it) {
+              cout << it-list.begin()+1 << ": " << it->get_infix() << endl;
+          }
     }else if (command_ == 'T'){
-   //    if(command_2!=0){
-   //      temporary_expression_ = list.at(command_2);
-   //      temporary_expression_.print_tree(cout);
-   //    }else{
+       if(command_2!=0){
+         temporary_expression_ = list.at(command_2-1);
+         temporary_expression_.print_tree(cout);
+       }else{
             current_expression_.print_tree(cout);
-   //    }
+       }
    
-   //}else if (command_ == 'N'){
-   //   cout << list.size();
-   //}else if (command_ == 'A'){
-   //   temporary_expression_ = list.at(command_2);
-   //   current_expression_ = temporary_expression_;      //Gör uttryck n till aktuellt uttryck
+   }else if (command_ == 'N'){
+      cout << list.size() << endl;
+   }else if (command_ == 'A'){
+      current_expression_ = list.at(command_2-1);       //Gör uttryck n till aktuellt uttryck
    }else if (command_ == 'R'){
 
-         // if(command_2!=0){
-         //   temporary_expression_ = list.at(command_2);
-         //   temporary_expression_ = make_expression("");  
-         // }else{
-          current_expression_ = make_expression("");  //Eventuell minnesläcka, tas trädet bort?
-         // } 
+          if(command_2!=0){
+            list.erase(list.end()-command_2);  
+          }else{
+            list.erase(list.end());
+          } 
 
    //}else if (command_ == 'V'){
    //    table.list(cout);          //Lista alla variabler
