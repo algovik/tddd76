@@ -28,7 +28,7 @@
 class Expression_Tree
 {
 public:
-    virtual ~Expression_Tree();
+    virtual ~Expression_Tree() = default;
     virtual long double      evaluate() const = 0;
     virtual std::string      get_postfix() const = 0;
     virtual std::string      str() const = 0;
@@ -62,7 +62,7 @@ public:
 class Operand : public Expression_Tree
 {
 public:
-     ~Operand();
+     ~Operand() = default;
     std::string get_postfix() const override;
     virtual std::string get_infix() const override;
     virtual std::string str() const override;
