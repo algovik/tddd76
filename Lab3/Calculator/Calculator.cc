@@ -20,9 +20,11 @@ void
 Calculator::
 run()
 {
+
    cout << "Välkommen till Kalkylatorn!\n\n";
    print_help();
 
+   table.insert("anna",0);
 
    do
    {
@@ -121,9 +123,12 @@ execute_command()
    }else if (command_ == 'U'){
       read_expression(cin);
    }else if (command_ == 'B'){
+
+      //if(command_2!=0){
+      //   Beräkna uttryck n 
+      //}else{
       cout << current_expression_.evaluate() << "\n";
-   //else if (command_.size()==3 && command_.at(0) == 'B')
-   //   Beräkna uttryck n 
+      //}
    }else if (command_ == 'P'){
 
       //if(command_2!=0){
@@ -152,12 +157,14 @@ execute_command()
    //   Visa antal lagrade uttryck
    //else if (command_ == 'A')
    //   Gör uttryck n till aktuellt uttryck
-   //else if (command_ == 'R')
+   }else if (command_ == 'R'){
+
          // if(command_2!=0){
          //    Radera uttryck n=command_2
          // }else{
-         //  Radera aktuellt uttryck
+          current_expression_ = make_expression("");  //Eventuell minnesläcka, tas trädet bort?
          // } 
+
    //else if (command_ == 'V')
    //Lista alla variabler
    //else if (command_ == 'X')

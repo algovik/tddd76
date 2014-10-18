@@ -30,10 +30,9 @@ public:
 private:
    static const std::string valid_cmds_;
 
-   Expression current_expression_;
-
    Variable_Table table;
-
+   Expression current_expression_;
+   
    char command_;
    int command_2=0; //tillagd av Lisa
 
