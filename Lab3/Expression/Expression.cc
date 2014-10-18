@@ -51,6 +51,17 @@ std::string Expression::get_postfix() const {
 }
 
 /*
+* get_infix()
+*/
+std::string Expression::get_infix() const {
+   if(empty()){
+       return "";
+   }else{
+       return root->get_infix();
+   }
+}
+
+/*
 * empty()
 */
 bool Expression::empty() const {

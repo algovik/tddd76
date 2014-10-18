@@ -32,6 +32,7 @@ private:
    Expression current_expression_;
 
    char command_;
+   int command_2; //tillagd av Lisa
 
    static void print_help();
 

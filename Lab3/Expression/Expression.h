@@ -49,6 +49,7 @@ public:
 
    long double evaluate() const;
    std::string get_postfix() const;
+   std::string get_infix() const;
    bool        empty() const;
    void        print_tree(std::ostream&) const;
    void        swap(Expression&);
