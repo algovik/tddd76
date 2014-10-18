@@ -78,7 +78,12 @@ get_command()
    cin >> command_;
    command_ = toupper(command_);
    //cin >> ws;
-   //
+   //command_2 = cin.peek();
+   //if(isdigit(command_2)){
+   //   cin>>command_2
+   //}else{
+   //      command_2=0;
+   //   }
    //
 }
 
@@ -117,27 +122,38 @@ execute_command()
    //else if (command_.size()==3 && command_.at(0) == 'B')
    //   Beräkna uttryck n 
    else if (command_ == 'P')
+
+      //if(command_2!=0){
+      //   Visa uttryck n som postfix
+      //}else{
       cout << current_expression_.get_postfix() << "\n";
-   //else if (command_.size()==3 && command_.at(0) == 'P')
-   //   Visa uttryck n som postfix
+      //}
+  
    //else if (command_ == 'I')
-   //   cout << current_expression_.get_infix();
-   //else if (command_.size()==3 && command_.at(0) == 'I')
-   //   Visa uttryck n som infix 
+         // if(command_2!=0){
+         //   Visa uttryck n=command_2 som infix 
+         // }else{
+         //    cout << current_expression_.get_infix();
+         // }    
    //else if (command_ == 'L')
    //   Lista alla uttryck som infix
-   else if (command_ == 'T')
-      current_expression_.print_tree(cout);
-   //else if (command_.size()==3 && command_.at(0) == 'T')
-   //   Visa uttryck n som ett träd
+   // else if (command_ == 'T')
+   //    if(command_2!=0){
+   //       Visa uttryck n=command_2 som ett träd
+   //    }else{
+   //    current_expression_.print_tree(cout);
+   //    }
+   
    //else if (command_ == 'N')
    //   Visa antal lagrade uttryck
-   //else if (command_.size()==3 && command_.at(0) == 'A')
+   //else if (command_ == 'A')
    //   Gör uttryck n till aktuellt uttryck
    //else if (command_ == 'R')
-   // Radera aktuellt uttryck
-   //else if (command_.size()==3 && command_.at(0) == 'R')
-   //   Radera uttryck n
+         // if(command_2!=0){
+         //    Radera uttryck n=command_2
+         // }else{
+         //  Radera aktuellt uttryck
+         // } 
    //else if (command_ == 'V')
    //Lista alla variabler
    //else if (command_ == 'X')
