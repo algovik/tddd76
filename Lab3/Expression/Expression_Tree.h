@@ -28,6 +28,7 @@
 class Expression_Tree
 {
 public:
+    virtual ~Expression_Tree();
     virtual long double      evaluate() const = 0;
     virtual std::string      get_postfix() const = 0;
     virtual std::string      str() const = 0;
@@ -48,7 +49,7 @@ protected:
     std::string s_rep = " ";
 public:
     Binary_Operator(Expression_Tree*, Expression_Tree*);
-    // ~Binary_Operator();
+    ~Binary_Operator();
     virtual std::string get_postfix() const override;
     virtual std::string get_infix() const override;
     virtual std::string str() const override;
@@ -62,6 +63,7 @@ public:
 class Operand : public Expression_Tree
 {
 public:
+     ~Operand();
     std::string get_postfix() const override;
     virtual std::string get_infix() const override;
     virtual std::string str() const override;
@@ -169,7 +171,7 @@ public:
 };
 
 /*
- * A class for the object Variable a subclass to Operand
+ * A class for the object Power a subclass to Operand
  */
 class Variable : public Operand
 {
@@ -177,7 +179,7 @@ private:
     std::string name;
     long double value;
 public:
-Variable(std::string s, const long double val=0) : name{s}, value{val} {};
+    Variable(std::string s, const long double val=0) : name{s}, value{val} {};
     long double evaluate() const override{return value;};
     std::string str() const override {return name;};
     Expression_Tree* clone() const override;

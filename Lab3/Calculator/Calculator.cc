@@ -9,7 +9,7 @@
 #include <string>
 using namespace std;
 
-const string Calculator::valid_cmds_("?HUBPTS");
+const string Calculator::valid_cmds_("?HUBPILTNARVXS");
 
 /**
  * run: Huvudfunktionen för kalkylatorn. Skriver ut hjälpinformation
@@ -48,8 +48,20 @@ print_help()
    cout << "  H, ?  Skriv ut denna information\n";
    cout << "  U     Mata in ett nytt uttryck\n";
    cout << "  B     Beräkna aktuellt uttryck\n";
+   cout << "  B n   Beräkna uttryck n\n";                      //finns ej
    cout << "  P     Visa aktuellt uttryck som postfix\n";
+   cout << "  P n   Visa uttryck n som postfix\n";             //finns ej
+   cout << "  I     Visa aktuellt uttryck som infix\n";        //finns ej
+   cout << "  I n   Visa uttryck n som infix\n";               //finns ej
+   cout << "  L     Lista alla uttryck som infix\n";           //finns ej              
    cout << "  T     Visa aktuellt uttryck som träd\n";
+   cout << "  T n   Visa uttryck n som ett träd\n";            //finns ej
+   cout << "  N     Visa antal lagrade uttryck\n";             //finns ej
+   cout << "  A n   Gör uttryck n till aktuellt uttryck\n";    //finns ej
+   cout << "  R     Radera aktuellt uttryck\n";                //finns ej
+   cout << "  R n   Radera uttryck n\n";                       //finns ej
+   cout << "  V     Lista alla variabler\n";                   //finns ej
+   cout << "  X     Radera alla variabler\n";                  //finns ej
    cout << "  S     Avsluta kalkylatorn\n";
 }
 
@@ -65,6 +77,9 @@ get_command()
    cout << ">> ";
    cin >> command_;
    command_ = toupper(command_);
+   //cin >> ws;
+   //
+   //
 }
 
 /**
@@ -99,10 +114,34 @@ execute_command()
       read_expression(cin);
    else if (command_ == 'B')
       cout << current_expression_.evaluate() << "\n";
+   //else if (command_.size()==3 && command_.at(0) == 'B')
+   //   Beräkna uttryck n 
    else if (command_ == 'P')
       cout << current_expression_.get_postfix() << "\n";
+   //else if (command_.size()==3 && command_.at(0) == 'P')
+   //   Visa uttryck n som postfix
+   //else if (command_ == 'I')
+   //   cout << current_expression_.get_infix();
+   //else if (command_.size()==3 && command_.at(0) == 'I')
+   //   Visa uttryck n som infix 
+   //else if (command_ == 'L')
+   //   Lista alla uttryck som infix
    else if (command_ == 'T')
       current_expression_.print_tree(cout);
+   //else if (command_.size()==3 && command_.at(0) == 'T')
+   //   Visa uttryck n som ett träd
+   //else if (command_ == 'N')
+   //   Visa antal lagrade uttryck
+   //else if (command_.size()==3 && command_.at(0) == 'A')
+   //   Gör uttryck n till aktuellt uttryck
+   //else if (command_ == 'R')
+   // Radera aktuellt uttryck
+   //else if (command_.size()==3 && command_.at(0) == 'R')
+   //   Radera uttryck n
+   //else if (command_ == 'V')
+   //Lista alla variabler
+   //else if (command_ == 'X')
+   // Radera alla variabler
    else if (command_ == 'S')
       cout << "Kalkylatorn avlutas, välkommen åter!\n";
    else
