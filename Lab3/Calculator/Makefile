@@ -5,7 +5,7 @@
 EXPRESSION = ../Expression
 
 # Diagnosmeddelanden från kompilatorn (g++) filtreras av gccfilter.
-CCC = gccfilter -c -a g++
+CCC = g++ # stod först innan: gccfilter -c -a
 
 # Kompilatorflaggor, lägg till '-g' om kompilering för avlusning ska göras.
 CCFLAGS += -std=c++11 -Wpedantic -Wall -Wextra -Werror
@@ -14,7 +14,7 @@ CCFLAGS += -std=c++11 -Wpedantic -Wall -Wextra -Werror
 CPPFLAGS += -I$(EXPRESSION)
 
 # Länkflaggor - Fix för att läsa lokala problem med C++ länkbibliotek.
-LDFLAGS  += -L/sw/gcc-$(GCC4_V)/lib -static-libstdc++
+# LDFLAGS  += -L/sw/gcc-$(GCC4_V)/lib -static-libstdc++
 
 # Objektkodsmoduler som ingår i den kompletta kalkylatorn.
 OBJECTS = kalkylator.o Calculator.o Expression.o Expression_Tree.o
@@ -49,4 +49,4 @@ zap: clean
 #
 # '@' medför att kommandot inte skrivs ut på skärmen då det utförs av make.
 # 'rm' är ett alias för 'rm -i' på IDA:s system, '\rm' innebär att "original-
-# versionen", utan flaggan '-i', används. 
+# versionen", utan flaggan '-i', används.

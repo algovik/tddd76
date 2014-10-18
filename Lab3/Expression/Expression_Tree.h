@@ -1,6 +1,6 @@
 /**
  * Filename: Expression_Tree.h
- * Lab: Lab3 - Kalkylator för aritmetiska uttryck 
+ * Lab: Lab3 - Kalkylator för aritmetiska uttryck
  * Authors: Andreas Algovik     890718-0031 I5
  *          Elisabeth Hanning   900419-2325 I5
  * Date: 161014
@@ -20,7 +20,14 @@
  * expression_error: kastas om ett fel inträffar i en Expression-operation;
  * ett diagnostiskt meddelande ska skickas med.
  */
+class expression_error : public std::logic_error {
+    public:
+        explicit expression_error(const std::string& whatarg) noexcept
+            : logic_error{whatarg} {}
 
+        explicit expression_error(const char* whatarg) noexcept
+            : logic_error{whatarg} {}
+    };
 
 /*
  * Expression_Tree: Abstrakt, polymorf basklass för alla trädnodklasser.
@@ -28,14 +35,14 @@
 class Expression_Tree
 {
 public:
-    virtual ~Expression_Tree();
+    virtual ~Expression_Tree() = default;
     virtual long double      evaluate() const = 0;
     virtual std::string      get_postfix() const = 0;
     virtual std::string      str() const = 0;
     virtual void             print(std::ostream&, int=16) const = 0;
     virtual Expression_Tree* clone() const = 0;
     virtual std::string      get_infix() const = 0;
-    // virtual void             clear() const = 0;
+
 };
 
 /*
@@ -54,7 +61,6 @@ public:
     virtual std::string get_infix() const override;
     virtual std::string str() const override;
     virtual void print(std::ostream&, int) const override;
-    // virtual void clear() const override;
 };
 
 /*
@@ -63,12 +69,11 @@ public:
 class Operand : public Expression_Tree
 {
 public:
-     ~Operand();
+    ~Operand() = default;
     std::string get_postfix() const override;
     virtual std::string get_infix() const override;
     virtual std::string str() const override;
     virtual void print(std::ostream&, int) const;
-    // virtual void clear() const;
 };
 
 /*

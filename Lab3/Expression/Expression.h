@@ -1,6 +1,6 @@
 /**
  * Filename: Expression.h
- * Lab: Lab3 - Kalkylator för aritmetiska uttryck 
+ * Lab: Lab3 - Kalkylator för aritmetiska uttryck
  * Authors: Andreas Algovik     890718-0031 I5
  *          Elisabeth Hanning   900419-2325 I5
  * Date: 161014
@@ -18,14 +18,14 @@
 * expression_error: kastas om fel inträffar i en Expression- operation;
 * ett diagnostiskt meddelande ska skickas med.
 */
-class expression_error : public std::logic_error {
-	public:
-		explicit expression_error(const std::string& whatarg) noexcept
-			: logic_error{whatarg} {}
-
-		explicit expression_error(const char* whatarg) noexcept
-			: logic_error{whatarg} {}
-	};
+// class expression_error : public std::logic_error {
+// 	public:
+// 		explicit expression_error(const std::string& whatarg) noexcept
+// 			: logic_error{whatarg} {}
+//
+// 		explicit expression_error(const char* whatarg) noexcept
+// 			: logic_error{whatarg} {}
+// 	};
 
 
 /**

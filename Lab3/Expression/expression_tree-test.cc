@@ -1,6 +1,6 @@
 /**
  * Filename: Expression_Tree-test.cc
- * Lab: Lab3 - Kalkylator för aritmetiska uttryck 
+ * Lab: Lab3 - Kalkylator för aritmetiska uttryck
  * Authors: Andreas Algovik     890718-0031 I5
  *          Elisabeth Hanning   900419-2325 I5
  * Date: 161014
@@ -21,18 +21,30 @@ int main(){
    // (5 + ((1 + 2) × 4) − 3 can be written down like this in RPN:
    // 5 1 2 + 4 × + 3 −
 
-   // Expression_Tree* s1{new Integer{1} };
-   // Expression_Tree* s2{new Integer{2} };
-   // Expression_Tree* s3{new Integer{3} };
-   // Expression_Tree* s4{new Integer{4} };
-   // Expression_Tree* s5{new Integer{5} };
-   //
-   // Expression_Tree* p1{new Plus{s1,s2}};
-   // Expression_Tree* p2{new Times{p1,s4}};
-   // Expression_Tree* p3{new Plus{s5,p2}};
-   // Expression_Tree* p4{new Minus{p3,s3}};
-   // cout << p4->get_postfix() << endl;
-   //
+   Expression_Tree* s1{new Integer{1} };
+   Expression_Tree* s2{new Integer{2} };
+   Expression_Tree* s3{new Integer{3} };
+   Expression_Tree* s4{new Integer{4} };
+   Expression_Tree* s5{new Integer{5} };
+
+   Expression_Tree* p1{new Plus{s1,s2}};
+
+   // delete p1;
+   // delete s1;
+   // if(s1 != nullptr){
+   //     cout << "s1 after delete: " << s1->evaluate() << endl;
+   // }else{
+   //     cout << "s1 does not exist." << endl;
+   // }
+
+   p1->print(cout);
+   cout << "\n";
+
+   Expression_Tree* p2{new Times{p1,s4}};
+   Expression_Tree* p3{new Plus{s5,p2}};
+   Expression_Tree* p4{new Minus{p3,s3}};
+   cout << p4->get_postfix() << endl;
+
    //
    // Expression_Tree* t0{ new Integer{10} };
    // Expression_Tree* t2{ new Real{10.24} };

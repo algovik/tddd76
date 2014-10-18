@@ -1,6 +1,6 @@
 /**
  * Filename: Variable_Table.h
- * Lab: Lab3 - Kalkylator för aritmetiska uttryck 
+ * Lab: Lab3 - Kalkylator för aritmetiska uttryck
  * Authors: Andreas Algovik     890718-0031 I5
  *          Elisabeth Hanning   900419-2325 I5
  * Date: 161014
@@ -37,7 +37,7 @@ class Variable_Table
 		std::map<std::string,int> table;
 
 	public:
-		Variable_Table();	
+		Variable_Table();
 		void insert(std::string name, int value);
 		void remove(std::string name);
 		bool find(std::string name);
@@ -45,7 +45,7 @@ class Variable_Table
 		int get_value(std::string name);
 		void list(std::ostream& out);
 		void clear();
-		bool empty(); 
+		bool empty();
 
 };
 
