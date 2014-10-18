@@ -1,11 +1,11 @@
 /**
  * Filename: Expression_Tree.cc
- * Lab: Lab3 - Kalkylator för aritmetiska uttryck 
+ * Lab: Lab3 - Kalkylator för aritmetiska uttryck
  * Authors: Andreas Algovik     890718-0031 I5
  *          Elisabeth Hanning   900419-2325 I5
  * Date: 161014
  * Description: The implementation file with the sourcecode for
- * the class Expression_Tree 
+ * the class Expression_Tree
  */
 #include "Expression_Tree.h"
 #include <iostream>
@@ -13,7 +13,6 @@
 #include <iomanip>
 
 using namespace std;
-
 
 /**
  * Class: Binary_Operator
@@ -31,6 +30,9 @@ Binary_Operator::~Binary_Operator(){
 }
 
 void Binary_Operator::print(std::ostream& out, int i) const {
+    if(right == nullptr || left == nullptr){
+        throw expression_error("Branch does not exist.");
+    }
     out << setw(i);
     right->print(out, i+2);
     out << endl << setw(i-1) << "/" << endl
@@ -45,16 +47,31 @@ std::string Binary_Operator::str() const{
 }
 
 std::string Binary_Operator::get_postfix() const {
+    if(right == nullptr || left == nullptr){
+        throw expression_error("Branch does not exist.");
+    }
     std::stringstream sstream;
     sstream << left->get_postfix() << " " << right->get_postfix() << " " << str();
     return sstream.str();
 }
 
 std::string Binary_Operator::get_infix() const {
+    if(right == nullptr || left == nullptr){
+        throw expression_error("Branch does not exist.");
+    }
     std::stringstream sstream;
     sstream << left->get_infix() << " " << str() << " " << right->get_infix();
     return sstream.str();
 }
+
+// void Binary_Operator::clear() const {
+//     right->clear();
+//     delete right;
+//     right = nullptr;
+//     left->clear();
+//     delete left;
+//     left = nullptr;
+// }
 
 /**
  * Class: Operand
@@ -77,6 +94,10 @@ std::string Operand::get_postfix() const {
 std::string Operand::get_infix() const {
     return str();
 }
+
+// void Operand::clear() const {
+//
+// }
 
 /**
  * Class: Integer

@@ -1,6 +1,6 @@
 /**
  * Filename: Expression_Tree.h
- * Lab: Lab3 - Kalkylator för aritmetiska uttryck 
+ * Lab: Lab3 - Kalkylator för aritmetiska uttryck
  * Authors: Andreas Algovik     890718-0031 I5
  *          Elisabeth Hanning   900419-2325 I5
  * Date: 161014
@@ -20,7 +20,14 @@
  * expression_error: kastas om ett fel inträffar i en Expression-operation;
  * ett diagnostiskt meddelande ska skickas med.
  */
+class expression_error : public std::logic_error {
+    public:
+        explicit expression_error(const std::string& whatarg) noexcept
+            : logic_error{whatarg} {}
 
+        explicit expression_error(const char* whatarg) noexcept
+            : logic_error{whatarg} {}
+    };
 
 /*
  * Expression_Tree: Abstrakt, polymorf basklass för alla trädnodklasser.
@@ -62,7 +69,7 @@ public:
 class Operand : public Expression_Tree
 {
 public:
-     ~Operand() = default;
+    ~Operand() = default;
     std::string get_postfix() const override;
     virtual std::string get_infix() const override;
     virtual std::string str() const override;

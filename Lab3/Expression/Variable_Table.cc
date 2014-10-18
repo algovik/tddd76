@@ -1,11 +1,11 @@
 /**
  * Filename: Variable_Table.cc
- * Lab: Lab3 - Kalkylator för aritmetiska uttryck 
+ * Lab: Lab3 - Kalkylator för aritmetiska uttryck
  * Authors: Andreas Algovik     890718-0031 I5
  *          Elisabeth Hanning   900419-2325 I5
  * Date: 161014
  * Description: The implementation file with the sourcecode for
- * the class Variable_Table. 
+ * the class Variable_Table.
  */
 #include "Variable_Table.h"
 #include <iostream>
@@ -41,7 +41,7 @@ void Variable_Table::remove(string name){
     }else{
         table.erase(name);
     }
- 	
+
 }
 
 /**
@@ -55,7 +55,7 @@ bool Variable_Table::find(std::string name){
     }else{
         return table.find(name) != table.end();
     }
-	
+
 }
 
 /**
@@ -65,12 +65,10 @@ bool Variable_Table::find(std::string name){
 */
 void Variable_Table::set_value(string name, int value){
 
-   if(table.empty()){
-       throw variable_table_error("Table is empty"); 
-   }else if(table.find(name) != table.end()){
+   if(find(name)){ //varför inte använda find() ?
         table.at(name) = value;
     }else{
-        throw variable_table_error("Can't update a nonexisting variable"); 
+        throw variable_table_error("Can't update a nonexisting variable");
     }
 }
 
@@ -82,9 +80,9 @@ void Variable_Table::set_value(string name, int value){
 int Variable_Table::get_value(std::string name){
 	if(table.empty()){
  		throw variable_table_error("Table is empty");
- 	}else{	
+ 	}else{
  		return table.find(name)->second;
- 	}	
+ 	}
 }
 
 /**
@@ -98,7 +96,7 @@ void Variable_Table::list(std::ostream& out){
  		for (auto t : table)
     	out << t.first << ": " << t.second << "\n";
  	}
- 	
+
 }
 
 /**
@@ -109,7 +107,7 @@ void Variable_Table::clear(){
  		throw variable_table_error("Table is empty");
  	}else{
  		table.clear();
- 	}	
+ 	}
 }
 
 /**
