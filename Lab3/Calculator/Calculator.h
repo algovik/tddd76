@@ -36,6 +36,7 @@ private:
    //Variable_Table table;
    Expression current_expression_;
    Expression temporary_expression_;
+   int current_expression_index_;
    std::vector<Expression> list;
    
    char command_;

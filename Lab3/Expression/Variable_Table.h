@@ -14,7 +14,6 @@
 #include <iosfwd>
 
 
-
 /**
 * A exception class for errors in regards to the Variable_Table class.
 */
@@ -35,7 +34,6 @@ class Variable_Table
 
 	protected:
 		std::map<std::string,int> table;
-
 	public:
 		Variable_Table();
 		void insert(std::string name, int value);

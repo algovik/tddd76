@@ -14,7 +14,7 @@ CCFLAGS += -std=c++11 -Wpedantic -Wall -Wextra -Werror
 CPPFLAGS += -I$(EXPRESSION)
 
 # Länkflaggor - Fix för att läsa lokala problem med C++ länkbibliotek.
-# LDFLAGS  += -L/sw/gcc-$(GCC4_V)/lib -static-libstdc++
+LDFLAGS  += -L/sw/gcc-$(GCC4_V)/lib -static-libstdc++
 
 # Objektkodsmoduler som ingår i den kompletta kalkylatorn.
 OBJECTS = kalkylator.o Calculator.o Expression.o Expression_Tree.o Variable_Table.o

@@ -27,7 +27,6 @@ Binary_Operator::Binary_Operator(Expression_Tree* left, Expression_Tree* right)
 Binary_Operator::~Binary_Operator(){
     delete left;
     delete right;
-    //delete[]  s_rep;
 }
 
 void Binary_Operator::print(std::ostream& out, int i) const {

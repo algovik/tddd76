@@ -25,7 +25,7 @@ run()
 {
    cout << "Välkommen till Kalkylatorn!\n\n";
    print_help();
-
+   
    do
    {
       try
@@ -52,18 +52,18 @@ print_help()
    cout << "  H, ?  Skriv ut denna information\n";
    cout << "  U     Mata in ett nytt uttryck\n";
    cout << "  B     Beräkna aktuellt uttryck\n";
-   cout << "  B n   Beräkna uttryck n\n";                      //finns ej
+   cout << "  B n   Beräkna uttryck n\n";
    cout << "  P     Visa aktuellt uttryck som postfix\n";
-   cout << "  P n   Visa uttryck n som postfix\n";             //finns ej
+   cout << "  P n   Visa uttryck n som postfix\n";
    cout << "  I     Visa aktuellt uttryck som infix\n";        
-   cout << "  I n   Visa uttryck n som infix\n";               //finns ej
-   cout << "  L     Lista alla uttryck som infix\n";           //finns ej              
+   cout << "  I n   Visa uttryck n som infix\n";
+   cout << "  L     Lista alla uttryck som infix\n";
    cout << "  T     Visa aktuellt uttryck som träd\n";
-   cout << "  T n   Visa uttryck n som ett träd\n";            //finns ej
-   cout << "  N     Visa antal lagrade uttryck\n";             //finns ej
-   cout << "  A n   Gör uttryck n till aktuellt uttryck\n";    //finns ej
-   cout << "  R     Radera aktuellt uttryck\n";                //finns ej
-   cout << "  R n   Radera uttryck n\n";                       //finns ej
+   cout << "  T n   Visa uttryck n som ett träd\n";
+   cout << "  N     Visa antal lagrade uttryck\n";
+   cout << "  A n   Gör uttryck n till aktuellt uttryck\n";
+   cout << "  R     Radera aktuellt uttryck\n";
+   cout << "  R n   Radera uttryck n\n";
    cout << "  V     Lista alla variabler\n";                   //finns ej
    cout << "  X     Radera alla variabler\n";                  //finns ej
    cout << "  S     Avsluta kalkylatorn\n";
@@ -77,20 +77,37 @@ print_help()
 void
 Calculator::
 get_command()
-{
-   cout << ">> ";
-   cin >> command_;
-   command_ = toupper(command_);
+//{
+//   cout << ">> ";
+//   cin >> command_;
+//    command_ = toupper(command_);
 
-   cin >> ws;
-   command_2 = cin.peek();
-   if(isdigit(command_2)){
-     cin>>command_2;
-   }else{
-        command_2=0;
-     }
-   cout << "Input: " << command_ << " " << command_2 << endl;
- }
+//    cin >> ws;
+//    command_2 = cin.peek();
+//    if(isdigit(command_2)){
+//      cin>>command_2;
+//    }else{
+//         command_2=0;
+//      }
+//    cout << "Input: " << command_ << " " << command_2 << endl;
+// }
+
+{
+  cout << ">> ";
+  cin >> command_;
+  command_ = toupper(command_);
+  command_2=0;
+
+  if(cin.peek()!='\n'){
+    cin >> ws;
+    if(isdigit(cin.peek())){
+      cin>>command_2;
+    }else{
+      //kasta fel h�r?
+    }
+  }
+}
+
 
 /**
  * valid_command: Kontrollerar om kommandot som finns i medlemmen command_
@@ -146,7 +163,7 @@ execute_command()
            temporary_expression_ = list.at(command_2-1);
            cout << temporary_expression_.get_infix() << "\n";
           }else{
-            cout << current_expression_.get_infix();
+            cout << current_expression_.get_infix() << "\n";
           }  
 
    }else if (command_ == 'L'){
@@ -157,20 +174,23 @@ execute_command()
        if(command_2!=0){
          temporary_expression_ = list.at(command_2-1);
          temporary_expression_.print_tree(cout);
+	 cout << "\n";
        }else{
             current_expression_.print_tree(cout);
+	    cout << "\n";
        }
    
    }else if (command_ == 'N'){
       cout << list.size() << endl;
    }else if (command_ == 'A'){
       current_expression_ = list.at(command_2-1);       //Gör uttryck n till aktuellt uttryck
+      current_expression_index_ = command_2-1;
    }else if (command_ == 'R'){
 
           if(command_2!=0){
-            list.erase(list.end()-command_2);  
+            list.erase(list.begin()+command_2-1);  
           }else{
-            list.erase(list.end());
+            list.erase(list.begin()+current_expression_index_);
           } 
 
    //}else if (command_ == 'V'){
@@ -201,6 +221,8 @@ read_expression(istream& is)
    {
       current_expression_ = make_expression(infix);
       list.push_back(current_expression_);
+      current_expression_index_=list.size()-1;
+      
    }
    else
    {
