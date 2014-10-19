@@ -60,12 +60,35 @@ std::string Binary_Operator::get_infix() const {
         throw expression_error("Branch does not exist.");
     }
     std::stringstream sstream;
-    if(typeid(*this) != typeid(Assign)){
-       sstream << "(";
-    }
-    sstream << left->get_infix() << " " << str() << " " << right->get_infix();
-    if(typeid(*this) != typeid(Assign)){
-       sstream << ")";
+
+    if(typeid(*this) == typeid(Assign)){
+      sstream << left->get_infix() << " " << str() << " " << right->get_infix();
+    }else if(typeid(*this) == typeid(Times) ||
+	     typeid(*this) == typeid(Divide) ||
+	     typeid(*this) == typeid(Power)){
+      if(typeid(*left) == typeid(Plus) ||
+	 typeid(*left) == typeid(Minus)){
+	sstream << "(" << left->get_infix() << ") ";
+      }else{
+	sstream  << left->get_infix() << " ";
+      }
+      sstream << str();
+      if(typeid(*right) == typeid(Plus) ||
+	 typeid(*right) == typeid(Minus)){
+	sstream << " (" << right->get_infix() << ")";
+      }else{
+	sstream << " " << right->get_infix();
+      }
+    }else{
+      sstream << left->get_infix() << " " << str() << " " << right->get_infix();
+    // if((typeid(*left) == typeid(Operand) && typeid(*right) == typeid(Operand)) ||
+    //    typeid(*this) == typeid(Assign)){
+    //   sstream << left->get_infix() << " " << str() << " " << right->get_infix();
+    // }else if((typeid(*this) == typeid(Times) && typeid(*left) == typeid(Plus)) ||
+    // 	     (typeid(*this) == typeid(Times) && typeid(*left) == typeid(Minus))){
+    //   sstream << "(" << left->get_infix() << ") " << str() << right->get_infix();
+    // }else{
+    //   sstream << left->get_infix() << " " << str() << " (" << right->get_infix() << ")";
     }
     return sstream.str();
 }
@@ -160,9 +183,14 @@ Expression_Tree* Variable::clone() const {
  */
 
 long double Assign::evaluate(Variable_Table& table) const {
-    long double tmp{right->evaluate(table)};
-    Variable* p = dynamic_cast<Variable*>(left);
-    p->set_value(tmp, table);
+    long double tmp = right->evaluate(table);
+
+    if(typeid(*left)==typeid(Variable)){
+      Variable* p = dynamic_cast<Variable*>(left);
+      p->set_value(tmp, table);
+    }else{
+      throw expression_error("Cannot assign a non variable");
+    }
     return tmp;
 }
 

@@ -51,7 +51,7 @@ void Variable_Table::remove(string name){
 */
 bool Variable_Table::find(std::string name){
 	 if(table.empty()){
-         throw variable_table_error("Table is empty");
+	   return false; //throw variable_table_error("Table is empty");
     }else{
         return table.find(name) != table.end();
     }

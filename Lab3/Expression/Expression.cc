@@ -257,16 +257,18 @@ namespace
 	 {
 	    if (!last_was_operand || postfix.empty() || previous_token == "(")
 	    {
-	       std::cerr << "operator där operand förväntades\n";
-	       exit(EXIT_FAILURE);
+	      //std::cerr << "operator där operand förväntades\n";
+	      //exit(EXIT_FAILURE);
+	      throw expression_error("Operator d�r operand f�rv�ntades\n");
 	    }
 
 	    if (token == "=")
 	    {
 	       if (assignment)
 	       {
-		  std::cerr << "multipel tilldelning";
-		  exit(EXIT_FAILURE);
+		 //std::cerr << "multipel tilldelning";
+		 //exit(EXIT_FAILURE);
+		 throw expression_error("Multipel tilldelning\n");
 	       }
 	       else
 	       {
@@ -293,14 +295,16 @@ namespace
 	 {
 	    if (paren_count == 0)
 	    {
-	       std::cerr << "vänsterparentes saknas\n";
-	       exit(EXIT_FAILURE);
+	      //std::cerr << "vänsterparentes saknas\n";
+	      //exit(EXIT_FAILURE);
+	      throw expression_error("V�nsterparentes saknas\n");
 	    }
 
 	    if (previous_token == "(" && !postfix.empty())
 	    {
-	       std::cerr << "tom parentes\n";
-	       exit(EXIT_FAILURE);
+	      //std::cerr << "tom parentes\n";
+	      //exit(EXIT_FAILURE);
+	      throw expression_error("V�nsterparentes saknas\n");
 	    }
 
 	    while (!operator_stack.empty() && operator_stack.top() != "(")
@@ -311,8 +315,9 @@ namespace
 
 	    if (operator_stack.empty())
 	    {
-	       std::cerr << "högerparentes saknar matchande vänsterparentes\n";
-	       exit(EXIT_FAILURE);
+	      //std::cerr << "högerparentes saknar matchande vänsterparentes\n";
+	      //exit(EXIT_FAILURE);
+	      throw expression_error("H�gerparentes saknar matchande v�nsterparentes\n");
 	    }
 	    // Det finns en v�nsterparentes p� stacken
 	    operator_stack.pop();
@@ -322,8 +327,9 @@ namespace
 	 {
 	    if (last_was_operand || previous_token == ")")
 	    {
-	       std::cerr << "operand där operator förväntades\n";
-	       exit(EXIT_FAILURE);
+	      //std::cerr << "operand där operator förväntades\n";
+	      //exit(EXIT_FAILURE);
+	      throw expression_error("Operand d�r operator f�rv�ntades\n");
 	    }
 
 	    postfix += token + ' ';
@@ -331,8 +337,9 @@ namespace
 	 }
 	 else
 	 {
-	    std::cerr << "otillåten symbol\n";
-	    exit(EXIT_FAILURE);
+	   //std::cerr << "otillåten symbol\n";
+	   //exit(EXIT_FAILURE);
+	   throw expression_error("Otill�ten symbol\n");
 	 }
 
 	 previous_token = token;
@@ -340,20 +347,23 @@ namespace
 
       if (postfix == "")
       {
-	 std::cerr << "tomt infixuttryck!\n";
-	 exit(EXIT_FAILURE);
+	//std::cerr << "tomt infixuttryck!\n";
+	//exit(EXIT_FAILURE);
+	throw expression_error("Tomt infixuttryck\n");
       }
 
       if (!last_was_operand && !postfix.empty())
       {
-	 std::cerr << "operator avslutar\n";
-	 exit(EXIT_FAILURE);
+	//std::cerr << "operator avslutar\n";
+	//exit(EXIT_FAILURE);
+	throw expression_error("Operator avslutar\n");
       }
 
       if (paren_count > 0)
       {
-	 std::cerr << "högerparentes saknas\n";
-	 exit(EXIT_FAILURE);
+	//std::cerr << "högerparentes saknas\n";
+	//exit(EXIT_FAILURE);
+	throw expression_error("H�gerparentes saknas\n");
       }
 
       while (!operator_stack.empty())
@@ -388,16 +398,18 @@ namespace
 	 {
 	    if (tree_stack.empty())
 	    {
-	       std::cerr << "felaktig postfix\n";
-	       exit(EXIT_FAILURE);
+	      //std::cerr << "felaktig postfix\n";
+	      //exit(EXIT_FAILURE);
+	      throw expression_error("Felaktig postfix\n");
 	    }
 	    Expression_Tree* rhs{tree_stack.top()};
 	    tree_stack.pop();
 
 	    if (tree_stack.empty())
 	    {
-	       std::cerr << "felaktig postfix\n";
-	       exit(EXIT_FAILURE);
+	      //std::cerr << "felaktig postfix\n";
+	      //exit(EXIT_FAILURE);
+	      throw expression_error("Felaktig postfix\n");
 	    }
 	    Expression_Tree* lhs{tree_stack.top()};
 	    tree_stack.pop();
@@ -441,16 +453,18 @@ namespace
 	 }
 	 else
 	 {
-	    std::cerr << "felaktig postfix\n";
-	    exit(EXIT_FAILURE);
+	   //std::cerr << "felaktig postfix\n";
+	   //exit(EXIT_FAILURE);
+	   throw expression_error("Felaktig postfix\n");
 	 }
       }
       // Det ska bara finnas ett träd på stacken om korrekt postfix.
 
       if (tree_stack.empty())
       {
-	 std::cerr << "ingen postfix given\n";
-	 exit(EXIT_FAILURE);
+	//std::cerr << "ingen postfix given\n";
+	//exit(EXIT_FAILURE);
+	throw expression_error("Ingen postfix given\n");
       }
 
       if (tree_stack.size() > 1)
@@ -460,8 +474,9 @@ namespace
 	    delete tree_stack.top();
 	    tree_stack.pop();
 	 }
-	 std::cerr << "felaktig postfix\n";
-	 exit(EXIT_FAILURE);
+	 //std::cerr << "felaktig postfix\n";
+	 //exit(EXIT_FAILURE);
+	 throw expression_error("Felaktig postfix\n");
       }
 
       // Returnera trädet.

@@ -218,10 +218,13 @@ read_expression(istream& is)
 
    if (getline(is, infix))
    {
-      current_expression_ = make_expression(infix);
-      list.push_back(current_expression_);
-      current_expression_index_=list.size()-1;
-      
+     try{
+       current_expression_ = make_expression(infix);
+       list.push_back(current_expression_);
+       current_expression_index_=list.size()-1;
+     }catch (const exception& e){
+       cout << "Undantag fångat: " << e.what();
+     }
    }
    else
    {

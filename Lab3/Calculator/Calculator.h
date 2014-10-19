@@ -26,13 +26,14 @@ public:
 
    Calculator(const Calculator&) = delete;
    Calculator& operator=(const Calculator&) = delete;
+   
+   Variable_Table table;
 
    void run();
 
 private:
    static const std::string valid_cmds_;
 
-   Variable_Table table;
    Expression current_expression_;
    Expression temporary_expression_;
    int current_expression_index_;
