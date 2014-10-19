@@ -79,11 +79,11 @@ void Operand::print(std::ostream& out, int i) const {
     out << str();
 }
 
-std::string Operand::str() const {
-    std::stringstream sstream;
-    sstream << evaluate();
-    return sstream.str();
-}
+// std::string Operand::str() const {
+//     std::stringstream sstream;
+//     sstream << value;
+//     return sstream.str();
+// }
 
 std::string Operand::get_postfix() const {
     return str();
@@ -105,6 +105,12 @@ Expression_Tree* Integer::clone() const {
     return p;
 }
 
+std::string Integer::str() const {
+    std::stringstream sstream;
+    sstream << value;
+    return sstream.str();
+}
+
 /**
  * Class: Real
  */
@@ -114,9 +120,35 @@ Expression_Tree* Real::clone() const {
     return p;
 }
 
+std::string Real::str() const {
+    std::stringstream sstream;
+    sstream << value;
+    return sstream.str();
+}
+
 /**
  * Class: Variable
  */
+
+long double Variable::evaluate(Variable_Table& table) const {
+  return get_value(table);
+}
+
+long double Variable::get_value(Variable_Table& table) const {
+  if(table.find(name)){
+    return table.get_value(name);
+  }else{
+    throw variable_table_error("Variable does not exist");
+  }
+}
+
+void Variable::set_value(const long double val, Variable_Table& table){
+  if(table.find(name)){
+    table.set_value(name, val);
+  }else{
+    table.insert(name,val);
+  }
+}
 
 Expression_Tree* Variable::clone() const {
     Expression_Tree* p = new Variable{name,value};
@@ -127,10 +159,10 @@ Expression_Tree* Variable::clone() const {
  * Class: Assign
  */
 
-long double Assign::evaluate() const {
-    long double tmp{right->evaluate()};
+long double Assign::evaluate(Variable_Table& table) const {
+    long double tmp{right->evaluate(table)};
     Variable* p = dynamic_cast<Variable*>(left);
-    p->set_value(tmp);
+    p->set_value(tmp, table);
     return tmp;
 }
 
@@ -143,8 +175,8 @@ Expression_Tree* Assign::clone() const {
  * Class: Plus
  */
 
-long double Plus::evaluate() const {
-    return left->evaluate()+right->evaluate();
+long double Plus::evaluate(Variable_Table& table) const {
+    return left->evaluate(table)+right->evaluate(table);
 }
 
 Expression_Tree* Plus::clone() const {
@@ -156,8 +188,8 @@ Expression_Tree* Plus::clone() const {
  * Class: Minus
  */
 
-long double Minus::evaluate() const {
-    return left->evaluate()-right->evaluate();
+long double Minus::evaluate(Variable_Table& table) const {
+    return left->evaluate(table)-right->evaluate(table);
 }
 
 Expression_Tree* Minus::clone() const {
@@ -169,8 +201,8 @@ Expression_Tree* Minus::clone() const {
  * Class: Times
  */
 
-long double Times::evaluate() const {
-    return left->evaluate()*right->evaluate();
+long double Times::evaluate(Variable_Table& table) const {
+    return left->evaluate(table)*right->evaluate(table);
 }
 
 Expression_Tree* Times::clone() const {
@@ -182,8 +214,8 @@ Expression_Tree* Times::clone() const {
  * Class: Divide
  */
 
-long double Divide::evaluate() const {
-    return left->evaluate()/right->evaluate();
+long double Divide::evaluate(Variable_Table& table) const {
+    return left->evaluate(table)/right->evaluate(table);
 }
 
 Expression_Tree* Divide::clone() const {
@@ -195,8 +227,8 @@ Expression_Tree* Divide::clone() const {
  * Class: Power
  */
 
-long double Power::evaluate() const{
-    return pow(left->evaluate(),right->evaluate());
+long double Power::evaluate(Variable_Table& table) const{
+    return pow(left->evaluate(table),right->evaluate(table));
 }
 
 Expression_Tree* Power::clone() const {

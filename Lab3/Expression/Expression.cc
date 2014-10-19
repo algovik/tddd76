@@ -31,11 +31,11 @@ Expression::Expression(const Expression& orig){
 /*
 * evaluate()
 */
-long double Expression::evaluate() const {
+long double Expression::evaluate(Variable_Table& table) const {
    if(empty()){
        throw expression_error("Expression does not have a tree.");
    }else{
-       return root->evaluate();
+       return root->evaluate(table);
    }
 }
 

@@ -5,7 +5,7 @@
 EXPRESSION = ../Expression
 
 # Diagnosmeddelanden från kompilatorn (g++) filtreras av gccfilter.
-CCC = g++ # stod först innan: gccfilter -c -a
+CCC = gccfilter -c -a g++ # stod först innan: gccfilter -c -a
 
 # Kompilatorflaggor, lägg till '-g' om kompilering för avlusning ska göras.
 CCFLAGS += -std=c++11 -Wpedantic -Wall -Wextra -Werror

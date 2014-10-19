@@ -19,7 +19,7 @@ using namespace std;
 * which create a map named table
 */
 Variable_Table::Variable_Table(){
- 	map<string, int> table;
+ 	map<string, long double> table;
 }
 
 /**
@@ -27,7 +27,7 @@ Variable_Table::Variable_Table(){
 * @param a string containg the name of the variable
 * @param a int containing the value of the variable
 */
-void Variable_Table::insert(string name, int value){
+void Variable_Table::insert(string name, long double value){
  	table[name]=value;
 }
 
@@ -55,7 +55,6 @@ bool Variable_Table::find(std::string name){
     }else{
         return table.find(name) != table.end();
     }
-
 }
 
 /**
@@ -63,9 +62,9 @@ bool Variable_Table::find(std::string name){
 * @param a string containg the name of the variable
 * @param a int containing the new value of the variable
 */
-void Variable_Table::set_value(string name, int value){
+void Variable_Table::set_value(string name, long double value){
 
-   if(find(name)){ //varför inte använda find() ?
+   if(find(name)){
         table.at(name) = value;
     }else{
         throw variable_table_error("Can't update a nonexisting variable");
@@ -77,7 +76,7 @@ void Variable_Table::set_value(string name, int value){
 * @param a string containg the name of the variable
 * @return a int containing the value of the variable
 */
-int Variable_Table::get_value(std::string name){
+long double Variable_Table::get_value(std::string name){
 	if(table.empty()){
  		throw variable_table_error("Table is empty");
  	}else{

@@ -3,7 +3,6 @@
  */
 #include "Calculator.h"
 #include "Expression.h"
-#include "Variable_Table.h"
 #include <cctype>
 #include <iostream>
 #include <stdexcept>
@@ -143,9 +142,9 @@ execute_command()
 
        if(command_2!=0){
           temporary_expression_ = list.at(command_2-1);
-          cout << temporary_expression_.evaluate() << "\n";
+          cout << temporary_expression_.evaluate(table) << "\n";
        }else{
-          cout << current_expression_.evaluate() << "\n";
+          cout << current_expression_.evaluate(table) << "\n";
        }
 
    }else if (command_ == 'P'){
@@ -193,10 +192,10 @@ execute_command()
             list.erase(list.begin()+current_expression_index_);
           } 
 
-   //}else if (command_ == 'V'){
-   //    table.list(cout);          //Lista alla variabler
-   //}else if (command_ == 'X'){
-   //    table.clear();             // Radera alla variabler
+   }else if (command_ == 'V'){
+      table.list(cout);          //Lista alla variabler
+   }else if (command_ == 'X'){
+      table.clear();             // Radera alla variabler
    }else if (command_ == 'S'){
       cout << "Kalkylatorn avlutas, välkommen åter!\n";
    }else{

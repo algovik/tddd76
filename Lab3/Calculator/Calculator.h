@@ -4,7 +4,6 @@
 #ifndef CALCULATOR_H
 #define CALCULATOR_H
 #include "Expression.h"
-#include "Variable_Table.h"
 #include <iosfwd>
 #include <vector>
 #include <iomanip>
@@ -33,7 +32,7 @@ public:
 private:
    static const std::string valid_cmds_;
 
-   //Variable_Table table;
+   Variable_Table table;
    Expression current_expression_;
    Expression temporary_expression_;
    int current_expression_index_;

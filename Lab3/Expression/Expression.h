@@ -47,7 +47,7 @@ public:
    Expression& operator=(Expression&&);
    Expression& operator=(std::nullptr_t);
 
-   long double evaluate() const;
+   long double evaluate(Variable_Table&) const;
    std::string get_postfix() const;
    std::string get_infix() const;
    bool        empty() const;

@@ -15,6 +15,7 @@
 #include <iostream>
 #include <sstream>
 #include <math.h>
+#include "Variable_Table.h"
 
 /*
  * expression_error: kastas om ett fel inträffar i en Expression-operation;
@@ -36,7 +37,7 @@ class Expression_Tree
 {
 public:
     virtual ~Expression_Tree() = default;
-    virtual long double      evaluate() const = 0;
+    virtual long double      evaluate(Variable_Table&) const = 0;
     virtual std::string      get_postfix() const = 0;
     virtual std::string      str() const = 0;
     virtual void             print(std::ostream&, int=16) const = 0;
@@ -72,7 +73,7 @@ public:
     ~Operand() = default;
     std::string get_postfix() const override;
     virtual std::string get_infix() const override;
-    virtual std::string str() const override;
+    //virtual std::string str() const override;
     virtual void print(std::ostream&, int) const;
 };
 
@@ -84,7 +85,7 @@ class Assign : public Binary_Operator
 public:
     Assign(Expression_Tree* left, Expression_Tree* right)
         : Binary_Operator{left, right}{ s_rep = "=";};
-    long double evaluate() const override;
+    long double evaluate(Variable_Table&) const override;
     Expression_Tree* clone() const override;
 
 };
@@ -97,7 +98,7 @@ class Plus : public Binary_Operator
 public:
     Plus(Expression_Tree* left, Expression_Tree* right)
         : Binary_Operator{left, right}{ s_rep = "+";};
-    long double evaluate() const override;
+    long double evaluate(Variable_Table&) const override;
     Expression_Tree* clone() const override;
 };
 
@@ -109,7 +110,7 @@ class Minus : public Binary_Operator
 public:
     Minus(Expression_Tree* left, Expression_Tree* right)
         : Binary_Operator{left, right}{ s_rep = "-";};
-    long double evaluate() const override;
+    long double evaluate(Variable_Table&) const override;
     Expression_Tree* clone() const override;
 };
 
@@ -121,7 +122,7 @@ class Times : public Binary_Operator
 public:
     Times(Expression_Tree* left, Expression_Tree* right)
         : Binary_Operator{left, right}{ s_rep = "*";};
-    long double evaluate() const override;
+    long double evaluate(Variable_Table&) const override;
     Expression_Tree* clone() const override;
 };
 
@@ -133,7 +134,7 @@ class Divide : public Binary_Operator
 public:
     Divide(Expression_Tree* left, Expression_Tree* right)
         : Binary_Operator{left, right}{ s_rep = "/";};
-    long double evaluate() const override;
+    long double evaluate(Variable_Table&) const override;
     Expression_Tree* clone() const override;
 };
 
@@ -145,7 +146,7 @@ class Power: public Binary_Operator
 public:
     Power(Expression_Tree* left, Expression_Tree* right)
         : Binary_Operator{left, right}{ s_rep = "^";};
-    long double evaluate() const override;
+    long double evaluate(Variable_Table&) const override;
     Expression_Tree* clone() const override;
 };
 
@@ -158,7 +159,8 @@ private:
     int value;
 public:
     Integer(const int val) : value{val} {};
-    long double evaluate() const override{return (long double) value;};
+    long double evaluate(Variable_Table&) const override{return (long double) value;};
+    std::string str() const override;
     Expression_Tree* clone() const override;
 };
 
@@ -171,7 +173,8 @@ private:
     long double value;
 public:
     Real(const long double val) : value{val} {};
-    long double evaluate() const override{return value;};
+    long double evaluate(Variable_Table&) const override{return value;};
+    std::string str() const override;
     Expression_Tree* clone() const override;
 };
 
@@ -185,11 +188,11 @@ private:
     long double value;
 public:
     Variable(std::string s, const long double val=0) : name{s}, value{val} {};
-    long double evaluate() const override{return value;};
+    long double evaluate(Variable_Table&) const override;
     std::string str() const override {return name;};
     Expression_Tree* clone() const override;
-    void set_value(const long double val){value=val;};
-    long double get_value(){return value;};
+    void set_value(const long double val, Variable_Table&);
+    long double get_value(Variable_Table&) const;
 };
 
 #endif

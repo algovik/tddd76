@@ -33,14 +33,14 @@ class Variable_Table
 {
 
 	protected:
-		std::map<std::string,int> table;
+		std::map<std::string,long double> table;
 	public:
 		Variable_Table();
-		void insert(std::string name, int value);
+		void insert(std::string name, long double value);
 		void remove(std::string name);
 		bool find(std::string name);
-		void set_value(std::string name, int value);
-		int get_value(std::string name);
+		void set_value(std::string name, long double value);
+		long double get_value(std::string name);
 		void list(std::ostream& out);
 		void clear();
 		bool empty();
