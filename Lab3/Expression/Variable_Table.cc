@@ -36,12 +36,15 @@ void Variable_Table::insert(string name, long double value){
 * @param a string containg the name of the variable
 */
 void Variable_Table::remove(string name){
-	 if(table.empty()){
-         throw variable_table_error("Table is empty");
+  if(table.empty()){
+    throw variable_table_error("Table is empty");
+  }else{
+    if(find(name)){
+      table.erase(name);
     }else{
-        table.erase(name);
+      throw variable_table_error("Variable does not exist");
     }
-
+  } 
 }
 
 /**
@@ -49,8 +52,8 @@ void Variable_Table::remove(string name){
 * @param a string containg the named looked for
 * @return a boolean, true if the value exist otherwise false
 */
-bool Variable_Table::find(std::string name){
-	 if(table.empty()){
+bool Variable_Table::find(std::string name) const {
+  if(table.empty()){
 	   return false; //throw variable_table_error("Table is empty");
     }else{
         return table.find(name) != table.end();
@@ -63,7 +66,6 @@ bool Variable_Table::find(std::string name){
 * @param a int containing the new value of the variable
 */
 void Variable_Table::set_value(string name, long double value){
-
    if(find(name)){
         table.at(name) = value;
     }else{
@@ -76,19 +78,23 @@ void Variable_Table::set_value(string name, long double value){
 * @param a string containg the name of the variable
 * @return a int containing the value of the variable
 */
-long double Variable_Table::get_value(std::string name){
-	if(table.empty()){
- 		throw variable_table_error("Table is empty");
- 	}else{
- 		return table.find(name)->second;
- 	}
+long double Variable_Table::get_value(std::string name) const {
+  if(table.empty()){
+    throw variable_table_error("Table is empty");
+  }else{
+    if(find(name)){
+      return table.find(name)->second;
+    }else{
+      throw variable_table_error("Variable does not exist");
+    }
+  }
 }
 
 /**
 * Prints out the whole table
 * @param a oustream for printing
 */
-void Variable_Table::list(std::ostream& out){
+void Variable_Table::list(std::ostream& out) const {
 	if(table.empty()){
  		throw variable_table_error("Table is empty");
  	}else{
@@ -113,6 +119,6 @@ void Variable_Table::clear(){
 * Checks if there are any variables in the table
 * @return a boolean true if the table is empty, false otherwise
 */
-bool Variable_Table::empty(){
+bool Variable_Table::empty() const {
 	return table.empty();
 }

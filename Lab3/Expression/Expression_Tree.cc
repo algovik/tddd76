@@ -195,8 +195,19 @@ long double Assign::evaluate(Variable_Table& table) const {
 }
 
 Expression_Tree* Assign::clone() const {
-    Expression_Tree* p = new Assign{left->clone(), right->clone()};
+  Expression_Tree* p = nullptr;
+  Expression_Tree* lhs = nullptr;
+  Expression_Tree* rhs = nullptr;
+  try{
+    lhs = left->clone();
+    rhs = right->clone();
+    p = new Assign{lhs,rhs};
     return p;
+  } catch (exception& e){
+    delete lhs;
+    delete rhs;
+    throw;
+  }
 }
 
 /**
@@ -208,8 +219,19 @@ long double Plus::evaluate(Variable_Table& table) const {
 }
 
 Expression_Tree* Plus::clone() const {
-    Expression_Tree* p = new Plus{left->clone(), right->clone()};
+  Expression_Tree* p = nullptr;
+  Expression_Tree* lhs = nullptr;
+  Expression_Tree* rhs = nullptr;
+  try{
+    lhs = left->clone();
+    rhs = right->clone();
+    p = new Plus{lhs,rhs};
     return p;
+  } catch (exception& e){
+    delete lhs;
+    delete rhs;
+    throw;
+  }
 }
 
 /**
@@ -221,8 +243,19 @@ long double Minus::evaluate(Variable_Table& table) const {
 }
 
 Expression_Tree* Minus::clone() const {
-    Expression_Tree* p = new Minus{left->clone(), right->clone()};
+  Expression_Tree* p = nullptr;
+  Expression_Tree* lhs = nullptr;
+  Expression_Tree* rhs = nullptr;
+  try{
+    lhs = left->clone();
+    rhs = right->clone();
+    p = new Minus{lhs,rhs};
     return p;
+  } catch (exception& e){
+    delete lhs;
+    delete rhs;
+    throw;
+  }
 }
 
 /**
@@ -234,8 +267,19 @@ long double Times::evaluate(Variable_Table& table) const {
 }
 
 Expression_Tree* Times::clone() const {
-    Expression_Tree* p = new Times{left->clone(), right->clone()};
+  Expression_Tree* p = nullptr;
+  Expression_Tree* lhs = nullptr;
+  Expression_Tree* rhs = nullptr;
+  try{
+    lhs = left->clone();
+    rhs = right->clone();
+    p = new Times{lhs,rhs};
     return p;
+  } catch (exception& e){
+    delete lhs;
+    delete rhs;
+    throw;
+  }
 }
 
 /**
@@ -243,12 +287,26 @@ Expression_Tree* Times::clone() const {
  */
 
 long double Divide::evaluate(Variable_Table& table) const {
-    return left->evaluate(table)/right->evaluate(table);
+  if(right->evaluate(table) == 0){
+    throw logic_error ("Cannot divide by zero");
+  }
+  return left->evaluate(table)/right->evaluate(table);
 }
 
 Expression_Tree* Divide::clone() const {
-    Expression_Tree* p = new Divide{left->clone(), right->clone()};
+  Expression_Tree* p = nullptr;
+  Expression_Tree* lhs = nullptr;
+  Expression_Tree* rhs = nullptr;
+  try{
+    lhs = left->clone();
+    rhs = right->clone();
+    p = new Divide{lhs,rhs};
     return p;
+  } catch (exception& e){
+    delete lhs;
+    delete rhs;
+    throw;
+  }
 }
 
 /**
@@ -260,6 +318,17 @@ long double Power::evaluate(Variable_Table& table) const{
 }
 
 Expression_Tree* Power::clone() const {
-    Expression_Tree* p = new Power{left->clone(), right->clone()};
+  Expression_Tree* p = nullptr;
+  Expression_Tree* lhs = nullptr;
+  Expression_Tree* rhs = nullptr;
+  try{
+    lhs = left->clone();
+    rhs = right->clone();
+    p = new Power{lhs,rhs};
     return p;
+  } catch (exception& e){
+    delete lhs;
+    delete rhs;
+    throw;
+  }
 }

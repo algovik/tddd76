@@ -391,72 +391,86 @@ namespace
       stack<Expression_Tree*> tree_stack;
       string                  token;
       istringstream           ps{postfix};
+      Expression_Tree*        rhs = nullptr;
+      Expression_Tree*        lhs = nullptr;
+      try{
+	while (ps >> token)
+	  {
+	    if (is_operator(token))
+	      {
+		if (tree_stack.empty())
+		  {
+		    //std::cerr << "felaktig postfix\n";
+		    //exit(EXIT_FAILURE);
+		    throw expression_error("Felaktig postfix\n");
+		  }
+		rhs = tree_stack.top();
+		tree_stack.pop();
 
-      while (ps >> token)
-      {
-	 if (is_operator(token))
+		if (tree_stack.empty())
+		  {
+		    //std::cerr << "felaktig postfix\n";
+		    //exit(EXIT_FAILURE);
+		    throw expression_error("Felaktig postfix\n");
+		  }
+		lhs = tree_stack.top();
+		tree_stack.pop();
+
+		if (token == "^")
+		  {
+		    tree_stack.push(new Power{lhs, rhs});
+		  }
+		else if (token == "*")
+		  {
+		    tree_stack.push(new Times{lhs, rhs});
+		  }
+		else if (token == "/")
+		  {
+		    tree_stack.push(new Divide{lhs, rhs});
+		  }
+		else if (token == "+")
+		  {
+		    tree_stack.push(new Plus{lhs, rhs});
+		  }
+		else if (token == "-")
+		  {
+		    tree_stack.push(new Minus{lhs, rhs});
+		  }
+		else if (token == "=")
+		  {
+		    tree_stack.push(new Assign{lhs, rhs});
+		  }
+		rhs = nullptr;
+		lhs = nullptr;
+	      }
+	    else if (is_integer(token))
+	      {
+		tree_stack.push(new Integer{static_cast<int>(std::stoll(token.c_str()))}); // OBS, TILLSKRIVEN STATIC_CAST
+	      }
+	    else if (is_real(token))
+	      {
+		tree_stack.push(new Real{std::stold(token.c_str())});
+	      }
+	    else if (is_identifier(token))
+	      {
+		tree_stack.push(new Variable{token});
+	      }
+	    else
+	      {
+		//std::cerr << "felaktig postfix\n";
+		//exit(EXIT_FAILURE);
+		throw expression_error("Felaktig postfix\n");
+	      }
+	  }
+      } catch (exception& e){
+	 while (!tree_stack.empty())
 	 {
-	    if (tree_stack.empty())
-	    {
-	      //std::cerr << "felaktig postfix\n";
-	      //exit(EXIT_FAILURE);
-	      throw expression_error("Felaktig postfix\n");
-	    }
-	    Expression_Tree* rhs{tree_stack.top()};
+	    delete tree_stack.top();
 	    tree_stack.pop();
-
-	    if (tree_stack.empty())
-	    {
-	      //std::cerr << "felaktig postfix\n";
-	      //exit(EXIT_FAILURE);
-	      throw expression_error("Felaktig postfix\n");
-	    }
-	    Expression_Tree* lhs{tree_stack.top()};
-	    tree_stack.pop();
-
-	    if (token == "^")
-	    {
-	       tree_stack.push(new Power{lhs, rhs});
-	    }
-	    else if (token == "*")
-	    {
-	       tree_stack.push(new Times{lhs, rhs});
-	    }
-	    else if (token == "/")
-	    {
-	       tree_stack.push(new Divide{lhs, rhs});
-	    }
-	    else if (token == "+")
-	    {
-	       tree_stack.push(new Plus{lhs, rhs});
-	    }
-	    else if (token == "-")
-	    {
-	       tree_stack.push(new Minus{lhs, rhs});
-	    }
-	    else if (token == "=")
-	    {
-	       tree_stack.push(new Assign{lhs, rhs});
-	    }
 	 }
-	 else if (is_integer(token))
-	 {
-	    tree_stack.push(new Integer{static_cast<int>(std::stoll(token.c_str()))}); // OBS, TILLSKRIVEN STATIC_CAST
-	 }
-	 else if (is_real(token))
-	 {
-	    tree_stack.push(new Real{std::stold(token.c_str())});
-	 }
-	 else if (is_identifier(token))
-	 {
-	    tree_stack.push(new Variable{token});
-	 }
-	 else
-	 {
-	   //std::cerr << "felaktig postfix\n";
-	   //exit(EXIT_FAILURE);
-	   throw expression_error("Felaktig postfix\n");
-	 }
+	 delete rhs;
+	 delete lhs;
+	 throw;
       }
       // Det ska bara finnas ett träd på stacken om korrekt postfix.
 

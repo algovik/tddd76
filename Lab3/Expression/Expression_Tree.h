@@ -36,6 +36,7 @@ class expression_error : public std::logic_error {
 class Expression_Tree
 {
 public:
+    Expression_Tree() = default;
     virtual ~Expression_Tree() = default;
     virtual long double      evaluate(Variable_Table&) const = 0;
     virtual std::string      get_postfix() const = 0;
@@ -44,6 +45,9 @@ public:
     virtual Expression_Tree* clone() const = 0;
     virtual std::string      get_infix() const = 0;
 
+protected:
+    Expression_Tree(const Expression_Tree& orig) = default;
+    Expression_Tree(Expression_Tree&& orig) = default;
 };
 
 /*
@@ -73,7 +77,6 @@ public:
     ~Operand() = default;
     std::string get_postfix() const override;
     virtual std::string get_infix() const override;
-    //virtual std::string str() const override;
     virtual void print(std::ostream&, int) const;
 };
 

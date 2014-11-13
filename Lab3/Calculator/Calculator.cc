@@ -13,6 +13,7 @@
 using namespace std;
 
 const string Calculator::valid_cmds_("?HUBPILTNARVXS");
+const string Calculator::valid_cmds_second_("BPITAR");
 
 /**
  * run: Huvudfunktionen fÃ¶r kalkylatorn. Skriver ut hjÃ¤lpinformation
@@ -63,8 +64,8 @@ print_help()
    cout << "  A n   GÃ¶r uttryck n till aktuellt uttryck\n";
    cout << "  R     Radera aktuellt uttryck\n";
    cout << "  R n   Radera uttryck n\n";
-   cout << "  V     Lista alla variabler\n";                   //finns ej
-   cout << "  X     Radera alla variabler\n";                  //finns ej
+   cout << "  V     Lista alla variabler\n";
+   cout << "  X     Radera alla variabler\n";
    cout << "  S     Avsluta kalkylatorn\n";
 }
 
@@ -76,37 +77,24 @@ print_help()
 void
 Calculator::
 get_command()
-//{
-//   cout << ">> ";
-//   cin >> command_;
-//    command_ = toupper(command_);
-
-//    cin >> ws;
-//    command_2 = cin.peek();
-//    if(isdigit(command_2)){
-//      cin>>command_2;
-//    }else{
-//         command_2=0;
-//      }
-//    cout << "Input: " << command_ << " " << command_2 << endl;
-// }
-
 {
   cout << ">> ";
   cin >> command_;
   command_ = toupper(command_);
   command_2=0;
 
-  if(cin.peek()!='\n'){
-    cin >> ws;
-    if(isdigit(cin.peek())){
-      cin>>command_2;
-    }else{
-      //kasta fel här?
-    }
+  if(valid_cmds_second_.find(command_) != string::npos){
+     if(cin.peek()!='\n'){
+        cin >> ws;
+      if(isdigit(cin.peek())){
+        cin>>command_2;
+	if(command_2<1 || (unsigned)command_2>list.size()){
+	   throw logic_error("n är för stort eller för litet");
+         }
+	  }
+       }
   }
 }
-
 
 /**
  * valid_command: Kontrollerar om kommandot som finns i medlemmen command_

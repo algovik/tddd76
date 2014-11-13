@@ -33,6 +33,7 @@ public:
 
 private:
    static const std::string valid_cmds_;
+   static const std::string valid_cmds_second_;
 
    Expression current_expression_;
    Expression temporary_expression_;

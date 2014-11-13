@@ -38,12 +38,12 @@ class Variable_Table
 		Variable_Table();
 		void insert(std::string name, long double value);
 		void remove(std::string name);
-		bool find(std::string name);
+		bool find(std::string name) const;
 		void set_value(std::string name, long double value);
-		long double get_value(std::string name);
-		void list(std::ostream& out);
+		long double get_value(std::string name) const;
+		void list(std::ostream& out) const;
 		void clear();
-		bool empty();
+		bool empty() const;
 
 };
 
